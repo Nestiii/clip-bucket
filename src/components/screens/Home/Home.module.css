@@ -1,0 +1,6 @@
+.bucketsContainer {
+    gap: 10px;
+    height: calc(100% - 46px);
+    box-sizing: border-box;
+    overflow: auto;
+}

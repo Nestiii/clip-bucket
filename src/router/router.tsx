@@ -1,0 +1,32 @@
+import { createBrowserRouter } from 'react-router-dom'
+import { ROUTES } from './routes.ts'
+import { AppErrorBoundary } from '../components/error/AppErrorBoundary/AppErrorBoundary.tsx'
+import { AuthLayout } from '../components/auth/AuthLayout/AuthLayout.tsx'
+import { Login } from '../components/screens/Login/Login.tsx'
+import { Home } from '../components/screens/Home/Home.tsx'
+import { Bucket } from '../components/screens/Bucket/Bucket.tsx'
+
+export const router = createBrowserRouter([
+    {
+        element: <AppErrorBoundary />,
+        children: [
+            {
+                element: <AuthLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <Home />,
+                    },
+                    {
+                        path: ROUTES.BUCKET,
+                        element: <Bucket />,
+                    },
+                ]
+            },
+            {
+                path: ROUTES.LOGIN,
+                element: <Login />,
+            },
+        ],
+    },
+])

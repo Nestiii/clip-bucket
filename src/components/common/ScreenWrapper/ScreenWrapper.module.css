@@ -1,0 +1,79 @@
+/* Base screen wrapper styles */
+.screenWrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+/* Background variants */
+.primary {
+    background-color: var(--color-bg-primary);
+}
+
+.secondary {
+    background-color: var(--color-bg-secondary);
+}
+
+.elevated {
+    background-color: var(--color-bg-elevated);
+}
+
+/* Overflow variants */
+.hidden {
+    overflow: hidden;
+}
+
+.auto {
+    overflow: auto;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.visible {
+    overflow: visible;
+}
+
+/* Padding option */
+.withPadding {
+    padding: var(--spacing-xl);
+}
+
+/* Centering option */
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure proper scrolling behavior */
+.screenWrapper {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Custom scrollbar styling for webkit browsers */
+.screenWrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.screenWrapper::-webkit-scrollbar-track {
+    background: var(--color-bg-primary);
+}
+
+.screenWrapper::-webkit-scrollbar-thumb {
+    background: var(--color-gray-400);
+    border-radius: var(--radius-sm);
+}
+
+.screenWrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-500);
+}
+
+/* Firefox scrollbar styling */
+.screenWrapper {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray-400) var(--color-bg-primary);
+}

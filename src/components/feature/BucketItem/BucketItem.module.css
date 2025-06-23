@@ -1,0 +1,143 @@
+.bucketItem {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+    gap: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.bucketItem:hover {
+    border-color: var(--color-gray-400);
+    box-shadow: var(--shadow-md);
+}
+
+.bucketContent {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-lg);
+    cursor: pointer;
+}
+
+.iconSection {
+    display: flex;
+    align-items: center;
+    margin-right: var(--spacing-lg);
+}
+
+.bucketIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-muted);
+    transition: all var(--transition-base);
+}
+
+.bucketItem:hover .bucketIcon {
+    background: var(--color-gray-300);
+    color: var(--color-text-secondary);
+}
+
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.nameSection {
+    display: flex;
+    align-items: center;
+}
+
+.nameDisplay {
+    flex: 1;
+    min-width: 0;
+}
+
+.timestampSection {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.timestampSection svg {
+    color: var(--color-text-muted);
+}
+
+.idSection {
+    display: flex;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-left: var(--spacing-md);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.bucketItem:hover .actions {
+    opacity: 1;
+}
+
+.bucketItem.editing .actions {
+    opacity: 1;
+}
+
+/* Bucket List Styles */
+.bucketList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3xl) var(--spacing-2xl);
+    text-align: center;
+    color: var(--color-text-muted);
+    gap: var(--spacing-sm);
+}
+
+.emptyState svg {
+    color: var(--color-gray-400);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bucketContent {
+        padding: var(--spacing-md);
+    }
+
+    .bucketIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .bucketIcon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .actions {
+        opacity: 1; /* Always show on mobile */
+    }
+
+    .metadata {
+        font-size: var(--font-size-sm);
+    }
+}

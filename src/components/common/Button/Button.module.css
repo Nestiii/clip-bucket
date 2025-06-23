@@ -1,0 +1,106 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-family: var(--font-family-ui);
+    font-weight: var(--font-weight-medium);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    outline: none;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-app-region: no-drag;
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Variants */
+.primary {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}
+
+.primary:hover:not(:disabled) {
+    background: var(--color-accent-secondary);
+    transform: translateY(-1px);
+}
+
+.secondary {
+    background: var(--color-bg-elevated);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-gray-300);
+}
+
+.secondary:hover:not(:disabled) {
+    background: var(--color-gray-300);
+    border-color: var(--color-gray-400);
+}
+
+.danger {
+    background: var(--color-danger);
+    color: var(--color-text-primary);
+}
+
+.danger:hover:not(:disabled) {
+    background: var(--color-danger-hover);
+    transform: translateY(-1px);
+}
+
+.success {
+    background: var(--color-success);
+    color: var(--color-text-primary);
+}
+
+.success:hover:not(:disabled) {
+    background: var(--color-success-hover);
+    transform: translateY(-1px);
+}
+
+.transparent {
+    background: transparent;
+    color: var(--color-text-primary);
+}
+
+.transparent:hover:not(:disabled) {
+    background: var(--transparent-hover);
+    transform: translateY(-1px);
+}
+
+/* Sizes */
+.sm {
+    padding: var(--spacing-xs) var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    gap: var(--spacing-xs);
+}
+
+.md {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-base);
+    gap: var(--spacing-xs);
+}
+
+.lg {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-md);
+    gap: var(--spacing-sm);
+}
+
+/* Icon and text styling */
+.icon {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.text {
+    line-height: 1;
+}

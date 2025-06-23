@@ -1,0 +1,104 @@
+:root {
+
+    /* Color Palette */
+    --color-bg-primary: #111111;     /* Darkest - main background */
+    --color-bg-secondary: #1c1c1c;   /* Lighter dark - surfaces */
+    --color-text-primary: #fffed5;   /* Light cream - main text */
+    --color-accent-primary: #fee402; /* Bright yellow - primary actions */
+    --color-accent-secondary: #fdca00; /* Darker yellow - hover states */
+
+    /* Extended palette based on your colors */
+    --color-bg-elevated: #2a2a2a;    /* Slightly lighter for elevated surfaces */
+    --color-text-secondary: #e6e3b8; /* Slightly darker cream for secondary text */
+    --color-text-muted: #a8a690;     /* Muted version for labels */
+
+    /* State colors derived from your palette */
+    --color-success: #4ade80;
+    --color-danger: #ef4444;
+    --color-warning: var(--color-accent-primary);
+
+    /* Functional color assignments */
+    --color-primary: var(--color-accent-primary);
+    --color-primary-hover: var(--color-accent-secondary);
+    --color-primary-light: rgba(254, 228, 2, 0.1);
+
+    --color-white: var(--color-bg-primary);
+    --color-gray-50: var(--color-bg-secondary);
+    --color-gray-100: var(--color-bg-elevated);
+    --color-gray-200: #333333;
+    --color-gray-300: #404040;
+    --color-gray-400: #666666;
+    --color-gray-500: #808080;
+    --color-gray-600: var(--color-text-muted);
+    --color-gray-700: var(--color-text-primary);
+    --color-gray-800: var(--color-text-secondary);
+    --color-gray-900: var(--color-text-primary);
+
+    --transparent-hover: rgba(255, 255, 255, 0.1);
+    --color-success-hover: #22c55e;
+    --color-danger-hover: #dc2626;
+    --color-danger-light: rgba(239, 68, 68, 0.1);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 24px;
+    --spacing-3xl: 32px;
+
+    /* Border radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-full: 50%;
+
+    /* Shadows - adjusted for dark theme */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    /* Typography */
+    --font-family-ui: 'Inter', sans-serif; /* For UI elements */
+    --font-family-code: 'JetBrains Mono', monospace; /* For clipboard items */
+    --font-size-xs: 11px;
+    --font-size-sm: 12px;
+    --font-size-base: 13px;
+    --font-size-md: 14px;
+    --font-size-lg: 16px;
+    --font-size-xl: 18px;
+    --font-size-2xl: 20px;
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --line-height-tight: 1.2;
+    --line-height-base: 1.4;
+    --line-height-relaxed: 1.6;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-base: 0.2s ease-in-out;
+    --transition-slow: 0.3s ease-in-out;
+
+    /* Z-index scale */
+    --z-dropdown: 100;
+    --z-modal: 200;
+    --z-tooltip: 300;
+    --z-overlay: 400;
+}
+
+/* Global Styles */
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+}

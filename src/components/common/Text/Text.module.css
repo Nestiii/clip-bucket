@@ -1,0 +1,173 @@
+.text {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-ui);
+    line-height: var(--line-height-base);
+    transition: color var(--transition-base);
+}
+
+/* Font Sizes */
+.xs {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-tight);
+}
+
+.sm {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+}
+
+.base {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+}
+
+.md {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-base);
+}
+
+.lg {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-tight);
+}
+
+.xl {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-tight);
+}
+
+.xl2 {
+    font-size: var(--font-size-2xl);
+    line-height: var(--line-height-tight);
+}
+
+/* Font Weights */
+.weight-normal {
+    font-weight: var(--font-weight-normal);
+}
+
+.weight-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.weight-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.weight-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+/* Colors */
+.color-primary {
+    color: var(--color-text-primary);
+}
+
+.color-secondary {
+    color: var(--color-text-secondary);
+}
+
+.color-muted {
+    color: var(--color-text-muted);
+}
+
+.color-accent {
+    color: var(--color-accent-primary);
+}
+
+.color-success {
+    color: var(--color-success);
+}
+
+.color-danger {
+    color: var(--color-danger);
+}
+
+.color-warning {
+    color: var(--color-warning);
+}
+
+/* Alignment */
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+/* Transform */
+.transform-none {
+    text-transform: none;
+}
+
+.transform-uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.transform-lowercase {
+    text-transform: lowercase;
+}
+
+.transform-capitalize {
+    text-transform: capitalize;
+}
+
+/* Modifiers */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mono {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-variant-ligatures: none;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.clickable {
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.clickable:hover {
+    color: var(--color-accent-primary);
+}
+
+/* Heading */
+.text:is(h1, h2, h3, h4, h5, h6) {
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Accessibility */
+.text:focus {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Selection */
+.text::selection {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}
+
+.text::-moz-selection {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}

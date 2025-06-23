@@ -1,0 +1,6 @@
+.navContainer {
+    padding: 10px 10px 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-app-region: drag;
+}

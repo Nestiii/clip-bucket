@@ -1,0 +1,163 @@
+.clipItem {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+    gap: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.clipItem:hover {
+    border-color: var(--color-gray-400);
+    box-shadow: var(--shadow-md);
+}
+
+.clipItem.editing {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary-light);
+}
+
+.clipItem.fullscreen {
+    height: 100%;
+}
+
+.clipItem.compact {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Header section */
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.labelSection {
+    flex: 1;
+    min-width: 0; /* Allows flex child to shrink */
+}
+
+.labelDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+/* Content section */
+.contentDisplay {
+    position: relative;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-base);
+    display: flex;
+    align-items: flex-start;
+}
+
+.contentDisplay:hover {
+    border-color: var(--color-gray-400);
+    background-color: var(--color-bg-elevated);
+}
+
+.contentText {
+    font-family: var(--font-family-code);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    flex: 1;
+}
+
+.copyHint {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    opacity: 0;
+    transition: var(--transition-fast);
+}
+
+.copyHint:hover {
+    cursor: pointer;
+}
+
+.contentDisplay:hover .copyHint {
+    opacity: 1;
+}
+
+.copyHint span {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Metadata section */
+.metadata {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.metadata span {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-weight: var(--font-weight-medium);
+}
+
+/* Compact mode adjustments */
+.compact .header {
+    margin-bottom: var(--spacing-sm);
+}
+
+.compact .content {
+    margin-bottom: var(--spacing-sm);
+}
+
+.compact .contentDisplay {
+    min-height: 40px;
+    padding: var(--spacing-sm);
+}
+
+.compact .contentText {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-base);
+}
+
+/* Editing mode adjustments */
+.editing .contentDisplay {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-primary);
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.clipItem {
+    animation: fadeIn 0.2s ease-out;
+}
