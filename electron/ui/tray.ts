@@ -7,8 +7,7 @@ let tray: Tray | null = null
 export const createTray = (): void => {
     try {
         tray = new Tray(APP_CONFIG.paths.icon)
-        tray.setToolTip('ClipBucket')
-
+        tray.setToolTip('Clip Bucket')
         tray.on('click', toggleWindow)
         tray.on('right-click', showContextMenu)
     } catch (error) {
@@ -23,13 +22,11 @@ export const createTray = (): void => {
 
 const showContextMenu = (): void => {
     if (!tray) return
-
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Show ClipBucket', click: toggleWindow },
         { type: 'separator' },
         { label: 'Quit', click: () => app.quit() },
     ])
-
     tray.popUpContextMenu(contextMenu)
 }
 

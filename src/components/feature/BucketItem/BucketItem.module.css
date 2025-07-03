@@ -12,12 +12,19 @@
 .bucketItem:hover {
     border-color: var(--color-gray-400);
     box-shadow: var(--shadow-md);
+    transform: translateY(1px);
+}
+
+.bucketItem:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+    transform: translateY(1px);
 }
 
 .bucketContent {
     display: flex;
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-sm);
     cursor: pointer;
 }
 
@@ -115,29 +122,4 @@
 .emptyState svg {
     color: var(--color-gray-400);
     margin-bottom: var(--spacing-sm);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .bucketContent {
-        padding: var(--spacing-md);
-    }
-
-    .bucketIcon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .bucketIcon svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .actions {
-        opacity: 1; /* Always show on mobile */
-    }
-
-    .metadata {
-        font-size: var(--font-size-sm);
-    }
 }

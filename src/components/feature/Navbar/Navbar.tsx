@@ -1,19 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
 import { Row } from '../../common/Row/Row.tsx'
 import { Button } from '../../common/Button/Button.tsx'
 import { ArrowLeftIcon, GearSixIcon } from '@phosphor-icons/react'
 import { Text } from '../../common/Text/Text.tsx'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ROUTES } from '../../../router/routes.ts'
 
 export const Navbar: React.FC = () => {
-
+    const { bucketId } = useParams<{ bucketId: string }>()
     const location = useLocation()
     const navigate = useNavigate()
+    const [bucketName, setBucketName] = useState<string>('')
 
-    const isBucket = location.pathname.includes('bucket')
+    const isBucket = Boolean(bucketId)
     const isHome = location.pathname === '/'
+
+    useEffect(() => {
+        if (Boolean(bucketId) && typeof bucketId === 'string') {
+            window.api.getBucketName(bucketId).then(r => {
+                setBucketName(r || '')
+            })
+        }
+    }, [bucketId])
 
     return (
         <Row className={styles.navContainer}>
@@ -23,6 +32,7 @@ export const Navbar: React.FC = () => {
                     onClick={() => navigate(ROUTES.ROOT)}
                     variant={'transparent'}
                     icon={<ArrowLeftIcon />}
+                    disableTabbing
                 />
             }
             {
@@ -31,13 +41,14 @@ export const Navbar: React.FC = () => {
                     onClick={() => null}
                     variant={'transparent'}
                     icon={<GearSixIcon />}
+                    disableTabbing
                 />
             }
             <Text weight={'bold'}>
-                {isBucket && 'Default Bucket'}
+                {isBucket && bucketName}
                 {isHome && 'Clip Bucket'}
             </Text>
-            <Text color={'muted'} size={'xs'}>v0.0.0</Text>
+            <Text color={'muted'} size={'xs'}>v0.0.1</Text>
         </Row>
     )
 }

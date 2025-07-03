@@ -24,19 +24,43 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                                                           className,
                                                           style,
                                                       }) => {
-    const [localName, setLocalName] = useState(name)
-    const [editMode, setEditMode] = useState(false)
+    const [localName, setLocalName] = useState<string>('')
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [deleteMode, setDeleteMode] = useState<boolean>(false)
+
+    const cancelEdit = () => {
+        setLocalName(name || '')
+        setEditMode(false)
+    }
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value
         setLocalName(newName)
-        onNameChange?.(newName)
+    }
+
+    const confirmDelete = () => {
+        onDelete?.()
+    }
+
+    const confirmEdit = () => {
+        onNameChange?.(localName)
+        cancelEdit()
     }
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && editMode) {
             e.preventDefault()
-            setEditMode(false)
+            confirmEdit()
+        }
+        if (e.key === 'Escape' && editMode) {
+            cancelEdit()
+        }
+    }
+
+    const handleWrapperKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !editMode) {
+            e.preventDefault()
+            onClick?.()
         }
     }
 
@@ -45,7 +69,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
         .join(' ')
 
     return (
-        <div className={classes} style={style} id={id}>
+        <div className={classes} style={style} id={id} tabIndex={0} onKeyDown={handleWrapperKeyDown}>
             <div className={styles.bucketContent} onClick={!editMode ? onClick : undefined}>
                 <div className={styles.iconSection}>
                     <div className={styles.bucketIcon}>
@@ -68,7 +92,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                         ) : (
                             <div className={styles.nameDisplay}>
                                 <Text as={'h3'} size={'lg'} weight={'semibold'} truncate>
-                                    {localName}
+                                    {deleteMode ? 'Delete bucket?' : name}
                                 </Text>
                             </div>
                         )}
@@ -76,25 +100,33 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                 </div>
                 <div className={styles.actions}>
                     <Button
-                        icon={editMode ? <CheckIcon size={16} /> : <PencilIcon size={16} />}
-                        variant={editMode ? 'success' : 'transparent'}
+                        icon={(editMode || deleteMode) ? <CheckIcon size={16} /> : <PencilIcon size={16} />}
+                        variant={(editMode || deleteMode) ? 'success' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()
-                            if (editMode) {}
-                            else setEditMode(true)
+                            if (editMode) confirmEdit()
+                            else if (deleteMode) confirmDelete()
+                            else {
+                                setEditMode(true)
+                                setLocalName(name || '')
+                            }
                         }}
                         title={'Rename bucket'}
+                        disableTabbing
                     />
                     <Button
-                        icon={editMode ? <XIcon size={16} /> : <TrashIcon size={16} />}
-                        variant={editMode ? 'danger' : 'transparent'}
+                        icon={(editMode || deleteMode) ? <XIcon size={16} /> : <TrashIcon size={16} />}
+                        variant={(editMode || deleteMode) ? 'danger' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()
-                            onDelete?.()
+                            if (editMode) cancelEdit()
+                            else if (deleteMode) setDeleteMode(false)
+                            else setDeleteMode(true)
                         }}
                         title={'Delete bucket'}
+                        disableTabbing
                     />
                 </div>
             </div>

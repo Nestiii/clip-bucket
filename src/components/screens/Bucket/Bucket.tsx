@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import styles from './Bucket.module.css'
 import { Column } from '../../common/Column/Column.tsx'
-import { clipItemsTestData } from '../../../mock/mockClipItems.tsx'
 import { ClipItem } from '../../feature/ClipItem/ClipItem.tsx'
 import { ScreenWrapper } from '../../common/ScreenWrapper/ScreenWrapper.tsx'
 import { Input } from '../../common/Input/Input.tsx'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
-import { useSearch } from '../../../hooks/useSearch.ts'
+import { useSearch } from '../../../hooks/utils/useSearch.ts'
+import { useClips } from '../../../hooks/api/useClips.ts'
 
 export const Bucket: React.FC = () => {
 
     const [fullscreenClip, setFullscreenClip] = useState<string>('')
+    const {clips, loading, error} = useClips()
     const {filteredData, searchTerm, handleSearchChange, } = useSearch({
-        data: clipItemsTestData,
+        data: clips,
         searchFields: ['label', 'content'],
         debounceMs: 200
     })
@@ -20,6 +21,9 @@ export const Bucket: React.FC = () => {
     const clipsContainerClasses = [styles.clipsContainer, fullscreenClip && styles.clipsContainerFullscreen]
         .filter(Boolean)
         .join(' ')
+
+    if (loading) return null
+    if (error) return <div>Error: {error}</div>
 
     return (
         <ScreenWrapper>

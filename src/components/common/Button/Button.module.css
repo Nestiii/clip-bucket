@@ -22,6 +22,12 @@
     transform: none !important;
 }
 
+.button:focus {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 2px rgba(254, 228, 2, 0.1);
+    background-color: var(--color-bg-primary);
+}
+
 /* Variants */
 .primary {
     background: var(--color-accent-primary);
@@ -65,6 +71,7 @@
 }
 
 .transparent {
+    border: 1px solid transparent;
     background: transparent;
     color: var(--color-text-primary);
 }
@@ -72,6 +79,18 @@
 .transparent:hover:not(:disabled) {
     background: var(--transparent-hover);
     transform: translateY(-1px);
+}
+
+.transparent-bordered {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-gray-300);
+}
+
+.transparent-bordered:hover:not(:disabled) {
+    background: var(--transparent-hover);
+    transform: translateY(-1px);
+    border: 1px solid var(--color-gray-400);
 }
 
 /* Sizes */

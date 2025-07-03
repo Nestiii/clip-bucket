@@ -1,7 +1,7 @@
-import { BrowserWindow, clipboard, screen, globalShortcut } from 'electron'
+import { BrowserWindow, screen, globalShortcut } from 'electron'
 import { APP_CONFIG, VITE_DEV_SERVER_URL, RENDERER_DIST } from '../config/config.ts'
-import { getBuckets } from '../storage/storage.ts'
 import path from 'node:path'
+import { sendDataUpdate } from '../ipc/updaters.ts'
 
 let win: BrowserWindow | null = null
 
@@ -31,11 +31,11 @@ export const createWindow = (): void => {
     })
 
     // Hide window on esc
-    win.webContents.on('before-input-event', (_event, input) => {
-        if (input.key === 'Escape' && input.type === 'keyDown') {
-            hideWindow()
-        }
-    })
+    // win.webContents.on('before-input-event', (_event, input) => {
+    //     if (input.key === 'Escape' && input.type === 'keyDown') {
+    //         hideWindow()
+    //     }
+    // })
 
     // Only show when content is ready
     win.once('ready-to-show', () => {
@@ -67,8 +67,8 @@ export const showWindow = (): void => {
     win.setPosition(x, y, false)
     win.show()
     win.focus()
-    // Send data to renderer
-    sendDataToRenderer()
+    // Send initial data to renderer
+    sendDataUpdate()
 }
 
 export const hideWindow = (): void => {
@@ -92,15 +92,6 @@ export const toggleWindow = (): void => {
 }
 
 export const getWindow = (): BrowserWindow | null => win
-
-export const sendDataToRenderer = (): void => {
-    if (win && !win.isDestroyed()) {
-        win.webContents.send('data-update', {
-            buckets: getBuckets(),
-            currentClipboard: clipboard.readText(),
-        })
-    }
-}
 
 export const setupGlobalShortcuts = (): void => {
     globalShortcut.register(APP_CONFIG.shortcuts.toggleWindow, toggleWindow)

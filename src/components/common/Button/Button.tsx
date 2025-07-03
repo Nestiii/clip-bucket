@@ -6,13 +6,14 @@ interface ButtonProps {
     text?: string
     icon?: string | React.ReactNode
     onClick?: MouseEventHandler<HTMLButtonElement>
-    variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'transparent'
+    variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'transparent' | 'transparent-bordered'
     size?: 'sm' | 'md' | 'lg'
     disabled?: boolean
     className?: string
     style?: React.CSSProperties
     type?: 'button' | 'submit' | 'reset'
-    title?: string
+    title?: string,
+    disableTabbing?: boolean,
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
                                                   variant = 'primary',
                                                   size = 'md',
                                                   disabled = false,
+                                                  disableTabbing = false,
                                                   className,
                                                   style,
                                                   type = 'button',
@@ -38,6 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
 
     return (
         <button
+            tabIndex={disableTabbing ? -1 : 0}
             className={classes}
             onClick={onClick}
             disabled={disabled}

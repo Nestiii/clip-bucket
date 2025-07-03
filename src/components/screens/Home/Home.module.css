@@ -4,3 +4,9 @@
     box-sizing: border-box;
     overflow: auto;
 }
+
+.homeHeader {
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}

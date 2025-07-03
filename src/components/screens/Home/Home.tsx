@@ -1,37 +1,112 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './Home.module.css'
 import { Column } from '../../common/Column/Column.tsx'
-import {mockBucketsData} from '../../../mock/mockBuckets.tsx'
 import { ScreenWrapper } from '../../common/ScreenWrapper/ScreenWrapper.tsx'
 import { Input } from '../../common/Input/Input.tsx'
-import { MagnifyingGlassIcon } from '@phosphor-icons/react'
-import { useSearch } from '../../../hooks/useSearch.ts'
+import { CheckIcon, MagnifyingGlassIcon, PlusIcon, XIcon } from '@phosphor-icons/react'
 import { BucketItem } from '../../feature/BucketItem/BucketItem.tsx'
 import { useNavigate } from 'react-router-dom'
+import { useSearch } from '../../../hooks/utils/useSearch.ts'
+import { useBuckets } from '../../../hooks/api/useBuckets.ts'
+import { Row } from '../../common/Row/Row.tsx'
+import { Button } from '../../common/Button/Button.tsx'
 
 export const Home: React.FC = () => {
 
     const navigate = useNavigate()
+    const [createBucketMode, setCreateBucketMode] = useState<boolean>(false)
+    const [createBucketName, setCreateBucketName] = useState<string>('')
+    const { buckets, loading, error, createBucket, deleteBucket, renameBucket } = useBuckets()
+    const inputRef = useRef<HTMLInputElement>(null)
     const {filteredData, searchTerm, handleSearchChange, } = useSearch({
-        data: mockBucketsData,
+        data: buckets,
         searchFields: ['name'],
         debounceMs: 200
     })
 
+    useEffect(() => {
+        if (createBucketMode && inputRef.current) {
+            setTimeout(() => inputRef.current?.focus(), 0)
+        }
+    }, [createBucketMode])
+
+    const cancelCreateBucket = () => {
+        setCreateBucketName('')
+        setCreateBucketMode(false)
+    }
+
+    const handleCreateBucket = async () => {
+        try {
+            createBucket(createBucketName.trim())
+                .then(() => {
+                    cancelCreateBucket()
+                })
+        } catch (err) {
+            alert('Failed to create bucket')
+            cancelCreateBucket()
+        }
+    }
+
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && createBucketMode && createBucketName.trim()) {
+            handleCreateBucket()
+        }
+        if (e.key === 'Escape' && createBucketMode) {
+            cancelCreateBucket()
+        }
+    }
+
+    if (loading) return null
+    if (error) return <div>Error: {error}</div>
+
     return (
         <ScreenWrapper>
-            <Input
-                placeholder={'Search bucket...'}
-                rightIcon={<MagnifyingGlassIcon size={16} />}
-                style={{marginBottom: '10px'}}
-                variant={'bordered'}
-                value={searchTerm}
-                onChange={(e) => handleSearchChange(e.target.value)}
-            />
+            <Row className={styles.homeHeader}>
+                <Input
+                    ref={inputRef}
+                    placeholder={createBucketMode ? 'Enter bucket name...' : 'Search bucket...'}
+                    rightIcon={createBucketMode ? null : <MagnifyingGlassIcon size={16} />}
+                    variant={'bordered'}
+                    value={createBucketMode ? createBucketName : searchTerm}
+                    onChange={(e) => {
+                        if (createBucketMode) setCreateBucketName(e.target.value)
+                        else handleSearchChange(e.target.value)
+                    }}
+                    onKeyDown={handleKeyPress}
+                    fullWidth
+                />
+                {
+                    createBucketMode &&
+                    <Button
+                        onClick={handleCreateBucket}
+                        variant={'success'}
+                        icon={<CheckIcon />}
+                        title={'Confirm'}
+                        disabled={!createBucketName || buckets.some(b => b.name === createBucketName)}
+                        style={{height: 36}}
+                    />
+                }
+                <Button
+                    onClick={() => {
+                        if (createBucketMode) cancelCreateBucket()
+                        else setCreateBucketMode(true)
+                    }}
+                    variant={createBucketMode ? 'danger' : 'transparent-bordered'}
+                    icon={createBucketMode ? <XIcon /> : <PlusIcon />}
+                    title={createBucketMode ? 'Cancel' : 'Create bucket'}
+                    style={{height: 36}}
+                />
+            </Row>
             <Column className={styles.bucketsContainer}>
                 {
                     filteredData.map((bucket) => (
-                        <BucketItem key={bucket.id} name={bucket.name} onClick={() => navigate('/bucket/' + bucket.id)} />
+                        <BucketItem
+                            key={bucket.id}
+                            name={bucket.name}
+                            onClick={() => navigate('/bucket/' + bucket.id)}
+                            onNameChange={(name) => renameBucket(bucket.id, name)}
+                            onDelete={() => deleteBucket(bucket.id)}
+                        />
                     ))
                 }
             </Column>

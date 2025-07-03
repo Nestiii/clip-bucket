@@ -15,6 +15,11 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
     ? path.join(process.env.APP_ROOT, 'public')
     : RENDERER_DIST
 
+// New directory structure
+const APP_DATA_DIR = path.join(homedir(), 'clipbucket')
+const CONFIG_DIR = path.join(APP_DATA_DIR, 'config')
+const BUCKETS_DIR = path.join(APP_DATA_DIR, 'buckets')
+
 export const APP_CONFIG = {
     window: {
         width: process.env.DEVTOOLS ? 1000 : 400,
@@ -23,7 +28,11 @@ export const APP_CONFIG = {
         screenMargin: 10
     },
     storage: {
-        bucketsFile: path.join(homedir(), '.clip-bucket.json'),
+        appDataDir: APP_DATA_DIR,
+        configDir: CONFIG_DIR,
+        bucketsDir: BUCKETS_DIR,
+        configFile: path.join(CONFIG_DIR, 'config.json'),
+        getBucketPath: (bucketId: string) => path.join(BUCKETS_DIR, `${bucketId}.json`)
     },
     paths: {
         preload: path.join(__dirname, 'preload.mjs'),
