@@ -14,6 +14,8 @@ interface ButtonProps {
     type?: 'button' | 'submit' | 'reset'
     title?: string,
     disableTabbing?: boolean,
+    autoFocus?: boolean,
+    fullWidth?: boolean,
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -28,13 +30,16 @@ export const Button: React.FC<ButtonProps> = ({
                                                   className,
                                                   style,
                                                   type = 'button',
+                                                  autoFocus,
                                                   title,
+                                                  fullWidth,
                                                   ...props
                                               }) => {
     const classes = [
         styles.button,
         styles[variant],
         styles[size],
+        fullWidth && styles.fullWidth,
         className,
     ].filter(Boolean).join(' ')
 
@@ -47,6 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
             style={style}
             type={type}
             title={title}
+            autoFocus={autoFocus}
             {...props}
         >
             {icon && <span className={styles.icon}>{icon}</span>}

@@ -36,6 +36,10 @@ contextBridge.exposeInMainWorld('api', {
     getConfig: (): Promise<AppConfig | null> => ipcRenderer.invoke(IPC_EVENTS.CONFIG.GET_CONFIG),
     updateConfig: (updates: Partial<AppConfig>): Promise<AppConfig | null> =>
         ipcRenderer.invoke(IPC_EVENTS.CONFIG.UPDATE_CONFIG, updates),
+    setLastUsedBucket: (bucketId: string): Promise<boolean> =>
+        ipcRenderer.invoke(IPC_EVENTS.CONFIG.SET_LAST_USED_BUCKET, bucketId),
+    getLastUsedBucket: (): Promise<string | null> =>
+        ipcRenderer.invoke(IPC_EVENTS.CONFIG.GET_LAST_USED_BUCKET),
 
     // Clipboard operations
     getClipboard: (): Promise<string> => ipcRenderer.invoke(IPC_EVENTS.CLIPBOARD.GET_CLIPBOARD),

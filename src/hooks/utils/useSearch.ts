@@ -14,7 +14,7 @@ export const useSearch = <T extends Record<string, any>>({
                                                          }: UseSearchOptions<T>) => {
 
     const [searchTerm, setSearchTerm] = useState<string>('')
-    const [filteredData, setFilteredData] = useState<T[]>(data)
+    const [filteredData, setFilteredData] = useState<T[]>(data || [])
 
     const debouncedSearch = useCallback(
         debounce((term: string) => {
@@ -67,6 +67,6 @@ export const useSearch = <T extends Record<string, any>>({
         handleSearchChange,
         clearSearch,
         isSearching: searchTerm.trim().length > 0,
-        resultCount: filteredData.length
+        resultCount: filteredData?.length || 0
     }
 }

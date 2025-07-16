@@ -6,12 +6,14 @@ import { ArrowLeftIcon, GearSixIcon } from '@phosphor-icons/react'
 import { Text } from '../../common/Text/Text.tsx'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ROUTES } from '../../../router/routes.ts'
+import { useAutoNavigation } from '../../../hooks/utils/useAutoNavigation.ts'
 
 export const Navbar: React.FC = () => {
     const { bucketId } = useParams<{ bucketId: string }>()
     const location = useLocation()
     const navigate = useNavigate()
     const [bucketName, setBucketName] = useState<string>('')
+    const { isAutoNavigating } = useAutoNavigation()
 
     const isBucket = Boolean(bucketId)
     const isHome = location.pathname === '/'
@@ -23,6 +25,8 @@ export const Navbar: React.FC = () => {
             })
         }
     }, [bucketId])
+
+    if (isAutoNavigating) return null
 
     return (
         <Row className={styles.navContainer}>

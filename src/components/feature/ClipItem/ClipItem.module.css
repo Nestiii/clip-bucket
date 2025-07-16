@@ -15,11 +15,6 @@
     box-shadow: var(--shadow-md);
 }
 
-.clipItem.editing {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 1px var(--color-primary-light);
-}
-
 .clipItem.fullscreen {
     height: 100%;
 }
@@ -33,26 +28,35 @@
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-md);
 }
 
 .labelSection {
-    flex: 1;
-    min-width: 0; /* Allows flex child to shrink */
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .labelDisplay {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+    flex: 1;
+    min-width: 0;
 }
 
 .actions {
     display: flex;
+    align-items: center;
     gap: var(--spacing-xs);
-    flex-shrink: 0;
+    margin-left: var(--spacing-md);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.clipItem:hover .actions {
+    opacity: 1;
+}
+
+.clipItem.editing .actions {
+    opacity: 1;
 }
 
 /* Content section */
@@ -110,7 +114,7 @@
 /* Metadata section */
 .metadata {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -138,12 +142,6 @@
 .compact .contentText {
     font-size: var(--font-size-xs);
     line-height: var(--line-height-base);
-}
-
-/* Editing mode adjustments */
-.editing .contentDisplay {
-    background-color: var(--color-bg-secondary);
-    border-color: var(--color-primary);
 }
 
 /* Animation for smooth transitions */

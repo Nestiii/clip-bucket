@@ -28,6 +28,10 @@
     background-color: var(--color-bg-primary);
 }
 
+.fullWidth {
+    width: 100%;
+}
+
 /* Variants */
 .primary {
     background: var(--color-accent-primary);
@@ -53,6 +57,13 @@
 .danger {
     background: var(--color-danger);
     color: var(--color-text-primary);
+    border: 1px solid transparent;
+}
+
+.danger:focus {
+    background: var(--color-danger);
+    border: 1px solid transparent;
+    box-shadow: none;
 }
 
 .danger:hover:not(:disabled) {
@@ -63,6 +74,13 @@
 .success {
     background: var(--color-success);
     color: var(--color-text-primary);
+    border: 1px solid transparent;
+}
+
+.success:focus {
+    background: var(--color-success-hover);
+    border: 1px solid transparent;
+    box-shadow: none;
 }
 
 .success:hover:not(:disabled) {

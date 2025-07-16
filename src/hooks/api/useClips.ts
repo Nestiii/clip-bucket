@@ -9,7 +9,6 @@ export const useClips = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    // Load clips
     const loadClips = async () => {
         if (!bucketId) {
             setError('No bucket ID provided')
@@ -35,7 +34,6 @@ export const useClips = () => {
         }
     }
 
-    // Clip operations
     const addClip = async (content: string, label?: string): Promise<Clip | null> => {
         if (!bucketId) throw new Error('No bucket ID')
         try {
@@ -91,7 +89,6 @@ export const useClips = () => {
         }
     }
 
-    // Search clips within this bucket
     const searchClips = async (query: string): Promise<Clip[]> => {
         if (!bucketId) return []
         try {
@@ -103,17 +100,15 @@ export const useClips = () => {
         }
     }
 
-    // Set up real-time listeners
     useEffect(() => {
         if (!bucketId) return
-        // Listen for bucket updates (to get updated clips)
         const handleBucketUpdate = (updatedBucket: any) => {
             if (updatedBucket.id === bucketId) {
                 console.log('Received clips update from bucket update')
-                setClips(updatedBucket.items)
+                console.log(updatedBucket)
+                setClips(updatedBucket.clips)
             }
         }
-        // Listen for specific clip updates
         const handleClipUpdate = ({ bucketId: updatedBucketId, clip }: { bucketId: string; clip: Clip }) => {
             if (updatedBucketId === bucketId) {
                 console.log('Received clip update:', clip)
@@ -124,28 +119,24 @@ export const useClips = () => {
                 )
             }
         }
-        // Listen for clip deletions
         const handleClipDeleted = ({ bucketId: updatedBucketId, clipId }: { bucketId: string; clipId: string }) => {
             if (updatedBucketId === bucketId) {
                 console.log('Clip deleted:', clipId)
                 setClips(prevClips => prevClips.filter(clip => clip.id !== clipId))
             }
         }
-        // Listen for full data updates (fallback)
         const handleDataUpdate = (data: any) => {
             const updatedBucket = data.buckets.find((b: any) => b.id === bucketId)
             if (updatedBucket) {
-                setClips(updatedBucket.items)
+                setClips(updatedBucket.clips)
             }
         }
 
-        // Set up listeners
         window.api.onBucketUpdate(handleBucketUpdate)
         window.api.onClipUpdate(handleClipUpdate)
         window.api.onClipDeleted(handleClipDeleted)
         window.api.onDataUpdate(handleDataUpdate)
 
-        // Cleanup listeners
         return () => {
             window.api.removeAllListeners(IPC_EVENTS.RENDERER.BUCKET_UPDATE)
             window.api.removeAllListeners(IPC_EVENTS.RENDERER.CLIP_UPDATE)
@@ -154,7 +145,6 @@ export const useClips = () => {
         }
     }, [bucketId])
 
-    // Load clips when bucketId changes
     useEffect(() => {
         loadClips()
     }, [bucketId])
@@ -164,14 +154,10 @@ export const useClips = () => {
         loading,
         error,
         bucketId,
-
-        // Operations
         addClip,
         updateClip,
         deleteClip,
         copyClip,
-
-        // Utility
         loadClips,
         searchClips
     }

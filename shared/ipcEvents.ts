@@ -24,6 +24,8 @@ export const IPC_EVENTS = {
     CONFIG: {
         GET_CONFIG: 'get-config',
         UPDATE_CONFIG: 'update-config',
+        SET_LAST_USED_BUCKET: 'set-last-used-bucket',
+        GET_LAST_USED_BUCKET: 'get-last-used-bucket',
     },
     CLIPBOARD: {
         GET_CLIPBOARD: 'get-clipboard',

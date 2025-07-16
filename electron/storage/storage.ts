@@ -173,14 +173,11 @@ export const addClipToBucket = (bucketId: string, content: string, label?: strin
     if (!content || !content.trim()) return null
     const bucket = buckets.get(bucketId)
     if (!bucket) return null
-    // Check if item already exists
-    const existingItem = bucket.clips.find(item => item.content === content.trim())
-    if (existingItem) return null
     const item: Clip = {
         id: generateId(),
         content: content.trim(),
         timestamp: new Date().toISOString(),
-        label: label?.trim() || undefined
+        label: label?.trim() || 'Untitled clip'
     }
     bucket.clips.unshift(item) // Add to beginning for most recent first
     saveBucket(bucket)
@@ -261,5 +258,40 @@ export const createDefaultBucketIfNeeded = (): void => {
         }
     } catch (error) {
         console.error('Error creating default bucket:', error)
+    }
+}
+
+export const setLastUsedBucket = (bucketId: string): void => {
+    try {
+        const config = getConfig()
+        updateConfig({
+            settings: {
+                ...config.settings,
+                lastUsedBucketId: bucketId
+            }
+        })
+        console.log('Last used bucket set to:', bucketId)
+    } catch (error) {
+        console.error('Error setting last used bucket:', error)
+    }
+}
+
+export const getLastUsedBucket = (): string | null => {
+    try {
+        const config = getConfig()
+        return config.settings.lastUsedBucketId || null
+    } catch (error) {
+        console.error('Error getting last used bucket:', error)
+        return null
+    }
+}
+
+export const shouldAutoNavigateToLastBucket = (): boolean => {
+    try {
+        const config = getConfig()
+        return config.settings.autoNavigateToLastBucket !== false
+    } catch (error) {
+        console.error('Error checking auto navigate setting:', error)
+        return true
     }
 }

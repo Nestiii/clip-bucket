@@ -1,3 +1,9 @@
+.bucketHeader {
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
 .clipsContainer {
     gap: 10px;
     height: calc(100% - 46px);
@@ -7,4 +13,27 @@
 
 .clipsContainerFullscreen {
     height: 100%;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3xl);
+    text-align: center;
+    color: var(--color-text-muted);
+    gap: var(--spacing-sm);
+}
+
+.emptyState h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+}
+
+.emptyState p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    max-width: 300px;
 }

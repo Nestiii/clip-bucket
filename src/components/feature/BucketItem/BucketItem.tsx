@@ -17,7 +17,7 @@ export interface BucketItemProps {
 
 export const BucketItem: React.FC<BucketItemProps> = ({
                                                           id,
-                                                          name,
+                                                          name = '',
                                                           onNameChange,
                                                           onDelete,
                                                           onClick,
@@ -29,7 +29,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
     const [deleteMode, setDeleteMode] = useState<boolean>(false)
 
     const cancelEdit = () => {
-        setLocalName(name || '')
+        setLocalName('')
         setEditMode(false)
     }
 
@@ -64,7 +64,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
         }
     }
 
-    const classes = [styles.bucketItem, editMode && styles.editing, className]
+    const classes = [styles.bucketItem, (editMode || deleteMode) && styles.editing, className]
         .filter(Boolean)
         .join(' ')
 
@@ -83,7 +83,6 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                                 value={localName}
                                 onChange={handleNameChange}
                                 onKeyDown={handleKeyDown}
-                                placeholder={'Enter bucket name...'}
                                 variant={'bordered'}
                                 size={'md'}
                                 autoFocus
@@ -109,7 +108,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                             else if (deleteMode) confirmDelete()
                             else {
                                 setEditMode(true)
-                                setLocalName(name || '')
+                                setLocalName(name)
                             }
                         }}
                         title={'Rename bucket'}

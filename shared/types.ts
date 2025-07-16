@@ -24,6 +24,8 @@ export interface AppConfig {
         theme: 'dark' | 'light'
         autoHide: boolean
         shortcuts: Record<string, string>
+        lastUsedBucketId?: string
+        autoNavigateToLastBucket?: boolean
     }
 }
 
@@ -68,6 +70,8 @@ export interface ClipBucketAPI {
     // Config operations
     getConfig: () => Promise<AppConfig | null>
     updateConfig: (updates: Partial<AppConfig>) => Promise<AppConfig | null>
+    setLastUsedBucket: (bucketId: string) => Promise<boolean>
+    getLastUsedBucket: () => Promise<string | null>
 
     // Clipboard operations
     getClipboard: () => Promise<string>
