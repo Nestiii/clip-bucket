@@ -44,28 +44,40 @@ export const Settings: React.FC = () => {
     const [tempShortcut, setTempShortcut] = useState<string>('')
     const [isRecordingShortcut, setIsRecordingShortcut] = useState<boolean>(false)
     const [recordedKeys, setRecordedKeys] = useState<string[]>([])
+    const [loading, setLoading] = useState<boolean>(true)
 
-    // Load current settings (you'd replace this with actual API calls)
     useEffect(() => {
-        // TODO: Load settings from your config API
-        // const config = await window.clipBucket.getConfig()
-        // setWindowSize(config.settings.windowSize || 'medium')
-        // setShortcut(config.settings.shortcuts.toggleWindow || 'CommandOrControl+Shift+P')
+        const loadSettings = async () => {
+            try {
+                setLoading(true)
+                const config = await window.api.getConfig()
+                if (config) {
+                    setWindowSize(config.settings.windowSize || 'medium')
+                    setShortcut(config.settings.shortcuts.toggleWindow || 'CommandOrControl+Shift+P')
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadSettings()
     }, [])
 
     const handleWindowSizeChange = async (size: WindowSize) => {
-        setWindowSize(size)
-
-        // TODO: Update config and apply window size
-        // await window.clipBucket.updateConfig({
-        //     settings: {
-        //         windowSize: size
-        //     }
-        // })
-
-        // Apply window size change immediately
-        // This would need to be implemented in your Electron main process
-        console.log('Window size changed to:', size, WINDOW_SIZE_OPTIONS.find(opt => opt.value === size)?.dimensions)
+        try {
+            const result = await window.api.updateWindowSize(size)
+            if (result.success) {
+                setWindowSize(size)
+                console.log('Window size updated successfully')
+            } else {
+                console.error('Failed to update window size:', result.error)
+                alert('Failed to update window size')
+            }
+        } catch (error) {
+            console.error('Error updating window size:', error)
+            alert('Error updating window size')
+        }
     }
 
     const startShortcutRecording = () => {
@@ -81,48 +93,45 @@ export const Settings: React.FC = () => {
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (!isRecordingShortcut) return
-
         e.preventDefault()
         const keys: string[] = []
-
-        // Add modifiers
         if (e.ctrlKey || e.metaKey) keys.push('CommandOrControl')
         if (e.shiftKey) keys.push('Shift')
         if (e.altKey) keys.push('Alt')
-
-        // Add main key (if not a modifier)
         if (!['Control', 'Meta', 'Shift', 'Alt'].includes(e.key)) {
             keys.push(e.key.length === 1 ? e.key.toUpperCase() : e.key)
         }
-
         setRecordedKeys(keys)
-
-        // Only set temp shortcut if we have a non-modifier key
         if (keys.length > 0 && !['Control', 'Meta', 'Shift', 'Alt'].includes(keys[keys.length - 1])) {
             setTempShortcut(keys.join('+'))
         }
     }
 
     const confirmShortcutChange = async () => {
-        if (tempShortcut) {
-            setShortcut(tempShortcut)
-
-            // TODO: Update config with new shortcut
-            // await window.clipBucket.updateConfig({
-            //     settings: {
-            //         shortcuts: {
-            //             toggleWindow: tempShortcut
-            //         }
-            //     }
-            // })
-
-            console.log('Shortcut changed to:', tempShortcut)
+        if (!tempShortcut) return
+        try {
+            const validation = await window.api.validateShortcut(tempShortcut)
+            if (!validation.valid) {
+                alert(`Invalid shortcut: ${validation.reason}`)
+                return
+            }
+            const result = await window.api.updateShortcuts({
+                toggleWindow: tempShortcut
+            })
+            if (result.success) {
+                setShortcut(tempShortcut)
+                setIsEditingShortcut(false)
+                setIsRecordingShortcut(false)
+                setTempShortcut('')
+                setRecordedKeys([])
+                console.log('Shortcut updated successfully')
+            } else {
+                alert('Failed to update shortcut')
+            }
+        } catch (error) {
+            console.error('Error updating shortcut:', error)
+            alert('Error updating shortcut')
         }
-
-        setIsEditingShortcut(false)
-        setIsRecordingShortcut(false)
-        setTempShortcut('')
-        setRecordedKeys([])
     }
 
     const cancelShortcutChange = () => {
@@ -139,6 +148,8 @@ export const Settings: React.FC = () => {
             .replace('Alt', '⌥')
             .replace(/\+/g, ' + ')
     }
+
+    if (loading) return null
 
     return (
         <ScreenWrapper>

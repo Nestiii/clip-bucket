@@ -129,17 +129,82 @@
     background: var(--color-bg-secondary);
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .settingsContainer {
-        padding: var(--spacing-sm);
-    }
+.settingOption {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    background: var(--color-bg-secondary);
+}
 
-    .settingOption {
-        padding: var(--spacing-sm);
-    }
+.settingOption:hover {
+    border-color: var(--color-gray-400);
+    background: var(--color-bg-elevated);
+}
 
-    .shortcutSection {
-        padding: var(--spacing-sm);
+.settingOption.selected {
+    border-color: var(--color-accent-primary);
+    background: rgba(254, 228, 2, 0.05);
+}
+
+.radioButton {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-gray-400);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+}
+
+.selected .radioButton {
+    border-color: var(--color-accent-primary);
+}
+
+.radioButtonSelected {
+    width: 10px;
+    height: 10px;
+    background: var(--color-accent-primary);
+    border-radius: 50%;
+}
+
+.shortcutSection {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-secondary);
+}
+
+.shortcutDisplay {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    min-width: 120px;
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.shortcutDisplay.recording {
+    border-color: var(--color-accent-primary);
+    background: rgba(254, 228, 2, 0.05);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
     }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.comingSoon {
+    padding: var(--spacing-xl);
+    border: 1px dashed var(--color-gray-300);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-secondary);
 }
