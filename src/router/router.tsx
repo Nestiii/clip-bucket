@@ -5,6 +5,7 @@ import { AuthLayout } from '../components/auth/AuthLayout/AuthLayout.tsx'
 import { Login } from '../components/screens/Login/Login.tsx'
 import { Home } from '../components/screens/Home/Home.tsx'
 import { Bucket } from '../components/screens/Bucket/Bucket.tsx'
+import { Settings } from '../components/screens/Settings/Settings.tsx'
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.BUCKET,
                         element: <Bucket />,
+                    },
+                    {
+                        path: ROUTES.SETTINGS,
+                        element: <Settings />,
                     },
                 ]
             },

@@ -51,6 +51,12 @@ contextBridge.exposeInMainWorld('api', {
         ipcRenderer.invoke(IPC_EVENTS.IMPORT_EXPORT.IMPORT_LEGACY_BUCKETS, legacyData),
     exportBuckets: () => ipcRenderer.invoke(IPC_EVENTS.IMPORT_EXPORT.EXPORT_BUCKETS),
 
+    // Settings operations
+    updateWindowSize: (size: 'small' | 'medium' | 'large') => ipcRenderer.invoke(IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE, size),
+    updateShortcuts: (shortcuts: Record<string, string>) => ipcRenderer.invoke(IPC_EVENTS.SETTINGS.UPDATE_SHORTCUTS, shortcuts),
+    validateShortcut: (shortcut: string) => ipcRenderer.invoke(IPC_EVENTS.SETTINGS.VALIDATE_SHORTCUT, shortcut),
+    getWindowSizes: () => ipcRenderer.invoke(IPC_EVENTS.SETTINGS.GET_WINDOW_SIZES),
+
     // Event listeners
     onDataUpdate: (callback: (data: ClipBucketData) => void): void => {
         ipcRenderer.on(IPC_EVENTS.RENDERER.DATA_UPDATE, (_event, data) => callback(data))

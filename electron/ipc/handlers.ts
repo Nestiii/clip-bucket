@@ -5,6 +5,7 @@ import { setupSearchHandlers } from './searchHandlers.ts'
 import { setupConfigHandlers } from './configHandlers.ts'
 import { setupClipboardHandlers } from './clipboardHandlers.ts'
 import { setupImportExportHandlers } from './importExportHandlers.ts'
+import { setupSettingsHandlers } from './settingsHandlers.ts'
 
 export const setupIpcHandlers = (): void => {
     setupDataHandlers()
@@ -14,4 +15,5 @@ export const setupIpcHandlers = (): void => {
     setupConfigHandlers()
     setupClipboardHandlers()
     setupImportExportHandlers()
+    setupSettingsHandlers()
 }

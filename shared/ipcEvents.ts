@@ -45,5 +45,11 @@ export const IPC_EVENTS = {
         CLIP_DELETED: 'clip-deleted',
         CONFIG_UPDATE: 'config-update',
         STATS_UPDATE: 'stats-update',
-    }
+    },
+    SETTINGS: {
+        UPDATE_WINDOW_SIZE: 'update-window-size',
+        UPDATE_SHORTCUTS: 'update-shortcuts',
+        VALIDATE_SHORTCUT: 'validate-shortcut',
+        GET_WINDOW_SIZES: 'get-window-sizes',
+    },
 }

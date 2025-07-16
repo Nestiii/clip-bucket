@@ -17,6 +17,7 @@ export const Navbar: React.FC = () => {
 
     const isBucket = Boolean(bucketId)
     const isHome = location.pathname === '/'
+    const isSettings = location.pathname === '/settings'
 
     useEffect(() => {
         if (Boolean(bucketId) && typeof bucketId === 'string') {
@@ -31,7 +32,7 @@ export const Navbar: React.FC = () => {
     return (
         <Row className={styles.navContainer}>
             {
-                isBucket &&
+                (isBucket || isSettings) &&
                 <Button
                     onClick={() => navigate(ROUTES.ROOT)}
                     variant={'transparent'}
@@ -42,7 +43,7 @@ export const Navbar: React.FC = () => {
             {
                 isHome &&
                 <Button
-                    onClick={() => null}
+                    onClick={() => navigate(ROUTES.SETTINGS)}
                     variant={'transparent'}
                     icon={<GearSixIcon />}
                     disableTabbing
@@ -51,6 +52,7 @@ export const Navbar: React.FC = () => {
             <Text weight={'bold'}>
                 {isBucket && bucketName}
                 {isHome && 'Clip Bucket'}
+                {isSettings && 'Settings'}
             </Text>
             <Text color={'muted'} size={'xs'}>v0.0.1</Text>
         </Row>

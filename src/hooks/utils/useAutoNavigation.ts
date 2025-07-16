@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBuckets } from '../api/useBuckets.ts'
+import { ROUTES } from '../../router/routes.ts'
 
 export const useAutoNavigation = () => {
     const navigate = useNavigate()
@@ -15,7 +16,8 @@ export const useAutoNavigation = () => {
                 if (lastUsedBucketId) {
                     const bucketExists = buckets.some(bucket => bucket.id === lastUsedBucketId)
                     if (bucketExists) {
-                        navigate(`/bucket/${lastUsedBucketId}`)
+                        //navigate(`/bucket/${lastUsedBucketId}`)
+                        navigate(ROUTES.SETTINGS)
                         return
                     } else {
                         await window.api.setLastUsedBucket('')

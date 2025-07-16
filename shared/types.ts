@@ -1,5 +1,3 @@
-import { IPC_EVENTS } from './ipcEvents.ts'
-
 export interface Clip {
     id: string
     content: string
@@ -26,10 +24,9 @@ export interface AppConfig {
         shortcuts: Record<string, string>
         lastUsedBucketId?: string
         autoNavigateToLastBucket?: boolean
+        windowSize?: 'small' | 'medium' | 'large'
     }
 }
-
-export type IPCEventName = typeof IPC_EVENTS[keyof typeof IPC_EVENTS]
 
 export interface BucketStats {
     totalBuckets: number
@@ -42,6 +39,18 @@ export interface ClipBucketData {
     currentClipboard: string
     config: AppConfig
     stats: BucketStats
+}
+
+export interface WindowSizeOption {
+    value: 'small' | 'medium' | 'large'
+    label: string
+    description: string
+    dimensions: { width: number; height: number }
+}
+
+export interface ShortcutValidation {
+    valid: boolean
+    reason?: string
 }
 
 export interface ClipBucketAPI {
@@ -81,6 +90,12 @@ export interface ClipBucketAPI {
     // Import/Export operations
     importLegacyBuckets: (legacyData: Record<string, string[]>) => Promise<{ success: boolean; importedCount: number }>
     exportBuckets: () => Promise<any>
+
+    // Settings operations
+    updateWindowSize: (size: 'small' | 'medium' | 'large') => Promise<{ success: boolean; error?: string }>
+    updateShortcuts: (shortcuts: Record<string, string>) => Promise<{ success: boolean; error?: string }>
+    validateShortcut: (shortcut: string) => Promise<ShortcutValidation>
+    getWindowSizes: () => Promise<WindowSizeOption[]>
 
     // Event listeners
     onDataUpdate: (callback: (data: ClipBucketData) => void) => void

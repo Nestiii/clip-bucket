@@ -2,13 +2,22 @@ import { BrowserWindow, screen, globalShortcut } from 'electron'
 import { APP_CONFIG, VITE_DEV_SERVER_URL, RENDERER_DIST } from '../config/config.ts'
 import path from 'node:path'
 import { sendDataUpdate } from '../ipc/updaters.ts'
+import { getConfig } from '../storage/storage.ts'
+
+export const WINDOW_SIZE_CONFIG = {
+    small: { width: 320, height: 480 },
+    medium: { width: 400, height: 600 },
+    large: { width: 520, height: 720 }
+}
 
 let win: BrowserWindow | null = null
 
 export const createWindow = (): void => {
+    const windowSize = getWindowSizeFromConfig()
+    const dimensions = WINDOW_SIZE_CONFIG[windowSize]
     win = new BrowserWindow({
-        width: APP_CONFIG.window.width,
-        height: APP_CONFIG.window.height,
+        width: dimensions.width + (process.env.DEVTOOLS ? 400 : 0),
+        height: dimensions.height,
         show: false,
         backgroundColor: APP_CONFIG.window.backgroundColor,
         movable: true,
@@ -23,21 +32,12 @@ export const createWindow = (): void => {
         },
     })
 
-    // Hide window when it loses focus
     win.on('blur', () => {
         if (win && !win.isDestroyed()) {
             win.hide()
         }
     })
 
-    // Hide window on esc
-    // win.webContents.on('before-input-event', (_event, input) => {
-    //     if (input.key === 'Escape' && input.type === 'keyDown') {
-    //         hideWindow()
-    //     }
-    // })
-
-    // Only show when content is ready
     win.once('ready-to-show', () => {
         if (win && !win.isDestroyed()) {
             showWindow()
@@ -67,7 +67,6 @@ export const showWindow = (): void => {
     win.setPosition(x, y, false)
     win.show()
     win.focus()
-    // Send initial data to renderer
     sendDataUpdate()
 }
 
@@ -81,7 +80,6 @@ export const toggleWindow = (): void => {
     if (win && win.isVisible()) {
         hideWindow()
     } else {
-        // Destroy and recreate window each time
         if (win) {
             win.destroy()
             win = null
@@ -94,9 +92,26 @@ export const toggleWindow = (): void => {
 export const getWindow = (): BrowserWindow | null => win
 
 export const setupGlobalShortcuts = (): void => {
-    globalShortcut.register(APP_CONFIG.shortcuts.toggleWindow, toggleWindow)
+    const config = getConfig()
+    const shortcuts = config.settings.shortcuts
+    if (shortcuts.toggleWindow) globalShortcut.register(shortcuts.toggleWindow, toggleWindow)
 }
 
 export const cleanupGlobalShortcuts = (): void => {
     globalShortcut.unregisterAll()
+}
+
+export const updateWindowSize = (size: 'small' | 'medium' | 'large'): void => {
+    if (!win || win.isDestroyed()) return
+    const dimensions = WINDOW_SIZE_CONFIG[size]
+    if (dimensions) {
+        win.setSize(dimensions.width, dimensions.height)
+        APP_CONFIG.window.width = dimensions.width + (process.env.DEVTOOLS ? 400 : 0)
+        APP_CONFIG.window.height = dimensions.height
+    }
+}
+
+export const getWindowSizeFromConfig = (): 'small' | 'medium' | 'large' => {
+    const config = getConfig()
+    return config.settings.windowSize || 'medium'
 }

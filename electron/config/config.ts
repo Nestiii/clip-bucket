@@ -22,7 +22,7 @@ const BUCKETS_DIR = path.join(APP_DATA_DIR, 'buckets')
 
 export const APP_CONFIG = {
     window: {
-        width: process.env.DEVTOOLS ? 1000 : 400,
+        width: 400,
         height: 600,
         backgroundColor: '#111111',
         screenMargin: 10
