@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { debounce } from 'lodash'
 import styles from './ClipItem.module.css'
 import { Input } from '../../common/Input/Input.tsx'
 import { Text } from '../../common/Text/Text.tsx'
@@ -41,6 +42,21 @@ export const ClipItem: React.FC<ClipItemProps> = ({
     const [editMode, setEditMode] = useState<boolean>(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+    const debouncedContentChange = useCallback(
+        debounce((newContent: string) => {
+            onContentChange?.(newContent)
+        }, 300),
+        [onContentChange]
+    )
+
+    useEffect(() => {
+        return () => debouncedContentChange.cancel()
+    }, [debouncedContentChange])
+
+    useEffect(() => {
+        setLocalContent(content)
+    }, [content])
+
     const cancelEdit = () => {
         setLocalLabel('')
         setEditMode(false)
@@ -54,7 +70,7 @@ export const ClipItem: React.FC<ClipItemProps> = ({
     const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newContent = e.target.value
         setLocalContent(newContent)
-        onContentChange?.(newContent)
+        debouncedContentChange(newContent)
     }
 
     const handleCopy = async () => {
@@ -243,7 +259,7 @@ export const ClipItem: React.FC<ClipItemProps> = ({
             <div className={styles.metadata}>
                 {timestamp && (
                     <Text size={'xs'} color={'muted'} weight={'medium'}>
-                        {formatTimestamp(timestamp)}
+                        Created {formatTimestamp(timestamp)}
                     </Text>
                 )}
                 <Text size={'xs'} color={'muted'} weight={'medium'}>

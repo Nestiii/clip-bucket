@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
     const {filteredData, searchTerm, handleSearchChange, } = useSearch({
         data: buckets,
         searchFields: ['name'],
-        debounceMs: 200
+        debounceMs: 300
     })
 
     useEffect(() => {

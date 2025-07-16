@@ -10,7 +10,7 @@ interface UseSearchOptions<T> {
 export const useSearch = <T extends Record<string, any>>({
                                                              data,
                                                              searchFields,
-                                                             debounceMs = 200
+                                                             debounceMs = 300
                                                          }: UseSearchOptions<T>) => {
 
     const [searchTerm, setSearchTerm] = useState<string>('')
