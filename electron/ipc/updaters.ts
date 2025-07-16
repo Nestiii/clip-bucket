@@ -10,7 +10,7 @@ export const sendDataUpdate = (): void => {
             win.webContents.send(IPC_EVENTS.RENDERER.DATA_UPDATE, {
                 buckets: getBuckets(),
                 config: getConfig(),
-                stats: getBucketStats()
+                stats: getBucketStats(),
             })
         }
     } catch (error) {

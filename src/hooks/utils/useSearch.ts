@@ -8,11 +8,10 @@ interface UseSearchOptions<T> {
 }
 
 export const useSearch = <T extends Record<string, any>>({
-                                                             data,
-                                                             searchFields,
-                                                             debounceMs = 300
-                                                         }: UseSearchOptions<T>) => {
-
+    data,
+    searchFields,
+    debounceMs = 300,
+}: UseSearchOptions<T>) => {
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [filteredData, setFilteredData] = useState<T[]>(data || [])
 
@@ -25,7 +24,7 @@ export const useSearch = <T extends Record<string, any>>({
 
             const filtered = data.filter((item) => {
                 const searchLower = term.toLowerCase()
-                return searchFields.some(field => {
+                return searchFields.some((field) => {
                     const fieldValue = item[field]
                     return fieldValue?.toString().toLowerCase().includes(searchLower)
                 })
@@ -36,10 +35,13 @@ export const useSearch = <T extends Record<string, any>>({
         [data, searchFields, debounceMs]
     )
 
-    const handleSearchChange = useCallback((value: string) => {
-        setSearchTerm(value)
-        debouncedSearch(value)
-    }, [debouncedSearch])
+    const handleSearchChange = useCallback(
+        (value: string) => {
+            setSearchTerm(value)
+            debouncedSearch(value)
+        },
+        [debouncedSearch]
+    )
 
     const clearSearch = useCallback(() => {
         setSearchTerm('')
@@ -67,6 +69,6 @@ export const useSearch = <T extends Record<string, any>>({
         handleSearchChange,
         clearSearch,
         isSearching: searchTerm.trim().length > 0,
-        resultCount: filteredData?.length || 0
+        resultCount: filteredData?.length || 0,
     }
 }

@@ -49,7 +49,7 @@ export const useBuckets = () => {
 
     const renameBucket = async (bucketId: string, name: string) => {
         try {
-            const updatedBucket = await window.api.updateBucket(bucketId, {name})
+            const updatedBucket = await window.api.updateBucket(bucketId, { name })
             if (!updatedBucket) {
                 throw new Error('Failed to update bucket')
             }

@@ -6,45 +6,51 @@ import { sendConfigUpdate } from './updaters.ts'
 import { WINDOW_SIZE_CONFIG } from '../config/config.ts'
 
 export const setupSettingsHandlers = (): void => {
-    ipcMain.handle(IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE, async (_event, size: 'small' | 'medium' | 'large') => {
-        try {
-            const config = getConfig()
-            updateConfig({
-                settings: {
-                    ...config.settings,
-                    windowSize: size
-                }
-            })
-            updateWindowSize(size)
-            sendConfigUpdate()
-            return { success: true }
-        } catch (error) {
-            console.error('Error updating window size:', error)
-            return { success: false }
+    ipcMain.handle(
+        IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE,
+        async (_event, size: 'small' | 'medium' | 'large') => {
+            try {
+                const config = getConfig()
+                updateConfig({
+                    settings: {
+                        ...config.settings,
+                        windowSize: size,
+                    },
+                })
+                updateWindowSize(size)
+                sendConfigUpdate()
+                return { success: true }
+            } catch (error) {
+                console.error('Error updating window size:', error)
+                return { success: false }
+            }
         }
-    })
+    )
 
-    ipcMain.handle(IPC_EVENTS.SETTINGS.UPDATE_SHORTCUTS, async (_event, shortcuts: Record<string, string>) => {
-        try {
-            const config = getConfig()
-            updateConfig({
-                settings: {
-                    ...config.settings,
-                    shortcuts: {
-                        ...config.settings.shortcuts,
-                        ...shortcuts
-                    }
-                }
-            })
-            cleanupGlobalShortcuts()
-            setupGlobalShortcuts()
-            sendConfigUpdate()
-            return { success: true }
-        } catch (error) {
-            console.error('Error updating shortcuts:', error)
-            return { success: false }
+    ipcMain.handle(
+        IPC_EVENTS.SETTINGS.UPDATE_SHORTCUTS,
+        async (_event, shortcuts: Record<string, string>) => {
+            try {
+                const config = getConfig()
+                updateConfig({
+                    settings: {
+                        ...config.settings,
+                        shortcuts: {
+                            ...config.settings.shortcuts,
+                            ...shortcuts,
+                        },
+                    },
+                })
+                cleanupGlobalShortcuts()
+                setupGlobalShortcuts()
+                sendConfigUpdate()
+                return { success: true }
+            } catch (error) {
+                console.error('Error updating shortcuts:', error)
+                return { success: false }
+            }
         }
-    })
+    )
 
     ipcMain.handle(IPC_EVENTS.SETTINGS.VALIDATE_SHORTCUT, async (_event, shortcut: string) => {
         try {
@@ -66,20 +72,20 @@ export const setupSettingsHandlers = (): void => {
                 value: 'small',
                 label: 'Small',
                 description: 'Compact size for minimal screen usage',
-                dimensions: WINDOW_SIZE_CONFIG.small
+                dimensions: WINDOW_SIZE_CONFIG.small,
             },
             {
                 value: 'medium',
                 label: 'Medium',
                 description: 'Balanced size for most workflows',
-                dimensions: WINDOW_SIZE_CONFIG.medium
+                dimensions: WINDOW_SIZE_CONFIG.medium,
             },
             {
                 value: 'large',
                 label: 'Large',
                 description: 'Spacious for handling longer content',
-                dimensions: WINDOW_SIZE_CONFIG.large
-            }
+                dimensions: WINDOW_SIZE_CONFIG.large,
+            },
         ]
     })
 }

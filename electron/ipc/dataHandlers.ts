@@ -1,6 +1,12 @@
 import { clipboard, ipcMain } from 'electron'
 import { IPC_EVENTS } from '../../shared/ipcEvents.ts'
-import { getBucket, getBucketName, getBuckets, getBucketStats, getConfig } from '../storage/storage.ts'
+import {
+    getBucket,
+    getBucketName,
+    getBuckets,
+    getBucketStats,
+    getConfig,
+} from '../storage/storage.ts'
 
 export const setupDataHandlers = (): void => {
     ipcMain.handle(IPC_EVENTS.DATA.GET_DATA, async () => {
@@ -9,7 +15,7 @@ export const setupDataHandlers = (): void => {
                 buckets: getBuckets(),
                 currentClipboard: clipboard.readText(),
                 config: getConfig(),
-                stats: getBucketStats()
+                stats: getBucketStats(),
             }
         } catch (error) {
             console.error('Error getting data:', error)
@@ -17,7 +23,7 @@ export const setupDataHandlers = (): void => {
                 buckets: [],
                 currentClipboard: '',
                 config: getConfig(),
-                stats: { totalBuckets: 0, totalItems: 0, lastModified: new Date().toISOString() }
+                stats: { totalBuckets: 0, totalItems: 0, lastModified: new Date().toISOString() },
             }
         }
     })

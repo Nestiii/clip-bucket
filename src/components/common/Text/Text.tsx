@@ -21,24 +21,24 @@ interface TextProps {
 }
 
 export const Text: React.FC<TextProps> = ({
-                                              children,
-                                              as: Component = 'span',
-                                              size = 'base',
-                                              weight = 'normal',
-                                              color = 'primary',
-                                              align = 'left',
-                                              transform = 'none',
-                                              truncate = false,
-                                              mono = false,
-                                              italic = false,
-                                              underline = false,
-                                              className,
-                                              style,
-                                              onClick,
-                                              title,
-                                              id,
-                                              ...props
-                                          }) => {
+    children,
+    as: Component = 'span',
+    size = 'base',
+    weight = 'normal',
+    color = 'primary',
+    align = 'left',
+    transform = 'none',
+    truncate = false,
+    mono = false,
+    italic = false,
+    underline = false,
+    className,
+    style,
+    onClick,
+    title,
+    id,
+    ...props
+}) => {
     const classes = [
         styles.text,
         styles[size],
@@ -51,8 +51,10 @@ export const Text: React.FC<TextProps> = ({
         italic && styles.italic,
         underline && styles.underline,
         onClick && styles.clickable,
-        className
-    ].filter(Boolean).join(' ')
+        className,
+    ]
+        .filter(Boolean)
+        .join(' ')
 
     return (
         <Component

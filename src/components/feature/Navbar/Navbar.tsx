@@ -21,7 +21,7 @@ export const Navbar: React.FC = () => {
 
     useEffect(() => {
         if (Boolean(bucketId) && typeof bucketId === 'string') {
-            window.api.getBucketName(bucketId).then(r => {
+            window.api.getBucketName(bucketId).then((r) => {
                 setBucketName(r || '')
             })
         }
@@ -31,30 +31,30 @@ export const Navbar: React.FC = () => {
 
     return (
         <Row className={styles.navContainer}>
-            {
-                (isBucket || isSettings) &&
+            {(isBucket || isSettings) && (
                 <Button
                     onClick={() => navigate(ROUTES.ROOT)}
                     variant={'transparent'}
                     icon={<ArrowLeftIcon />}
                     disableTabbing
                 />
-            }
-            {
-                isHome &&
+            )}
+            {isHome && (
                 <Button
                     onClick={() => navigate(ROUTES.SETTINGS)}
                     variant={'transparent'}
                     icon={<GearSixIcon />}
                     disableTabbing
                 />
-            }
+            )}
             <Text weight={'bold'}>
                 {isBucket && bucketName}
                 {isHome && 'Clip Bucket'}
                 {isSettings && 'Settings'}
             </Text>
-            <Text color={'muted'} size={'xs'}>v0.0.1</Text>
+            <Text color={'muted'} size={'xs'}>
+                v0.0.1
+            </Text>
         </Row>
     )
 }

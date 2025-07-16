@@ -1,6 +1,11 @@
 import { ipcMain } from 'electron'
 import { IPC_EVENTS } from '../../shared/ipcEvents.ts'
-import { getConfig, getLastUsedBucket, setLastUsedBucket, updateConfig } from '../storage/storage.ts'
+import {
+    getConfig,
+    getLastUsedBucket,
+    setLastUsedBucket,
+    updateConfig,
+} from '../storage/storage.ts'
 import { sendConfigUpdate } from './updaters.ts'
 
 export const setupConfigHandlers = (): void => {

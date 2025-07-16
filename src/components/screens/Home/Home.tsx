@@ -12,16 +12,15 @@ import { Row } from '../../common/Row/Row.tsx'
 import { Button } from '../../common/Button/Button.tsx'
 
 export const Home: React.FC = () => {
-
     const navigate = useNavigate()
     const [createBucketMode, setCreateBucketMode] = useState<boolean>(false)
     const [createBucketName, setCreateBucketName] = useState<string>('')
     const { buckets, loading, error, createBucket, deleteBucket, renameBucket } = useBuckets()
     const inputRef = useRef<HTMLInputElement>(null)
-    const {filteredData, searchTerm, handleSearchChange, } = useSearch({
+    const { filteredData, searchTerm, handleSearchChange } = useSearch({
         data: buckets,
         searchFields: ['name'],
-        debounceMs: 300
+        debounceMs: 300,
     })
 
     useEffect(() => {
@@ -37,10 +36,9 @@ export const Home: React.FC = () => {
 
     const handleCreateBucket = async () => {
         try {
-            createBucket(createBucketName.trim())
-                .then(() => {
-                    cancelCreateBucket()
-                })
+            createBucket(createBucketName.trim()).then(() => {
+                cancelCreateBucket()
+            })
         } catch (err) {
             alert('Failed to create bucket')
             cancelCreateBucket()
@@ -75,17 +73,18 @@ export const Home: React.FC = () => {
                     onKeyDown={handleKeyPress}
                     fullWidth
                 />
-                {
-                    createBucketMode &&
+                {createBucketMode && (
                     <Button
                         onClick={handleCreateBucket}
                         variant={'success'}
                         icon={<CheckIcon />}
                         title={'Confirm'}
-                        disabled={!createBucketName || buckets.some(b => b.name === createBucketName)}
-                        style={{height: 36}}
+                        disabled={
+                            !createBucketName || buckets.some((b) => b.name === createBucketName)
+                        }
+                        style={{ height: 36 }}
                     />
-                }
+                )}
                 <Button
                     onClick={() => {
                         if (createBucketMode) cancelCreateBucket()
@@ -94,21 +93,19 @@ export const Home: React.FC = () => {
                     variant={createBucketMode ? 'danger' : 'transparent-bordered'}
                     icon={createBucketMode ? <XIcon /> : <PlusIcon />}
                     title={createBucketMode ? 'Cancel' : 'Create bucket'}
-                    style={{height: 36}}
+                    style={{ height: 36 }}
                 />
             </Row>
             <Column className={styles.bucketsContainer}>
-                {
-                    filteredData.map((bucket) => (
-                        <BucketItem
-                            key={bucket.id}
-                            name={bucket.name}
-                            onClick={() => navigate('/bucket/' + bucket.id)}
-                            onNameChange={(name) => renameBucket(bucket.id, name)}
-                            onDelete={() => deleteBucket(bucket.id)}
-                        />
-                    ))
-                }
+                {filteredData.map((bucket) => (
+                    <BucketItem
+                        key={bucket.id}
+                        name={bucket.name}
+                        onClick={() => navigate('/bucket/' + bucket.id)}
+                        onNameChange={(name) => renameBucket(bucket.id, name)}
+                        onDelete={() => deleteBucket(bucket.id)}
+                    />
+                ))}
             </Column>
         </ScreenWrapper>
     )

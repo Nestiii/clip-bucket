@@ -6,42 +6,50 @@ interface ButtonProps {
     text?: string
     icon?: string | React.ReactNode
     onClick?: MouseEventHandler<HTMLButtonElement>
-    variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'transparent' | 'transparent-bordered'
+    variant?:
+        | 'primary'
+        | 'secondary'
+        | 'danger'
+        | 'success'
+        | 'transparent'
+        | 'transparent-bordered'
     size?: 'sm' | 'md' | 'lg'
     disabled?: boolean
     className?: string
     style?: React.CSSProperties
     type?: 'button' | 'submit' | 'reset'
-    title?: string,
-    disableTabbing?: boolean,
-    autoFocus?: boolean,
-    fullWidth?: boolean,
+    title?: string
+    disableTabbing?: boolean
+    autoFocus?: boolean
+    fullWidth?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
-                                                  children,
-                                                  text,
-                                                  icon,
-                                                  onClick,
-                                                  variant = 'primary',
-                                                  size = 'md',
-                                                  disabled = false,
-                                                  disableTabbing = false,
-                                                  className,
-                                                  style,
-                                                  type = 'button',
-                                                  autoFocus,
-                                                  title,
-                                                  fullWidth,
-                                                  ...props
-                                              }) => {
+    children,
+    text,
+    icon,
+    onClick,
+    variant = 'primary',
+    size = 'md',
+    disabled = false,
+    disableTabbing = false,
+    className,
+    style,
+    type = 'button',
+    autoFocus,
+    title,
+    fullWidth,
+    ...props
+}) => {
     const classes = [
         styles.button,
         styles[variant],
         styles[size],
         fullWidth && styles.fullWidth,
         className,
-    ].filter(Boolean).join(' ')
+    ]
+        .filter(Boolean)
+        .join(' ')
 
     return (
         <button

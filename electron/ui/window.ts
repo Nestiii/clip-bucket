@@ -1,5 +1,10 @@
 import { BrowserWindow, screen, globalShortcut } from 'electron'
-import { APP_CONFIG, VITE_DEV_SERVER_URL, RENDERER_DIST, WINDOW_SIZE_CONFIG } from '../config/config.ts'
+import {
+    APP_CONFIG,
+    VITE_DEV_SERVER_URL,
+    RENDERER_DIST,
+    WINDOW_SIZE_CONFIG,
+} from '../config/config.ts'
 import path from 'node:path'
 import { sendDataUpdate } from '../ipc/updaters.ts'
 import { getConfig } from '../storage/storage.ts'

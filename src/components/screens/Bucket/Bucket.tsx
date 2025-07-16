@@ -22,7 +22,7 @@ export const Bucket: React.FC = () => {
     const { filteredData, searchTerm, handleSearchChange } = useSearch({
         data: clips || [],
         searchFields: ['label', 'content'],
-        debounceMs: 300
+        debounceMs: 300,
     })
 
     useEffect(() => {
@@ -55,15 +55,18 @@ export const Bucket: React.FC = () => {
                     setFullscreenClip('')
                 }}
                 setFullscreenClip={() => setFullscreenClip(fullscreenClip ? '' : clip.id)}
-                onLabelChange={(label) => updateClip(clip.id, {label})}
-                onContentChange={(content) => updateClip(clip.id, {content})}
+                onLabelChange={(label) => updateClip(clip.id, { label })}
+                onContentChange={(content) => updateClip(clip.id, { content })}
                 fullscreen={fullscreen}
                 {...clip}
             />
         )
     }
 
-    const clipsContainerClasses = [styles.clipsContainer, fullscreenClip && styles.clipsContainerFullscreen]
+    const clipsContainerClasses = [
+        styles.clipsContainer,
+        fullscreenClip && styles.clipsContainerFullscreen,
+    ]
         .filter(Boolean)
         .join(' ')
 
@@ -91,7 +94,7 @@ export const Bucket: React.FC = () => {
                             variant={'transparent-bordered'}
                             icon={<PlusIcon />}
                             title={'Create clip'}
-                            style={{height: 36}}
+                            style={{ height: 36 }}
                         />
                     </Row>
                     {showClipboardPreview && currentClipboard && (
@@ -114,7 +117,9 @@ export const Bucket: React.FC = () => {
                     <div className={styles.emptyState}>
                         <ClipboardIcon size={48} />
                         <h3>No clips yet</h3>
-                        <p>Copy something to your clipboard and hit the "+" button to add quickly</p>
+                        <p>
+                            Copy something to your clipboard and hit the "+" button to add quickly
+                        </p>
                     </div>
                 )}
             </Column>

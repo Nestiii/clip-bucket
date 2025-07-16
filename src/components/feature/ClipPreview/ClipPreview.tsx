@@ -12,11 +12,10 @@ interface ClipPreviewProps {
 }
 
 export const ClipPreview: React.FC<ClipPreviewProps> = ({
-                                                            currentClipboard,
-                                                            addClip,
-                                                            setShowClipboardPreview
+    currentClipboard,
+    addClip,
+    setShowClipboardPreview,
 }) => {
-
     const [addClipName, setAddClipName] = useState<string>('')
     const [isAdding, setIsAdding] = useState<boolean>(false)
     const [localValue, setLocalValue] = useState<string>(currentClipboard || '')
@@ -85,7 +84,7 @@ export const ClipPreview: React.FC<ClipPreviewProps> = ({
                 onClick={handleAddFromClipboard}
                 disabled={isAdding || !localValue}
                 size={'sm'}
-                style={{marginTop: '8px'}}
+                style={{ marginTop: '8px' }}
                 fullWidth
             >
                 {isAdding ? 'Adding...' : 'Create clip'}

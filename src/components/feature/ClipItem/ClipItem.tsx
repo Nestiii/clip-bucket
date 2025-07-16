@@ -5,7 +5,14 @@ import { Input } from '../../common/Input/Input.tsx'
 import { Text } from '../../common/Text/Text.tsx'
 import { Button } from '../../common/Button/Button.tsx'
 import { Textarea } from '../../common/TextArea/TextArea.tsx'
-import { CheckIcon, CornersInIcon, CornersOutIcon, PencilIcon, TrashIcon, XIcon } from '@phosphor-icons/react'
+import {
+    CheckIcon,
+    CornersInIcon,
+    CornersOutIcon,
+    PencilIcon,
+    TrashIcon,
+    XIcon,
+} from '@phosphor-icons/react'
 
 export interface ClipItemProps {
     id?: string
@@ -23,19 +30,19 @@ export interface ClipItemProps {
 }
 
 export const ClipItem: React.FC<ClipItemProps> = ({
-                                                      id,
-                                                      label = '',
-                                                      content = '',
-                                                      timestamp = '',
-                                                      onLabelChange,
-                                                      onContentChange,
-                                                      onCopy,
-                                                      onDelete,
-                                                      fullscreen = false,
-                                                      setFullscreenClip,
-                                                      className,
-                                                      style,
-                                                  }) => {
+    id,
+    label = '',
+    content = '',
+    timestamp = '',
+    onLabelChange,
+    onContentChange,
+    onCopy,
+    onDelete,
+    fullscreen = false,
+    setFullscreenClip,
+    className,
+    style,
+}) => {
     const [localLabel, setLocalLabel] = useState<string>('')
     const [localContent, setLocalContent] = useState<string>(content)
     const [deleteMode, setDeleteMode] = useState<boolean>(false)
@@ -163,7 +170,12 @@ export const ClipItem: React.FC<ClipItemProps> = ({
         return date.toLocaleDateString()
     }
 
-    const classes = [styles.clipItem, fullscreen && styles.fullscreen, (editMode || deleteMode) && styles.editing, className]
+    const classes = [
+        styles.clipItem,
+        fullscreen && styles.fullscreen,
+        (editMode || deleteMode) && styles.editing,
+        className,
+    ]
         .filter(Boolean)
         .join(' ')
 
@@ -191,15 +203,23 @@ export const ClipItem: React.FC<ClipItemProps> = ({
                 </div>
                 <div className={styles.actions}>
                     <Button
-                        icon={fullscreen ? <CornersInIcon size={16} /> : <CornersOutIcon size={16} />}
+                        icon={
+                            fullscreen ? <CornersInIcon size={16} /> : <CornersOutIcon size={16} />
+                        }
                         variant={'transparent'}
                         size={'sm'}
                         onClick={setFullscreenClip}
                         title={'Fullscreen'}
                     />
                     <Button
-                        icon={(editMode || deleteMode) ? <CheckIcon size={16} /> : <PencilIcon size={16} />}
-                        variant={(editMode || deleteMode) ? 'success' : 'transparent'}
+                        icon={
+                            editMode || deleteMode ? (
+                                <CheckIcon size={16} />
+                            ) : (
+                                <PencilIcon size={16} />
+                            )
+                        }
+                        variant={editMode || deleteMode ? 'success' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()
@@ -213,8 +233,10 @@ export const ClipItem: React.FC<ClipItemProps> = ({
                         title={'Rename clip'}
                     />
                     <Button
-                        icon={(editMode || deleteMode) ? <XIcon size={16} /> : <TrashIcon size={16} />}
-                        variant={(editMode || deleteMode) ? 'danger' : 'transparent'}
+                        icon={
+                            editMode || deleteMode ? <XIcon size={16} /> : <TrashIcon size={16} />
+                        }
+                        variant={editMode || deleteMode ? 'danger' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()

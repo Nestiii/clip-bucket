@@ -14,7 +14,7 @@ export const useAutoNavigation = () => {
             try {
                 const lastUsedBucketId = await window.api.getLastUsedBucket()
                 if (lastUsedBucketId) {
-                    const bucketExists = buckets.some(bucket => bucket.id === lastUsedBucketId)
+                    const bucketExists = buckets.some((bucket) => bucket.id === lastUsedBucketId)
                     if (bucketExists) {
                         //navigate(`/bucket/${lastUsedBucketId}`)
                         navigate(ROUTES.SETTINGS)

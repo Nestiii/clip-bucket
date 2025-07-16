@@ -54,26 +54,26 @@ const BUCKETS_DIR = path.join(STORAGE_DIR, '.buckets')
 export const WINDOW_SIZE_CONFIG = {
     small: { width: 320, height: 480 },
     medium: { width: 400, height: 600 },
-    large: { width: 520, height: 720 }
+    large: { width: 520, height: 720 },
 }
 
 export const APP_CONFIG = {
     environment: {
         isDevelopment: isDevelopment(),
-        mode: isDevelopment() ? 'development' : 'production'
+        mode: isDevelopment() ? 'development' : 'production',
     },
     window: {
         width: WINDOW_SIZE_CONFIG.medium.width,
         height: WINDOW_SIZE_CONFIG.medium.height,
         backgroundColor: '#111111',
-        screenMargin: 10
+        screenMargin: 10,
     },
     storage: {
         appDataDir: STORAGE_DIR,
         configDir: CONFIG_DIR,
         bucketsDir: BUCKETS_DIR,
         configFile: path.join(CONFIG_DIR, '.config.json'),
-        getBucketPath: (bucketId: string) => path.join(BUCKETS_DIR, `.${bucketId}.json`)
+        getBucketPath: (bucketId: string) => path.join(BUCKETS_DIR, `.${bucketId}.json`),
     },
     paths: {
         preload: path.join(__dirname, 'preload.mjs'),
@@ -81,13 +81,13 @@ export const APP_CONFIG = {
         renderer: VITE_DEV_SERVER_URL || path.join(RENDERER_DIST, 'index.html'),
     },
     shortcuts: {
-        toggleWindow: 'CommandOrControl+Shift+P'
-    }
+        toggleWindow: 'CommandOrControl+Shift+P',
+    },
 }
 
 console.log('📁 Storage paths:', {
     mode: APP_CONFIG.environment.mode,
     storageDir: APP_CONFIG.storage.appDataDir,
     configFile: APP_CONFIG.storage.configFile,
-    bucketsDir: APP_CONFIG.storage.bucketsDir
+    bucketsDir: APP_CONFIG.storage.bucketsDir,
 })

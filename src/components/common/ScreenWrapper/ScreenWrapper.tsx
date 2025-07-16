@@ -12,14 +12,14 @@ interface ScreenWrapperProps {
 }
 
 export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
-                                                                children,
-                                                                className,
-                                                                style,
-                                                                padding = false,
-                                                                center = false,
-                                                                background = 'primary',
-                                                                overflow = 'auto',
-                                                            }) => {
+    children,
+    className,
+    style,
+    padding = false,
+    center = false,
+    background = 'primary',
+    overflow = 'auto',
+}) => {
     const classes = [
         styles.screenWrapper,
         padding && styles.withPadding,

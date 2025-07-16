@@ -18,19 +18,22 @@ export const setupBucketHandlers = (): void => {
         }
     })
 
-    ipcMain.handle(IPC_EVENTS.BUCKET.UPDATE_BUCKET, async (_event, bucketId: string, updates: { name?: string }) => {
-        try {
-            const bucket = updateBucket(bucketId, updates)
-            if (bucket) {
-                sendBucketsUpdate() // Send updated buckets list
-                return bucket
+    ipcMain.handle(
+        IPC_EVENTS.BUCKET.UPDATE_BUCKET,
+        async (_event, bucketId: string, updates: { name?: string }) => {
+            try {
+                const bucket = updateBucket(bucketId, updates)
+                if (bucket) {
+                    sendBucketsUpdate() // Send updated buckets list
+                    return bucket
+                }
+                return null
+            } catch (error) {
+                console.error(`Error updating bucket ${bucketId}:`, error)
+                return null
             }
-            return null
-        } catch (error) {
-            console.error(`Error updating bucket ${bucketId}:`, error)
-            return null
         }
-    })
+    )
 
     ipcMain.handle(IPC_EVENTS.BUCKET.DELETE_BUCKET, async (_event, bucketId: string) => {
         try {

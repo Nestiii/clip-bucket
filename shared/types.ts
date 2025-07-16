@@ -68,7 +68,11 @@ export interface ClipBucketAPI {
     // Clip operations
     saveToBucket: (bucketId: string, label?: string) => Promise<Clip | null>
     addClipToBucket: (bucketId: string, content: string, label?: string) => Promise<Clip | null>
-    updateClip: (bucketId: string, itemId: string, updates: { content?: string; label?: string }) => Promise<Clip | null>
+    updateClip: (
+        bucketId: string,
+        itemId: string,
+        updates: { content?: string; label?: string }
+    ) => Promise<Clip | null>
     deleteClip: (bucketId: string, itemId: string) => Promise<boolean>
     copyItem: (text: string, hideAfterCopy?: boolean) => Promise<boolean>
 
@@ -88,12 +92,18 @@ export interface ClipBucketAPI {
     clearClipboard: () => Promise<boolean>
 
     // Import/Export operations
-    importLegacyBuckets: (legacyData: Record<string, string[]>) => Promise<{ success: boolean; importedCount: number }>
+    importLegacyBuckets: (
+        legacyData: Record<string, string[]>
+    ) => Promise<{ success: boolean; importedCount: number }>
     exportBuckets: () => Promise<any>
 
     // Settings operations
-    updateWindowSize: (size: 'small' | 'medium' | 'large') => Promise<{ success: boolean; error?: string }>
-    updateShortcuts: (shortcuts: Record<string, string>) => Promise<{ success: boolean; error?: string }>
+    updateWindowSize: (
+        size: 'small' | 'medium' | 'large'
+    ) => Promise<{ success: boolean; error?: string }>
+    updateShortcuts: (
+        shortcuts: Record<string, string>
+    ) => Promise<{ success: boolean; error?: string }>
     validateShortcut: (shortcut: string) => Promise<ShortcutValidation>
     getWindowSizes: () => Promise<WindowSizeOption[]>
 

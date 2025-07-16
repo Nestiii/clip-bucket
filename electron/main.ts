@@ -3,7 +3,8 @@ import {
     initializeStorage,
     loadConfig,
     loadBuckets,
-    saveConfig, createDefaultBucketIfNeeded,
+    saveConfig,
+    createDefaultBucketIfNeeded,
 } from './storage/storage.ts'
 import { cleanupGlobalShortcuts, createWindow, setupGlobalShortcuts } from './ui/window.ts'
 import { createTray, destroyTray } from './ui/tray.ts'

@@ -1,16 +1,15 @@
 :root {
-
     /* Color Palette */
-    --color-bg-primary: #111111;     /* Darkest - main background */
-    --color-bg-secondary: #1c1c1c;   /* Lighter dark - surfaces */
-    --color-text-primary: #fffed5;   /* Light cream - main text */
+    --color-bg-primary: #111111; /* Darkest - main background */
+    --color-bg-secondary: #1c1c1c; /* Lighter dark - surfaces */
+    --color-text-primary: #fffed5; /* Light cream - main text */
     --color-accent-primary: #fee402; /* Bright yellow - primary actions */
     --color-accent-secondary: #fdca00; /* Darker yellow - hover states */
 
     /* Extended palette based on your colors */
-    --color-bg-elevated: #2a2a2a;    /* Slightly lighter for elevated surfaces */
+    --color-bg-elevated: #2a2a2a; /* Slightly lighter for elevated surfaces */
     --color-text-secondary: #e6e3b8; /* Slightly darker cream for secondary text */
-    --color-text-muted: #a8a690;     /* Muted version for labels */
+    --color-text-muted: #a8a690; /* Muted version for labels */
 
     /* State colors derived from your palette */
     --color-success: #4ade80;
@@ -93,7 +92,9 @@
 }
 
 /* Global Styles */
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     padding: 0;
     font-family: var(--font-family-ui);

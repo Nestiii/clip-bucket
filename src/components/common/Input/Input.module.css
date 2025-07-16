@@ -203,7 +203,7 @@
 }
 
 /* Special Types */
-.input[type="search"]::-webkit-search-cancel-button {
+.input[type='search']::-webkit-search-cancel-button {
     -webkit-appearance: none;
     height: 16px;
     width: 16px;
@@ -212,12 +212,12 @@
     cursor: pointer;
 }
 
-.input[type="number"]::-webkit-inner-spin-button,
-.input[type="number"]::-webkit-outer-spin-button {
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.input[type="number"] {
+.input[type='number'] {
     -moz-appearance: textfield;
 }

@@ -11,19 +11,14 @@ interface AppErrorBoundaryProps {
 }
 
 export const AppErrorBoundary: React.FC<AppErrorBoundaryProps> = ({
-                                                                      fallback = ErrorFallback,
-                                                                      onError,
-                                                                      onReset,
-                                                                      resetKeys,
-                                                                      ...props
-                                                                  }) => {
-
+    fallback = ErrorFallback,
+    onError,
+    onReset,
+    resetKeys,
+    ...props
+}) => {
     return (
-        <ErrorBoundary
-            FallbackComponent={fallback}
-            resetKeys={resetKeys}
-            {...props}
-        >
+        <ErrorBoundary FallbackComponent={fallback} resetKeys={resetKeys} {...props}>
             <Outlet />
         </ErrorBoundary>
     )

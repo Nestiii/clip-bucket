@@ -12,12 +12,15 @@ export const setupSearchHandlers = (): void => {
         }
     })
 
-    ipcMain.handle(IPC_EVENTS.SEARCH.SEARCH_CLIPS, async (_event, bucketId: string, query: string) => {
-        try {
-            return searchClips(bucketId, query)
-        } catch (error) {
-            console.error(`Error searching items in bucket ${bucketId}:`, error)
-            return []
+    ipcMain.handle(
+        IPC_EVENTS.SEARCH.SEARCH_CLIPS,
+        async (_event, bucketId: string, query: string) => {
+            try {
+                return searchClips(bucketId, query)
+            } catch (error) {
+                console.error(`Error searching items in bucket ${bucketId}:`, error)
+                return []
+            }
         }
-    })
+    )
 }

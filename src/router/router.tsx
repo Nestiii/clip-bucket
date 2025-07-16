@@ -26,7 +26,7 @@ export const router = createHashRouter([
                         path: ROUTES.SETTINGS,
                         element: <Settings />,
                     },
-                ]
+                ],
             },
             {
                 path: ROUTES.LOGIN,

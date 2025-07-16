@@ -9,10 +9,10 @@ interface ErrorFallbackProps {
 }
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
-                                                                error,
-                                                                title = 'Oops! Something went wrong',
-                                                                message = 'We\'re sorry, but something unexpected happened. Please try again.',
-                                                            }) => {
+    error,
+    title = 'Oops! Something went wrong',
+    message = "We're sorry, but something unexpected happened. Please try again.",
+}) => {
     const isDev = process.env.NODE_ENV === 'development'
 
     return (

@@ -40,106 +40,113 @@ interface InputProps {
     suffix?: string
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({
-                                                                   type = 'text',
-                                                                   value,
-                                                                   defaultValue,
-                                                                   onChange,
-                                                                   onFocus,
-                                                                   onBlur,
-                                                                   onKeyDown,
-                                                                   placeholder,
-                                                                   disabled = false,
-                                                                   readonly = false,
-                                                                   required = false,
-                                                                   autoFocus = false,
-                                                                   autoComplete,
-                                                                   className,
-                                                                   style,
-                                                                   size = 'md',
-                                                                   variant = 'default',
-                                                                   error = false,
-                                                                   success = false,
-                                                                   fullWidth = false,
-                                                                   name,
-                                                                   id,
-                                                                   'aria-label': ariaLabel,
-                                                                   'aria-describedby': ariaDescribedBy,
-                                                                   'aria-invalid': ariaInvalid,
-                                                                   min,
-                                                                   max,
-                                                                   step,
-                                                                   maxLength,
-                                                                   minLength,
-                                                                   pattern,
-                                                                   title,
-                                                                   leftIcon,
-                                                                   rightIcon,
-                                                                   prefix,
-                                                                   suffix,
-                                                                   ...props
-                                                               }, ref) => {
-    const hasWrapperElements = leftIcon || rightIcon || prefix || suffix
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    (
+        {
+            type = 'text',
+            value,
+            defaultValue,
+            onChange,
+            onFocus,
+            onBlur,
+            onKeyDown,
+            placeholder,
+            disabled = false,
+            readonly = false,
+            required = false,
+            autoFocus = false,
+            autoComplete,
+            className,
+            style,
+            size = 'md',
+            variant = 'default',
+            error = false,
+            success = false,
+            fullWidth = false,
+            name,
+            id,
+            'aria-label': ariaLabel,
+            'aria-describedby': ariaDescribedBy,
+            'aria-invalid': ariaInvalid,
+            min,
+            max,
+            step,
+            maxLength,
+            minLength,
+            pattern,
+            title,
+            leftIcon,
+            rightIcon,
+            prefix,
+            suffix,
+            ...props
+        },
+        ref
+    ) => {
+        const hasWrapperElements = leftIcon || rightIcon || prefix || suffix
 
-    const inputClasses = [
-        styles.input,
-        styles[variant],
-        styles[size],
-        error && styles.error,
-        success && styles.success,
-        disabled && styles.disabled,
-        readonly && styles.readonly,
-        fullWidth && styles.fullWidth,
-        hasWrapperElements && styles.hasWrapper,
-        className
-    ].filter(Boolean).join(' ')
+        const inputClasses = [
+            styles.input,
+            styles[variant],
+            styles[size],
+            error && styles.error,
+            success && styles.success,
+            disabled && styles.disabled,
+            readonly && styles.readonly,
+            fullWidth && styles.fullWidth,
+            hasWrapperElements && styles.hasWrapper,
+            className,
+        ]
+            .filter(Boolean)
+            .join(' ')
 
-    const inputElement = (
-        <input
-            ref={ref}
-            type={type}
-            value={value}
-            defaultValue={defaultValue}
-            onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onKeyDown={onKeyDown}
-            placeholder={placeholder}
-            disabled={disabled}
-            readOnly={readonly}
-            required={required}
-            autoFocus={autoFocus}
-            autoComplete={autoComplete}
-            className={hasWrapperElements ? styles.inputElement : inputClasses}
-            name={name}
-            id={id}
-            aria-label={ariaLabel}
-            aria-describedby={ariaDescribedBy}
-            aria-invalid={ariaInvalid || error}
-            min={min}
-            max={max}
-            step={step}
-            maxLength={maxLength}
-            minLength={minLength}
-            pattern={pattern}
-            title={title}
-            {...props}
-        />
-    )
-
-    if (hasWrapperElements) {
-        return (
-            <div className={inputClasses} style={style}>
-                {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
-                {prefix && <span className={styles.prefix}>{prefix}</span>}
-                {inputElement}
-                {suffix && <span className={styles.suffix}>{suffix}</span>}
-                {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
-            </div>
+        const inputElement = (
+            <input
+                ref={ref}
+                type={type}
+                value={value}
+                defaultValue={defaultValue}
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onKeyDown={onKeyDown}
+                placeholder={placeholder}
+                disabled={disabled}
+                readOnly={readonly}
+                required={required}
+                autoFocus={autoFocus}
+                autoComplete={autoComplete}
+                className={hasWrapperElements ? styles.inputElement : inputClasses}
+                name={name}
+                id={id}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-invalid={ariaInvalid || error}
+                min={min}
+                max={max}
+                step={step}
+                maxLength={maxLength}
+                minLength={minLength}
+                pattern={pattern}
+                title={title}
+                {...props}
+            />
         )
-    }
 
-    return React.cloneElement(inputElement, { style })
-})
+        if (hasWrapperElements) {
+            return (
+                <div className={inputClasses} style={style}>
+                    {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
+                    {prefix && <span className={styles.prefix}>{prefix}</span>}
+                    {inputElement}
+                    {suffix && <span className={styles.suffix}>{suffix}</span>}
+                    {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
+                </div>
+            )
+        }
+
+        return React.cloneElement(inputElement, { style })
+    }
+)
 
 Input.displayName = 'Input'

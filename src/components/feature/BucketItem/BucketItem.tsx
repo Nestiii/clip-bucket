@@ -16,14 +16,14 @@ export interface BucketItemProps {
 }
 
 export const BucketItem: React.FC<BucketItemProps> = ({
-                                                          id,
-                                                          name = '',
-                                                          onNameChange,
-                                                          onDelete,
-                                                          onClick,
-                                                          className,
-                                                          style,
-                                                      }) => {
+    id,
+    name = '',
+    onNameChange,
+    onDelete,
+    onClick,
+    className,
+    style,
+}) => {
     const [localName, setLocalName] = useState<string>('')
     const [editMode, setEditMode] = useState<boolean>(false)
     const [deleteMode, setDeleteMode] = useState<boolean>(false)
@@ -69,7 +69,13 @@ export const BucketItem: React.FC<BucketItemProps> = ({
         .join(' ')
 
     return (
-        <div className={classes} style={style} id={id} tabIndex={0} onKeyDown={handleWrapperKeyDown}>
+        <div
+            className={classes}
+            style={style}
+            id={id}
+            tabIndex={0}
+            onKeyDown={handleWrapperKeyDown}
+        >
             <div className={styles.bucketContent} onClick={!editMode ? onClick : undefined}>
                 <div className={styles.iconSection}>
                     <div className={styles.bucketIcon}>
@@ -99,8 +105,14 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                 </div>
                 <div className={styles.actions}>
                     <Button
-                        icon={(editMode || deleteMode) ? <CheckIcon size={16} /> : <PencilIcon size={16} />}
-                        variant={(editMode || deleteMode) ? 'success' : 'transparent'}
+                        icon={
+                            editMode || deleteMode ? (
+                                <CheckIcon size={16} />
+                            ) : (
+                                <PencilIcon size={16} />
+                            )
+                        }
+                        variant={editMode || deleteMode ? 'success' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()
@@ -115,8 +127,10 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                         disableTabbing
                     />
                     <Button
-                        icon={(editMode || deleteMode) ? <XIcon size={16} /> : <TrashIcon size={16} />}
-                        variant={(editMode || deleteMode) ? 'danger' : 'transparent'}
+                        icon={
+                            editMode || deleteMode ? <XIcon size={16} /> : <TrashIcon size={16} />
+                        }
+                        variant={editMode || deleteMode ? 'danger' : 'transparent'}
                         size={'sm'}
                         onClick={(e) => {
                             e.stopPropagation()

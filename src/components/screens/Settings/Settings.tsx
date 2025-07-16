@@ -21,20 +21,20 @@ const WINDOW_SIZE_OPTIONS: WindowSizeOption[] = [
         value: 'small',
         label: 'Small',
         description: 'Compact size for minimal screen usage',
-        dimensions: { width: 320, height: 480 }
+        dimensions: { width: 320, height: 480 },
     },
     {
         value: 'medium',
         label: 'Medium',
         description: 'Balanced size for most workflows',
-        dimensions: { width: 400, height: 600 }
+        dimensions: { width: 400, height: 600 },
     },
     {
         value: 'large',
         label: 'Large',
         description: 'Spacious for handling longer content',
-        dimensions: { width: 520, height: 720 }
-    }
+        dimensions: { width: 520, height: 720 },
+    },
 ]
 
 export const Settings: React.FC = () => {
@@ -53,7 +53,9 @@ export const Settings: React.FC = () => {
                 const config = await window.api.getConfig()
                 if (config) {
                     setWindowSize(config.settings.windowSize || 'medium')
-                    setShortcut(config.settings.shortcuts.toggleWindow || 'CommandOrControl+Shift+P')
+                    setShortcut(
+                        config.settings.shortcuts.toggleWindow || 'CommandOrControl+Shift+P'
+                    )
                 }
             } catch (error) {
                 console.error('Error loading settings:', error)
@@ -102,7 +104,10 @@ export const Settings: React.FC = () => {
             keys.push(e.key.length === 1 ? e.key.toUpperCase() : e.key)
         }
         setRecordedKeys(keys)
-        if (keys.length > 0 && !['Control', 'Meta', 'Shift', 'Alt'].includes(keys[keys.length - 1])) {
+        if (
+            keys.length > 0 &&
+            !['Control', 'Meta', 'Shift', 'Alt'].includes(keys[keys.length - 1])
+        ) {
             setTempShortcut(keys.join('+'))
         }
     }
@@ -116,7 +121,7 @@ export const Settings: React.FC = () => {
                 return
             }
             const result = await window.api.updateShortcuts({
-                toggleWindow: tempShortcut
+                toggleWindow: tempShortcut,
             })
             if (result.success) {
                 setShortcut(tempShortcut)
@@ -157,7 +162,9 @@ export const Settings: React.FC = () => {
                 <Column className={styles.mainColumn}>
                     <Column className={styles.sectionColumn}>
                         <Row className={styles.sectionHeader}>
-                            <Text size="lg" weight="semibold">Window Size</Text>
+                            <Text size="lg" weight="semibold">
+                                Window Size
+                            </Text>
                         </Row>
                         <Column className={styles.optionsColumn}>
                             {WINDOW_SIZE_OPTIONS.map((option) => (
@@ -169,10 +176,14 @@ export const Settings: React.FC = () => {
                                     <Row className={styles.optionRow}>
                                         <Column className={styles.optionContent}>
                                             <Text weight="medium">{option.label}</Text>
-                                            <Text size="sm" color="muted">{option.description}</Text>
+                                            <Text size="sm" color="muted">
+                                                {option.description}
+                                            </Text>
                                         </Column>
                                         <div className={styles.radioButton}>
-                                            {windowSize === option.value && <div className={styles.radioButtonSelected} />}
+                                            {windowSize === option.value && (
+                                                <div className={styles.radioButtonSelected} />
+                                            )}
                                         </div>
                                     </Row>
                                 </div>
@@ -181,19 +192,25 @@ export const Settings: React.FC = () => {
                     </Column>
                     <Column className={styles.sectionColumn}>
                         <Row className={styles.sectionHeader}>
-                            <Text size="lg" weight="semibold">Keyboard Shortcuts</Text>
+                            <Text size="lg" weight="semibold">
+                                Keyboard Shortcuts
+                            </Text>
                         </Row>
                         <div className={styles.shortcutSection}>
                             <Column className={styles.shortcutColumn}>
                                 <Column className={styles.shortcutInfo}>
                                     <Text weight="medium">Toggle Window</Text>
-                                    <Text size="sm" color="muted">Show/hide the ClipBucket window</Text>
+                                    <Text size="sm" color="muted">
+                                        Show/hide the ClipBucket window
+                                    </Text>
                                 </Column>
                                 <Row className={styles.shortcutControls}>
                                     {!isEditingShortcut ? (
                                         <>
                                             <div className={styles.shortcutDisplay}>
-                                                <Text size="sm" mono>{formatShortcut(shortcut)}</Text>
+                                                <Text size="sm" mono>
+                                                    {formatShortcut(shortcut)}
+                                                </Text>
                                             </div>
                                             <Button
                                                 variant="secondary"
@@ -208,12 +225,15 @@ export const Settings: React.FC = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <div className={`${styles.shortcutDisplay} ${isRecordingShortcut ? styles.recording : ''}`}>
+                                            <div
+                                                className={`${styles.shortcutDisplay} ${isRecordingShortcut ? styles.recording : ''}`}
+                                            >
                                                 <Text size="sm" mono>
                                                     {isRecordingShortcut
-                                                        ? (recordedKeys.length > 0 ? formatShortcut(recordedKeys.join('+')) : 'Press keys...')
-                                                        : formatShortcut(tempShortcut || shortcut)
-                                                    }
+                                                        ? recordedKeys.length > 0
+                                                            ? formatShortcut(recordedKeys.join('+'))
+                                                            : 'Press keys...'
+                                                        : formatShortcut(tempShortcut || shortcut)}
                                                 </Text>
                                             </div>
                                             {!isRecordingShortcut ? (
@@ -253,7 +273,9 @@ export const Settings: React.FC = () => {
                         </div>
                     </Column>
                     <Column className={styles.sectionColumn}>
-                        <Text size="lg" weight="semibold">Other Settings</Text>
+                        <Text size="lg" weight="semibold">
+                            Other Settings
+                        </Text>
                         <div className={styles.comingSoon}>
                             <Text size="sm" color="muted" align="center">
                                 More settings coming soon...

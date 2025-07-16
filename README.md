@@ -22,25 +22,28 @@ A modern, privacy-first clipboard manager for developers and power users. Organi
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/clipbucket.git
-   cd clipbucket
-   ```
+
+    ```bash
+    git clone https://github.com/yourusername/clipbucket.git
+    cd clipbucket
+    ```
 
 2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 3. **Start development**
-   ```bash
-   npm run dev
-   ```
+
+    ```bash
+    npm run dev
+    ```
 
 4. **Build for production**
-   ```bash
-   npm run build
-   ```
+    ```bash
+    npm run build
+    ```
 
 ## 🏗️ Tech Stack
 

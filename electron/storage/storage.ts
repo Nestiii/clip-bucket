@@ -12,9 +12,9 @@ let appConfig: AppConfig = {
         theme: 'dark',
         autoHide: true,
         shortcuts: {
-            toggleWindow: 'CommandOrControl+Shift+P'
-        }
-    }
+            toggleWindow: 'CommandOrControl+Shift+P',
+        },
+    },
 }
 
 const ensureDirectoryExists = (dirPath: string): void => {
@@ -118,8 +118,9 @@ export const updateConfig = (updates: Partial<AppConfig>): void => {
 
 export const loadBuckets = (): void => {
     try {
-        const bucketFiles = fs.readdirSync(APP_CONFIG.storage.bucketsDir)
-            .filter(file => file.endsWith('.json'))
+        const bucketFiles = fs
+            .readdirSync(APP_CONFIG.storage.bucketsDir)
+            .filter((file) => file.endsWith('.json'))
         buckets.clear()
         for (const file of bucketFiles) {
             const bucketPath = path.join(APP_CONFIG.storage.bucketsDir, file)
@@ -127,7 +128,9 @@ export const loadBuckets = (): void => {
             const bucket: Bucket = JSON.parse(data)
             buckets.set(bucket.id, bucket)
         }
-        console.log(`📦 Loaded ${buckets.size} buckets in ${APP_CONFIG.environment.mode.toUpperCase()} mode`)
+        console.log(
+            `📦 Loaded ${buckets.size} buckets in ${APP_CONFIG.environment.mode.toUpperCase()} mode`
+        )
     } catch (error) {
         console.error('❌ Error loading buckets:', error)
         buckets.clear()
@@ -155,9 +158,9 @@ export const deleteBucketFile = (bucketId: string): void => {
 }
 
 export const getBuckets = (): BucketDTO[] => {
-    return Array.from(buckets.values()).sort((a, b) =>
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    ).map((bucket) => ({name: bucket.name, id: bucket.id, timestamp: bucket.timestamp}))
+    return Array.from(buckets.values())
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .map((bucket) => ({ name: bucket.name, id: bucket.id, timestamp: bucket.timestamp }))
 }
 
 export const getBucket = (bucketId: string): Bucket | undefined => {
@@ -171,25 +174,28 @@ export const getBucketName = (bucketId: string): string | null => {
 
 export const createBucket = (name: string): Bucket | null => {
     if (!name || !name.trim()) return null
-    const existingBucket = Array.from(buckets.values()).find(b => b.name === name.trim())
+    const existingBucket = Array.from(buckets.values()).find((b) => b.name === name.trim())
     if (existingBucket) return null
     const bucket: Bucket = {
         id: generateId(),
         name: name.trim(),
         timestamp: new Date().toISOString(),
-        clips: []
+        clips: [],
     }
     saveBucket(bucket)
     return bucket
 }
 
-export const updateBucket = (bucketId: string, updates: Partial<Omit<Bucket, 'id'>>): Bucket | null => {
+export const updateBucket = (
+    bucketId: string,
+    updates: Partial<Omit<Bucket, 'id'>>
+): Bucket | null => {
     const bucket = buckets.get(bucketId)
     if (!bucket) return null
     const updatedBucket: Bucket = {
         ...bucket,
         ...updates,
-        id: bucketId
+        id: bucketId,
     }
     saveBucket(updatedBucket)
     return updatedBucket
@@ -210,22 +216,26 @@ export const addClipToBucket = (bucketId: string, content: string, label?: strin
         id: generateId(),
         content: content.trim(),
         timestamp: new Date().toISOString(),
-        label: label?.trim() || 'Untitled clip'
+        label: label?.trim() || 'Untitled clip',
     }
     bucket.clips.unshift(item)
     saveBucket(bucket)
     return item
 }
 
-export const updateClip = (bucketId: string, itemId: string, updates: Partial<Omit<Clip, 'id'>>): Clip | null => {
+export const updateClip = (
+    bucketId: string,
+    itemId: string,
+    updates: Partial<Omit<Clip, 'id'>>
+): Clip | null => {
     const bucket = buckets.get(bucketId)
     if (!bucket) return null
-    const itemIndex = bucket.clips.findIndex(item => item.id === itemId)
+    const itemIndex = bucket.clips.findIndex((item) => item.id === itemId)
     if (itemIndex === -1) return null
     const updatedItem: Clip = {
         ...bucket.clips[itemIndex],
         ...updates,
-        id: itemId
+        id: itemId,
     }
     bucket.clips[itemIndex] = updatedItem
     saveBucket(bucket)
@@ -235,7 +245,7 @@ export const updateClip = (bucketId: string, itemId: string, updates: Partial<Om
 export const deleteClipFromBucket = (bucketId: string, itemId: string): boolean => {
     const bucket = buckets.get(bucketId)
     if (!bucket) return false
-    const itemIndex = bucket.clips.findIndex(item => item.id === itemId)
+    const itemIndex = bucket.clips.findIndex((item) => item.id === itemId)
     if (itemIndex === -1) return false
     bucket.clips.splice(itemIndex, 1)
     saveBucket(bucket)
@@ -246,7 +256,7 @@ export const getBucketStats = () => {
     const stats = {
         totalBuckets: buckets.size,
         totalClips: 0,
-        lastModified: new Date(0).toISOString()
+        lastModified: new Date(0).toISOString(),
     }
     for (const bucket of buckets.values()) {
         stats.totalClips += bucket.clips.length
@@ -257,12 +267,10 @@ export const getBucketStats = () => {
     return stats
 }
 
-export const searchBuckets = (query: string): { name: string, id: string, timestamp: string }[] => {
+export const searchBuckets = (query: string): { name: string; id: string; timestamp: string }[] => {
     if (!query.trim()) return getBuckets()
     const searchTerm = query.toLowerCase()
-    return getBuckets().filter(bucket =>
-        bucket.name.toLowerCase().includes(searchTerm)
-    )
+    return getBuckets().filter((bucket) => bucket.name.toLowerCase().includes(searchTerm))
 }
 
 export const searchClips = (bucketId: string, query: string): Clip[] => {
@@ -270,9 +278,10 @@ export const searchClips = (bucketId: string, query: string): Clip[] => {
     if (!bucket) return []
     if (!query.trim()) return bucket.clips
     const searchTerm = query.toLowerCase()
-    return bucket.clips.filter(item =>
-        item.content.toLowerCase().includes(searchTerm) ||
-        item.label?.toLowerCase().includes(searchTerm)
+    return bucket.clips.filter(
+        (item) =>
+            item.content.toLowerCase().includes(searchTerm) ||
+            item.label?.toLowerCase().includes(searchTerm)
     )
 }
 
@@ -280,7 +289,9 @@ export const createDefaultBucketIfNeeded = (): void => {
     try {
         const existingBuckets = getBuckets()
         if (existingBuckets.length === 0) {
-            console.log(`📝 Creating default bucket in ${APP_CONFIG.environment.mode.toUpperCase()} mode...`)
+            console.log(
+                `📝 Creating default bucket in ${APP_CONFIG.environment.mode.toUpperCase()} mode...`
+            )
             const defaultBucket = createBucket('My Clips')
             if (defaultBucket) {
                 console.log('✅ Default bucket created successfully')
@@ -299,8 +310,8 @@ export const setLastUsedBucket = (bucketId: string): void => {
         updateConfig({
             settings: {
                 ...config.settings,
-                lastUsedBucketId: bucketId
-            }
+                lastUsedBucketId: bucketId,
+            },
         })
     } catch (error) {
         console.error('❌ Error setting last used bucket:', error)

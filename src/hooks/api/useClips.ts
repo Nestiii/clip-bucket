@@ -48,7 +48,10 @@ export const useClips = () => {
         }
     }
 
-    const updateClip = async (clipId: string, updates: { content?: string; label?: string }): Promise<Clip | null> => {
+    const updateClip = async (
+        clipId: string,
+        updates: { content?: string; label?: string }
+    ): Promise<Clip | null> => {
         if (!bucketId) throw new Error('No bucket ID')
         try {
             const updatedClip = await window.api.updateClip(bucketId, clipId, updates)
@@ -109,20 +112,32 @@ export const useClips = () => {
                 setClips(updatedBucket.clips)
             }
         }
-        const handleClipUpdate = ({ bucketId: updatedBucketId, clip }: { bucketId: string; clip: Clip }) => {
+        const handleClipUpdate = ({
+            bucketId: updatedBucketId,
+            clip,
+        }: {
+            bucketId: string
+            clip: Clip
+        }) => {
             if (updatedBucketId === bucketId) {
                 console.log('Received clip update:', clip)
-                setClips(prevClips =>
-                    prevClips.map(existingClip =>
+                setClips((prevClips) =>
+                    prevClips.map((existingClip) =>
                         existingClip.id === clip.id ? clip : existingClip
                     )
                 )
             }
         }
-        const handleClipDeleted = ({ bucketId: updatedBucketId, clipId }: { bucketId: string; clipId: string }) => {
+        const handleClipDeleted = ({
+            bucketId: updatedBucketId,
+            clipId,
+        }: {
+            bucketId: string
+            clipId: string
+        }) => {
             if (updatedBucketId === bucketId) {
                 console.log('Clip deleted:', clipId)
-                setClips(prevClips => prevClips.filter(clip => clip.id !== clipId))
+                setClips((prevClips) => prevClips.filter((clip) => clip.id !== clipId))
             }
         }
         const handleDataUpdate = (data: any) => {
@@ -159,6 +174,6 @@ export const useClips = () => {
         deleteClip,
         copyClip,
         loadClips,
-        searchClips
+        searchClips,
     }
 }
