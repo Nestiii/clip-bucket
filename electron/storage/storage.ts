@@ -2,9 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { APP_CONFIG } from '../config/config.ts'
 import { AppConfig, Bucket, BucketDTO, Clip } from '../../shared/types.ts'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
-// In-memory storage
 let buckets: Map<string, Bucket> = new Map()
 let appConfig: AppConfig = {
     version: '0.0.0',
@@ -20,7 +19,7 @@ let appConfig: AppConfig = {
 
 const ensureDirectoryExists = (dirPath: string): void => {
     if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, { recursive: true })
+        fs.mkdirSync(dirPath, { recursive: true, mode: 0o700 })
     }
 }
 
@@ -28,38 +27,76 @@ const generateId = (): string => {
     return uuidv4()
 }
 
-// Initialize storage directories
 export const initializeStorage = (): void => {
     try {
+        console.log(`🔧 Initializing ${APP_CONFIG.environment.mode.toUpperCase()} storage...`)
         ensureDirectoryExists(APP_CONFIG.storage.appDataDir)
         ensureDirectoryExists(APP_CONFIG.storage.configDir)
         ensureDirectoryExists(APP_CONFIG.storage.bucketsDir)
-
-        console.log('Storage directories initialized:')
-        console.log('- App Data:', APP_CONFIG.storage.appDataDir)
-        console.log('- Config:', APP_CONFIG.storage.configDir)
-        console.log('- Buckets:', APP_CONFIG.storage.bucketsDir)
+        hideDirectories()
+        console.log('✅ Storage directories initialized:')
+        console.log(`📁 Mode: ${APP_CONFIG.environment.mode.toUpperCase()}`)
+        console.log(`📁 Storage: ${APP_CONFIG.storage.appDataDir}`)
     } catch (error) {
-        console.error('Error initializing storage directories:', error)
+        console.error('❌ Error initializing storage directories:', error)
+        throw new Error(`Storage initialization failed: ${error}`)
     }
 }
 
-// Config file operations
+const hideDirectories = (): void => {
+    const { appDataDir } = APP_CONFIG.storage
+    try {
+        switch (process.platform) {
+            case 'win32':
+                hideWindowsDirectory(appDataDir)
+                break
+            case 'darwin':
+                hideMacOSDirectory(appDataDir)
+                break
+            case 'linux':
+                console.log('🐧 Linux: Using dot-prefixed directory (hidden by default)')
+                break
+            default:
+                console.log('🤷 Unknown platform: Directory created but not specifically hidden')
+        }
+    } catch (error) {
+        console.warn('⚠️ Could not apply platform-specific hiding:', error)
+    }
+}
+
+const hideWindowsDirectory = (dirPath: string): void => {
+    try {
+        const { execSync } = require('child_process')
+        execSync(`attrib +H +S "${dirPath}"`, { stdio: 'ignore', timeout: 5000 })
+        console.log('🪟 Windows: Applied hidden+system attributes')
+    } catch (error) {
+        console.warn('🪟 Windows: Could not set hidden attribute:', error)
+    }
+}
+
+const hideMacOSDirectory = (dirPath: string): void => {
+    try {
+        const { execSync } = require('child_process')
+        execSync(`chflags hidden "${dirPath}"`, { stdio: 'ignore', timeout: 5000 })
+        console.log('🍎 macOS: Applied hidden flag')
+    } catch (error) {
+        console.warn('🍎 macOS: Could not set hidden flag:', error)
+    }
+}
+
 export const loadConfig = (): void => {
     try {
         if (fs.existsSync(APP_CONFIG.storage.configFile)) {
             const data = fs.readFileSync(APP_CONFIG.storage.configFile, 'utf8')
             const loadedConfig = JSON.parse(data)
             appConfig = { ...appConfig, ...loadedConfig }
-            console.log('Config loaded successfully')
+            console.log(`⚙️ ${APP_CONFIG.environment.mode.toUpperCase()} config loaded`)
         } else {
-            // Create default config file
             saveConfig()
-            console.log('Default config created')
+            console.log(`⚙️ Default ${APP_CONFIG.environment.mode.toUpperCase()} config created`)
         }
     } catch (error) {
-        console.error('Error loading config:', error)
-        // Use default config on error
+        console.error('❌ Error loading config:', error)
     }
 }
 
@@ -68,7 +105,7 @@ export const saveConfig = (): void => {
         appConfig.lastModified = new Date().toISOString()
         fs.writeFileSync(APP_CONFIG.storage.configFile, JSON.stringify(appConfig, null, 2))
     } catch (error) {
-        console.error('Error saving config:', error)
+        console.error('❌ Error saving config:', error)
     }
 }
 
@@ -79,7 +116,6 @@ export const updateConfig = (updates: Partial<AppConfig>): void => {
     saveConfig()
 }
 
-// Bucket file operations
 export const loadBuckets = (): void => {
     try {
         const bucketFiles = fs.readdirSync(APP_CONFIG.storage.bucketsDir)
@@ -91,9 +127,9 @@ export const loadBuckets = (): void => {
             const bucket: Bucket = JSON.parse(data)
             buckets.set(bucket.id, bucket)
         }
-        console.log(`Loaded ${buckets.size} buckets`)
+        console.log(`📦 Loaded ${buckets.size} buckets in ${APP_CONFIG.environment.mode.toUpperCase()} mode`)
     } catch (error) {
-        console.error('Error loading buckets:', error)
+        console.error('❌ Error loading buckets:', error)
         buckets.clear()
     }
 }
@@ -104,7 +140,7 @@ export const saveBucket = (bucket: Bucket): void => {
         fs.writeFileSync(bucketPath, JSON.stringify(bucket, null, 2))
         buckets.set(bucket.id, bucket)
     } catch (error) {
-        console.error(`Error saving bucket ${bucket.id}:`, error)
+        console.error(`❌ Error saving bucket ${bucket.id}:`, error)
     }
 }
 
@@ -114,11 +150,10 @@ export const deleteBucketFile = (bucketId: string): void => {
         if (fs.existsSync(bucketPath)) fs.unlinkSync(bucketPath)
         buckets.delete(bucketId)
     } catch (error) {
-        console.error(`Error deleting bucket file ${bucketId}:`, error)
+        console.error(`❌ Error deleting bucket file ${bucketId}:`, error)
     }
 }
 
-// Bucket operations
 export const getBuckets = (): BucketDTO[] => {
     return Array.from(buckets.values()).sort((a, b) =>
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
@@ -136,7 +171,6 @@ export const getBucketName = (bucketId: string): string | null => {
 
 export const createBucket = (name: string): Bucket | null => {
     if (!name || !name.trim()) return null
-    // Check if bucket with same name already exists
     const existingBucket = Array.from(buckets.values()).find(b => b.name === name.trim())
     if (existingBucket) return null
     const bucket: Bucket = {
@@ -155,7 +189,7 @@ export const updateBucket = (bucketId: string, updates: Partial<Omit<Bucket, 'id
     const updatedBucket: Bucket = {
         ...bucket,
         ...updates,
-        id: bucketId // Ensure ID doesn't change
+        id: bucketId
     }
     saveBucket(updatedBucket)
     return updatedBucket
@@ -168,7 +202,6 @@ export const deleteBucket = (bucketId: string): boolean => {
     return true
 }
 
-// Bucket item operations
 export const addClipToBucket = (bucketId: string, content: string, label?: string): Clip | null => {
     if (!content || !content.trim()) return null
     const bucket = buckets.get(bucketId)
@@ -179,7 +212,7 @@ export const addClipToBucket = (bucketId: string, content: string, label?: strin
         timestamp: new Date().toISOString(),
         label: label?.trim() || 'Untitled clip'
     }
-    bucket.clips.unshift(item) // Add to beginning for most recent first
+    bucket.clips.unshift(item)
     saveBucket(bucket)
     return item
 }
@@ -192,7 +225,7 @@ export const updateClip = (bucketId: string, itemId: string, updates: Partial<Om
     const updatedItem: Clip = {
         ...bucket.clips[itemIndex],
         ...updates,
-        id: itemId // Ensure ID doesn't change
+        id: itemId
     }
     bucket.clips[itemIndex] = updatedItem
     saveBucket(bucket)
@@ -209,7 +242,6 @@ export const deleteClipFromBucket = (bucketId: string, itemId: string): boolean 
     return true
 }
 
-// Utility functions
 export const getBucketStats = () => {
     const stats = {
         totalBuckets: buckets.size,
@@ -248,16 +280,16 @@ export const createDefaultBucketIfNeeded = (): void => {
     try {
         const existingBuckets = getBuckets()
         if (existingBuckets.length === 0) {
-            console.log('No buckets found, creating default bucket...')
+            console.log(`📝 Creating default bucket in ${APP_CONFIG.environment.mode.toUpperCase()} mode...`)
             const defaultBucket = createBucket('My Clips')
             if (defaultBucket) {
-                console.log('Default bucket created successfully')
+                console.log('✅ Default bucket created successfully')
             } else {
-                console.error('Failed to create default bucket')
+                console.error('❌ Failed to create default bucket')
             }
         }
     } catch (error) {
-        console.error('Error creating default bucket:', error)
+        console.error('❌ Error creating default bucket:', error)
     }
 }
 
@@ -270,9 +302,8 @@ export const setLastUsedBucket = (bucketId: string): void => {
                 lastUsedBucketId: bucketId
             }
         })
-        console.log('Last used bucket set to:', bucketId)
     } catch (error) {
-        console.error('Error setting last used bucket:', error)
+        console.error('❌ Error setting last used bucket:', error)
     }
 }
 
@@ -281,7 +312,7 @@ export const getLastUsedBucket = (): string | null => {
         const config = getConfig()
         return config.settings.lastUsedBucketId || null
     } catch (error) {
-        console.error('Error getting last used bucket:', error)
+        console.error('❌ Error getting last used bucket:', error)
         return null
     }
 }
@@ -291,7 +322,7 @@ export const shouldAutoNavigateToLastBucket = (): boolean => {
         const config = getConfig()
         return config.settings.autoNavigateToLastBucket !== false
     } catch (error) {
-        console.error('Error checking auto navigate setting:', error)
+        console.error('❌ Error checking auto navigate setting:', error)
         return true
     }
 }

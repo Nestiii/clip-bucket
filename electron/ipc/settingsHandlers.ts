@@ -1,8 +1,9 @@
 import { ipcMain, globalShortcut } from 'electron'
 import { IPC_EVENTS } from '../../shared/ipcEvents.ts'
 import { updateConfig, getConfig } from '../storage/storage.ts'
-import { updateWindowSize, setupGlobalShortcuts, cleanupGlobalShortcuts, WINDOW_SIZE_CONFIG } from '../ui/window.ts'
+import { updateWindowSize, setupGlobalShortcuts, cleanupGlobalShortcuts } from '../ui/window.ts'
 import { sendConfigUpdate } from './updaters.ts'
+import { WINDOW_SIZE_CONFIG } from '../config/config.ts'
 
 export const setupSettingsHandlers = (): void => {
     ipcMain.handle(IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE, async (_event, size: 'small' | 'medium' | 'large') => {

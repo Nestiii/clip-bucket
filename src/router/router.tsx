@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 import { ROUTES } from './routes.ts'
 import { AppErrorBoundary } from '../components/error/AppErrorBoundary/AppErrorBoundary.tsx'
 import { AuthLayout } from '../components/auth/AuthLayout/AuthLayout.tsx'
@@ -7,7 +7,7 @@ import { Home } from '../components/screens/Home/Home.tsx'
 import { Bucket } from '../components/screens/Bucket/Bucket.tsx'
 import { Settings } from '../components/screens/Settings/Settings.tsx'
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
     {
         element: <AppErrorBoundary />,
         children: [
