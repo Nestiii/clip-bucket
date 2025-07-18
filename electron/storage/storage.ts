@@ -4,6 +4,7 @@ import { APP_CONFIG } from '../config/config.ts'
 import { AppConfig, Bucket, BucketDTO, Clip } from '../../shared/types.ts'
 import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep, merge } from 'lodash'
+import {execSync} from 'child_process'
 
 const DEFAULT_SHORTCUTS = {
     toggleWindow: 'CommandOrControl+Shift+P',
@@ -16,7 +17,8 @@ const DEFAULT_CONFIG: AppConfig = {
     settings: {
         theme: 'dark',
         autoHide: true,
-        shortcuts: DEFAULT_SHORTCUTS
+        shortcuts: DEFAULT_SHORTCUTS,
+        hasSeenWelcome: false
     }
 }
 
@@ -72,7 +74,6 @@ const hideDirectories = (): void => {
 
 const hideWindowsDirectory = (dirPath: string): void => {
     try {
-        const { execSync } = require('child_process')
         execSync(`attrib +H +S "${dirPath}"`, { stdio: 'ignore', timeout: 5000 })
         console.log('🪟 Windows: Applied hidden+system attributes')
     } catch (error) {
@@ -82,7 +83,6 @@ const hideWindowsDirectory = (dirPath: string): void => {
 
 const hideMacOSDirectory = (dirPath: string): void => {
     try {
-        const { execSync } = require('child_process')
         execSync(`chflags hidden "${dirPath}"`, { stdio: 'ignore', timeout: 5000 })
         console.log('🍎 macOS: Applied hidden flag')
     } catch (error) {
@@ -334,15 +334,5 @@ export const getLastUsedBucket = (): string | null => {
     } catch (error) {
         console.error('❌ Error getting last used bucket:', error)
         return null
-    }
-}
-
-export const shouldAutoNavigateToLastBucket = (): boolean => {
-    try {
-        const config = getConfig()
-        return config.settings.autoNavigateToLastBucket !== false
-    } catch (error) {
-        console.error('❌ Error checking auto navigate setting:', error)
-        return true
     }
 }

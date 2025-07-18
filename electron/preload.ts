@@ -72,6 +72,8 @@ contextBridge.exposeInMainWorld('api', {
     exportBuckets: () => ipcRenderer.invoke(IPC_EVENTS.IMPORT_EXPORT.EXPORT_BUCKETS),
 
     // Settings operations
+    updateWelcome: () =>
+        ipcRenderer.invoke(IPC_EVENTS.SETTINGS.UPDATE_WELCOME),
     updateWindowSize: (size: 'small' | 'medium' | 'large') =>
         ipcRenderer.invoke(IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE, size),
     updateShortcuts: (shortcuts: Record<string, string>) =>

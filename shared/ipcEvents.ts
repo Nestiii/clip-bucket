@@ -47,6 +47,7 @@ export const IPC_EVENTS = {
         STATS_UPDATE: 'stats-update',
     },
     SETTINGS: {
+        UPDATE_WELCOME: 'update-welcome',
         UPDATE_WINDOW_SIZE: 'update-window-size',
         UPDATE_SHORTCUTS: 'update-shortcuts',
         VALIDATE_SHORTCUT: 'validate-shortcut',

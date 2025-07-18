@@ -7,6 +7,26 @@ import { WINDOW_SIZE_CONFIG } from '../config/config.ts'
 
 export const setupSettingsHandlers = (): void => {
     ipcMain.handle(
+        IPC_EVENTS.SETTINGS.UPDATE_WELCOME,
+        async (_event) => {
+            try {
+                const config = getConfig()
+                updateConfig({
+                    settings: {
+                        ...config.settings,
+                        hasSeenWelcome: true,
+                    },
+                })
+                sendConfigUpdate()
+                return { success: true }
+            } catch (error) {
+                console.error('Error updating welcome flag:', error)
+                return { success: false }
+            }
+        }
+    )
+
+    ipcMain.handle(
         IPC_EVENTS.SETTINGS.UPDATE_WINDOW_SIZE,
         async (_event, size: 'small' | 'medium' | 'large') => {
             try {

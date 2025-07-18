@@ -3,7 +3,18 @@
     "private": true,
     "version": "0.0.0",
     "description": "A modern, privacy-first clipboard manager for developers and power users",
-    "author": "Nesti <https://github.com/Nestiii>",
+    "author": {
+        "name": "Nesti",
+        "email": "facundo.rivas.if@gmail.com",
+        "url": "https://github.com/Nestiii"
+    },
+    "homepage": "https://github.com/Nestiii/clipbucket",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nestiii/clipbucket.git"
+    },
+    "license": "MIT",
+    "keywords": ["clipboard", "manager", "productivity", "electron", "desktop", "privacy", "developer-tools"],
     "type": "module",
     "main": "dist-electron/main.js",
     "scripts": {
@@ -23,14 +34,15 @@
         "dist:linux": "electron-builder --linux",
         "dist:all": "electron-builder --mac --win --linux",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview",
-        "prepare": "husky"
+        "preview": "vite preview"
     },
     "build": {
         "appId": "com.Nestiii.clipbucket",
         "productName": "ClipBucket",
+        "copyright": "Copyright © 2025 Nesti",
         "directories": {
-            "output": "dist"
+            "output": "dist",
+            "buildResources": "build"
         },
         "files": [
             "dist/**/*",
@@ -38,54 +50,115 @@
             "!node_modules",
             "!src",
             "!electron",
-            "!public"
+            "!public",
+            "!assets"
+        ],
+        "extraResources": [
+            {
+                "from": "public/icon.png",
+                "to": "icon.png"
+            }
         ],
         "mac": {
             "category": "public.app-category.productivity",
+            "icon": "public/icon.icns",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist",
             "target": [
                 {
                     "target": "dmg",
-                    "arch": [
-                        "arm64",
-                        "x64"
-                    ]
+                    "arch": ["arm64", "x64"]
                 },
                 {
                     "target": "zip",
-                    "arch": [
-                        "arm64",
-                        "x64"
-                    ]
+                    "arch": ["arm64", "x64"]
                 }
             ]
         },
         "win": {
+            "icon": "public/icon.ico",
+            "publisherName": "Nesti",
             "target": [
                 {
                     "target": "nsis",
-                    "arch": [
-                        "x64"
-                    ]
+                    "arch": ["x64"]
+                },
+                {
+                    "target": "portable",
+                    "arch": ["x64"]
                 }
             ]
         },
         "linux": {
+            "icon": "public/icon.png",
+            "category": "Utility",
+            "synopsis": "Privacy-first clipboard manager",
+            "description": "A modern, privacy-first clipboard manager for developers and power users. Organize your clipboard history with buckets, quick shortcuts, and secure local storage.",
             "target": [
                 {
                     "target": "AppImage",
-                    "arch": [
-                        "x64"
-                    ]
+                    "arch": ["x64"]
+                },
+                {
+                    "target": "deb",
+                    "arch": ["x64"]
+                },
+                {
+                    "target": "rpm",
+                    "arch": ["x64"]
                 }
             ]
         },
         "dmg": {
             "title": "ClipBucket ${version}",
-            "icon": false
+            "icon": "public/icon.icns",
+            "iconSize": 100,
+            "window": {
+                "width": 540,
+                "height": 380
+            },
+            "contents": [
+                {
+                    "x": 410,
+                    "y": 230,
+                    "type": "link",
+                    "path": "/Applications"
+                },
+                {
+                    "x": 130,
+                    "y": 230,
+                    "type": "file"
+                }
+            ]
         },
         "nsis": {
             "oneClick": false,
-            "allowToChangeInstallationDirectory": true
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "public/icon.ico",
+            "uninstallerIcon": "public/icon.ico",
+            "installerHeaderIcon": "public/icon.ico",
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "displayLanguageSelector": false,
+            "installerLanguages": ["en_US"],
+            "language": "1033",
+            "runAfterFinish": false
+        },
+        "appImage": {
+            "artifactName": "${productName}-${version}-${arch}.${ext}"
+        },
+        "deb": {
+            "artifactName": "${productName}-${version}-${arch}.${ext}",
+            "synopsis": "Privacy-first clipboard manager",
+            "category": "utils",
+            "priority": "optional"
+        },
+        "rpm": {
+            "artifactName": "${productName}-${version}-${arch}.${ext}",
+            "synopsis": "Privacy-first clipboard manager",
+            "category": "Applications/Productivity"
         }
     },
     "lint-staged": {

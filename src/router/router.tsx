@@ -6,6 +6,7 @@ import { Login } from '../components/screens/Login/Login.tsx'
 import { Home } from '../components/screens/Home/Home.tsx'
 import { Bucket } from '../components/screens/Bucket/Bucket.tsx'
 import { Settings } from '../components/screens/Settings/Settings.tsx'
+import { Welcome } from '../components/screens/Welcome/Welcome.tsx'
 
 export const router = createHashRouter([
     {
@@ -25,6 +26,10 @@ export const router = createHashRouter([
                     {
                         path: ROUTES.SETTINGS,
                         element: <Settings />,
+                    },
+                    {
+                        path: ROUTES.WELCOME,
+                        element: <Welcome />,
                     },
                 ],
             },

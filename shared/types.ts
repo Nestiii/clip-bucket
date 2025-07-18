@@ -25,6 +25,7 @@ export interface AppConfig {
         lastUsedBucketId?: string
         autoNavigateToLastBucket?: boolean
         windowSize?: 'small' | 'medium' | 'large'
+        hasSeenWelcome?: boolean
     }
 }
 
@@ -98,6 +99,7 @@ export interface ClipBucketAPI {
     exportBuckets: () => Promise<any>
 
     // Settings operations
+    updateWelcome: () => Promise<{ success: boolean; error?: string }>
     updateWindowSize: (
         size: 'small' | 'medium' | 'large'
     ) => Promise<{ success: boolean; error?: string }>

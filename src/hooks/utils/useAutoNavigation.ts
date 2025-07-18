@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBuckets } from '../api/useBuckets.ts'
+import { ROUTES } from '../../router/routes.ts'
 
 export const useAutoNavigation = () => {
     const navigate = useNavigate()
@@ -9,6 +10,12 @@ export const useAutoNavigation = () => {
 
     useEffect(() => {
         const checkAutoNavigation = async () => {
+            const config = await window.api.getConfig()
+            if (!config?.settings.hasSeenWelcome) {
+                navigate(ROUTES.WELCOME)
+                setIsAutoNavigating(false)
+                return
+            }
             if (loading || buckets.length === 0) return
             try {
                 const lastUsedBucketId = await window.api.getLastUsedBucket()
