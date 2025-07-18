@@ -52,4 +52,7 @@ export const IPC_EVENTS = {
         VALIDATE_SHORTCUT: 'validate-shortcut',
         GET_WINDOW_SIZES: 'get-window-sizes',
     },
+    QUICK_CAPTURE: {
+        CAPTURE_CLIP: 'quick-capture-clip'
+    },
 }

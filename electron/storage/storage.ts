@@ -3,19 +3,25 @@ import path from 'node:path'
 import { APP_CONFIG } from '../config/config.ts'
 import { AppConfig, Bucket, BucketDTO, Clip } from '../../shared/types.ts'
 import { v4 as uuidv4 } from 'uuid'
+import { cloneDeep, merge } from 'lodash'
 
-let buckets: Map<string, Bucket> = new Map()
-let appConfig: AppConfig = {
+const DEFAULT_SHORTCUTS = {
+    toggleWindow: 'CommandOrControl+Shift+P',
+    quickCapture: 'CommandOrControl+Shift+C'
+}
+
+const DEFAULT_CONFIG: AppConfig = {
     version: '0.0.0',
     lastModified: new Date().toISOString(),
     settings: {
         theme: 'dark',
         autoHide: true,
-        shortcuts: {
-            toggleWindow: 'CommandOrControl+Shift+P',
-        },
-    },
+        shortcuts: DEFAULT_SHORTCUTS
+    }
 }
+
+let buckets: Map<string, Bucket> = new Map()
+let appConfig: AppConfig = cloneDeep(DEFAULT_CONFIG)
 
 const ensureDirectoryExists = (dirPath: string): void => {
     if (!fs.existsSync(dirPath)) {
@@ -89,14 +95,17 @@ export const loadConfig = (): void => {
         if (fs.existsSync(APP_CONFIG.storage.configFile)) {
             const data = fs.readFileSync(APP_CONFIG.storage.configFile, 'utf8')
             const loadedConfig = JSON.parse(data)
-            appConfig = { ...appConfig, ...loadedConfig }
+            appConfig = merge({}, DEFAULT_CONFIG, loadedConfig)
             console.log(`⚙️ ${APP_CONFIG.environment.mode.toUpperCase()} config loaded`)
+            saveConfig()
         } else {
+            appConfig = cloneDeep(DEFAULT_CONFIG)
             saveConfig()
             console.log(`⚙️ Default ${APP_CONFIG.environment.mode.toUpperCase()} config created`)
         }
     } catch (error) {
         console.error('❌ Error loading config:', error)
+        appConfig = cloneDeep(DEFAULT_CONFIG)
     }
 }
 
@@ -112,7 +121,7 @@ export const saveConfig = (): void => {
 export const getConfig = (): AppConfig => appConfig
 
 export const updateConfig = (updates: Partial<AppConfig>): void => {
-    appConfig = { ...appConfig, ...updates }
+    appConfig = merge({}, appConfig, updates)
     saveConfig()
 }
 
@@ -216,7 +225,7 @@ export const addClipToBucket = (bucketId: string, content: string, label?: strin
         id: generateId(),
         content: content.trim(),
         timestamp: new Date().toISOString(),
-        label: label?.trim() || 'Untitled clip',
+        label: label?.trim() || content.trim().split(' ')[0],
     }
     bucket.clips.unshift(item)
     saveBucket(bucket)

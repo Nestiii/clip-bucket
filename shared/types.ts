@@ -107,6 +107,9 @@ export interface ClipBucketAPI {
     validateShortcut: (shortcut: string) => Promise<ShortcutValidation>
     getWindowSizes: () => Promise<WindowSizeOption[]>
 
+    // Quick capture operation
+    quickCaptureClip: () => Promise<{ success: boolean; error?: string }>
+
     // Event listeners
     onDataUpdate: (callback: (data: ClipBucketData) => void) => void
     onBucketsUpdate: (callback: (buckets: BucketDTO[]) => void) => void

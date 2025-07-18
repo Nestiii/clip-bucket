@@ -80,6 +80,9 @@ contextBridge.exposeInMainWorld('api', {
         ipcRenderer.invoke(IPC_EVENTS.SETTINGS.VALIDATE_SHORTCUT, shortcut),
     getWindowSizes: () => ipcRenderer.invoke(IPC_EVENTS.SETTINGS.GET_WINDOW_SIZES),
 
+    // Quick capture operation
+    quickCaptureClip: () => ipcRenderer.invoke(IPC_EVENTS.QUICK_CAPTURE.CAPTURE_CLIP),
+
     // Event listeners
     onDataUpdate: (callback: (data: ClipBucketData) => void): void => {
         ipcRenderer.on(IPC_EVENTS.RENDERER.DATA_UPDATE, (_event, data) => callback(data))

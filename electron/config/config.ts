@@ -82,6 +82,7 @@ export const APP_CONFIG = {
     },
     shortcuts: {
         toggleWindow: 'CommandOrControl+Shift+P',
+        quickCapture: 'CommandOrControl+Shift+C',
     },
 }
 

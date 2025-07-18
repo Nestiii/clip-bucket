@@ -8,6 +8,7 @@ import {
 import path from 'node:path'
 import { sendDataUpdate } from '../ipc/updaters.ts'
 import { getConfig } from '../storage/storage.ts'
+import { quickCaptureClip } from './quickCapture.ts'
 
 let win: BrowserWindow | null = null
 
@@ -91,9 +92,48 @@ export const toggleWindow = (): void => {
 export const getWindow = (): BrowserWindow | null => win
 
 export const setupGlobalShortcuts = (): void => {
-    const config = getConfig()
-    const shortcuts = config.settings.shortcuts
-    if (shortcuts.toggleWindow) globalShortcut.register(shortcuts.toggleWindow, toggleWindow)
+    try {
+        console.log('🔧 Setting up global shortcuts...')
+        const config = getConfig()
+        console.log('📋 Current config:', config)
+        console.log('⌨️ Available shortcuts in config:', config.settings.shortcuts)
+        const shortcuts = config.settings.shortcuts
+        if (shortcuts.toggleWindow) {
+            console.log(`🎯 Attempting to register toggle window: ${shortcuts.toggleWindow}`)
+            const toggleSuccess = globalShortcut.register(shortcuts.toggleWindow, () => {
+                console.log('🪟 Toggle window shortcut triggered!')
+                toggleWindow()
+            })
+            if (toggleSuccess) {
+                console.log(`✅ Toggle window shortcut registered: ${shortcuts.toggleWindow}`)
+            } else {
+                console.error(`❌ Failed to register toggle window shortcut: ${shortcuts.toggleWindow}`)
+            }
+        } else {
+            console.warn('⚠️ No toggleWindow shortcut found in config')
+        }
+        if (shortcuts.quickCapture) {
+            console.log(`🎯 Attempting to register quick capture: ${shortcuts.quickCapture}`)
+            const captureSuccess = globalShortcut.register(shortcuts.quickCapture, () => {
+                console.log('⚡ Quick capture shortcut triggered!')
+                quickCaptureClip()
+            })
+            if (captureSuccess) {
+                console.log(`✅ Quick capture shortcut registered: ${shortcuts.quickCapture}`)
+            } else {
+                console.error(`❌ Failed to register quick capture shortcut: ${shortcuts.quickCapture}`)
+                console.warn(`⚠️ Shortcut ${shortcuts.quickCapture} might be in use by another app`)
+            }
+        } else {
+            console.warn('⚠️ No createClip shortcut found in config')
+        }
+        console.log('📊 Shortcut registration status:')
+        console.log(`  Toggle Window (${shortcuts.toggleWindow}): ${globalShortcut.isRegistered(shortcuts.toggleWindow)}`)
+        console.log(`  Quick Capture (${shortcuts.createClip}): ${globalShortcut.isRegistered(shortcuts.createClip)}`)
+
+    } catch (error) {
+        console.error('❌ Error setting up global shortcuts:', error)
+    }
 }
 
 export const cleanupGlobalShortcuts = (): void => {
