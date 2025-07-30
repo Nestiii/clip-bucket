@@ -22,11 +22,11 @@
         "format:check": "prettier --check .",
         "dev": "vite",
         "dev:devtools": "cross-env DEVTOOLS=true vite",
-        "build": "tsc && vite build && electron-builder",
-        "build:mac": "tsc && vite build && electron-builder --mac",
-        "build:win": "tsc && vite build && electron-builder --win",
-        "build:linux": "tsc && vite build && electron-builder --linux",
-        "build:all": "tsc && vite build && electron-builder --mac --win --linux",
+        "build": "rm -rf dist dist-electron && tsc && vite build && electron-builder",
+        "build:mac": "rm -rf dist dist-electron && tsc && vite build && electron-builder --mac",
+        "build:win": "rm -rf dist dist-electron && tsc && vite build && electron-builder --win",
+        "build:linux": "rm -rf dist dist-electron && tsc && vite build && electron-builder --linux",
+        "build:all": "rm -rf dist dist-electron && tsc && vite build && electron-builder --mac --win --linux",
         "compile": "tsc && vite build",
         "dist": "electron-builder",
         "dist:mac": "electron-builder --mac",
@@ -50,8 +50,7 @@
             "!node_modules",
             "!src",
             "!electron",
-            "!public",
-            "!assets"
+            "!public"
         ],
         "extraResources": [
             {
@@ -61,6 +60,7 @@
         ],
         "mac": {
             "category": "public.app-category.productivity",
+            "identity": "-",
             "icon": "public/icon.icns",
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
@@ -115,6 +115,7 @@
             "title": "ClipBucket ${version}",
             "icon": "public/icon.icns",
             "iconSize": 100,
+            "background": null,
             "window": {
                 "width": 540,
                 "height": 380
