@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './BucketItem.module.css'
+import './BucketItem.css'
 import { Input } from '../../common/Input/Input.tsx'
 import { Text } from '../../common/Text/Text.tsx'
 import { Button } from '../../common/Button/Button.tsx'
@@ -64,7 +64,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
         }
     }
 
-    const classes = [styles.bucketItem, (editMode || deleteMode) && styles.editing, className]
+    const classes = ['bucket-item', (editMode || deleteMode) && 'bucket-item--editing', className]
         .filter(Boolean)
         .join(' ')
 
@@ -76,14 +76,14 @@ export const BucketItem: React.FC<BucketItemProps> = ({
             tabIndex={0}
             onKeyDown={handleWrapperKeyDown}
         >
-            <div className={styles.bucketContent} onClick={!editMode ? onClick : undefined}>
-                <div className={styles.iconSection}>
-                    <div className={styles.bucketIcon}>
+            <div className="bucket-item__content" onClick={!editMode ? onClick : undefined}>
+                <div className="bucket-item__icon-section">
+                    <div className="bucket-item__icon">
                         <TrashSimpleIcon size={24} />
                     </div>
                 </div>
-                <div className={styles.mainContent}>
-                    <div className={styles.nameSection}>
+                <div className="bucket-item__main-content">
+                    <div className="bucket-item__name-section">
                         {editMode ? (
                             <Input
                                 value={localName}
@@ -95,7 +95,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                                 fullWidth
                             />
                         ) : (
-                            <div className={styles.nameDisplay}>
+                            <div className="bucket-item__name-display">
                                 <Text as={'h3'} size={'lg'} weight={'semibold'} truncate>
                                     {deleteMode ? 'Delete bucket?' : name}
                                 </Text>
@@ -103,7 +103,7 @@ export const BucketItem: React.FC<BucketItemProps> = ({
                         )}
                     </div>
                 </div>
-                <div className={styles.actions}>
+                <div className="bucket-item__actions">
                     <Button
                         icon={
                             editMode || deleteMode ? (

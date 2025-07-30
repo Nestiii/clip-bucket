@@ -81,7 +81,7 @@ export const APP_CONFIG = {
         renderer: VITE_DEV_SERVER_URL || path.join(RENDERER_DIST, 'index.html'),
     },
     shortcuts: {
-        toggleWindow: 'CommandOrControl+Shift+P',
+        toggleWindow: 'CommandOrControl+Shift+L',
         quickCapture: 'CommandOrControl+Shift+C',
     },
 }

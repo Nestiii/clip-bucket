@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './Navbar.module.css'
+import './Navbar.css'
 import { Row } from '../../common/Row/Row.tsx'
 import { Button } from '../../common/Button/Button.tsx'
 import { ArrowLeftIcon, GearSixIcon } from '@phosphor-icons/react'
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
     if (isAutoNavigating) return null
 
     return (
-        <Row className={styles.navContainer}>
+        <Row className="nav-container">
             {(isBucket || isSettings) && (
                 <Button
                     onClick={() => navigate(ROUTES.ROOT)}

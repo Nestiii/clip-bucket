@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styles from './Home.module.css'
+import './Home.css'
 import { Column } from '../../common/Column/Column.tsx'
 import { ScreenWrapper } from '../../common/ScreenWrapper/ScreenWrapper.tsx'
 import { Input } from '../../common/Input/Input.tsx'
@@ -59,7 +59,7 @@ export const Home: React.FC = () => {
 
     return (
         <ScreenWrapper>
-            <Row className={styles.homeHeader}>
+            <Row className="home__header">
                 <Input
                     ref={inputRef}
                     placeholder={createBucketMode ? 'Enter bucket name...' : 'Search bucket...'}
@@ -96,16 +96,23 @@ export const Home: React.FC = () => {
                     style={{ height: 36 }}
                 />
             </Row>
-            <Column className={styles.bucketsContainer}>
-                {filteredData.map((bucket) => (
-                    <BucketItem
-                        key={bucket.id}
-                        name={bucket.name}
-                        onClick={() => navigate('/bucket/' + bucket.id)}
-                        onNameChange={(name) => renameBucket(bucket.id, name)}
-                        onDelete={() => deleteBucket(bucket.id)}
-                    />
-                ))}
+            <Column className="home__buckets-container">
+                {filteredData.length > 0 ? (
+                    filteredData.map((bucket) => (
+                        <BucketItem
+                            key={bucket.id}
+                            name={bucket.name}
+                            onClick={() => navigate('/bucket/' + bucket.id)}
+                            onNameChange={(name) => renameBucket(bucket.id, name)}
+                            onDelete={() => deleteBucket(bucket.id)}
+                        />
+                    ))
+                ) : (
+                    <div className="home__empty-state">
+                        <p>No buckets found</p>
+                        <p>Create your first bucket to get started</p>
+                    </div>
+                )}
             </Column>
         </ScreenWrapper>
     )

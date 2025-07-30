@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from './Bucket.module.css'
+import './Bucket.css'
 import { Column } from '../../common/Column/Column.tsx'
 import { ClipItem } from '../../feature/ClipItem/ClipItem.tsx'
 import { ScreenWrapper } from '../../common/ScreenWrapper/ScreenWrapper.tsx'
@@ -64,8 +64,9 @@ export const Bucket: React.FC = () => {
     }
 
     const clipsContainerClasses = [
-        styles.clipsContainer,
-        fullscreenClip && styles.clipsContainerFullscreen,
+        'bucket-screen__clips-container',
+        fullscreenClip && 'bucket-screen__clips-container--fullscreen',
+        showClipboardPreview && 'bucket-screen__clips-container--with-preview',
     ]
         .filter(Boolean)
         .join(' ')
@@ -80,7 +81,7 @@ export const Bucket: React.FC = () => {
         <ScreenWrapper>
             {!fullscreenClip && (
                 <>
-                    <Row className={styles.bucketHeader}>
+                    <Row className="bucket-screen__header">
                         <Input
                             placeholder={'Search clip...'}
                             rightIcon={<MagnifyingGlassIcon size={16} />}
@@ -114,7 +115,7 @@ export const Bucket: React.FC = () => {
                     } else return renderClip(clip)
                 })}
                 {filteredData.length === 0 && safeClips.length === 0 && (
-                    <div className={styles.emptyState}>
+                    <div className="bucket-screen__empty-state">
                         <ClipboardIcon size={48} />
                         <h3>No clips yet</h3>
                         <p>

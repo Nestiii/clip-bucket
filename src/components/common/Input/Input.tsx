@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import styles from './Input.module.css'
+import './Input.css'
 
 interface InputProps {
     type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search'
@@ -86,15 +86,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         const hasWrapperElements = leftIcon || rightIcon || prefix || suffix
 
         const inputClasses = [
-            styles.input,
-            styles[variant],
-            styles[size],
-            error && styles.error,
-            success && styles.success,
-            disabled && styles.disabled,
-            readonly && styles.readonly,
-            fullWidth && styles.fullWidth,
-            hasWrapperElements && styles.hasWrapper,
+            'input',
+            `input--${variant}`,
+            `input--${size}`,
+            error && 'input--error',
+            success && 'input--success',
+            disabled && 'input--disabled',
+            readonly && 'input--readonly',
+            fullWidth && 'input--full-width',
+            hasWrapperElements && 'input--has-wrapper',
             className,
         ]
             .filter(Boolean)
@@ -116,7 +116,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 required={required}
                 autoFocus={autoFocus}
                 autoComplete={autoComplete}
-                className={hasWrapperElements ? styles.inputElement : inputClasses}
+                className={hasWrapperElements ? 'input__element' : inputClasses}
                 name={name}
                 id={id}
                 aria-label={ariaLabel}
@@ -136,11 +136,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         if (hasWrapperElements) {
             return (
                 <div className={inputClasses} style={style}>
-                    {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
-                    {prefix && <span className={styles.prefix}>{prefix}</span>}
+                    {leftIcon && <span className="input__left-icon">{leftIcon}</span>}
+                    {prefix && <span className="input__prefix">{prefix}</span>}
                     {inputElement}
-                    {suffix && <span className={styles.suffix}>{suffix}</span>}
-                    {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
+                    {suffix && <span className="input__suffix">{suffix}</span>}
+                    {rightIcon && <span className="input__right-icon">{rightIcon}</span>}
                 </div>
             )
         }

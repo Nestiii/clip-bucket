@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Text.module.css'
+import './Text.css'
 
 interface TextProps {
     children: React.ReactNode
@@ -40,17 +40,17 @@ export const Text: React.FC<TextProps> = ({
     ...props
 }) => {
     const classes = [
-        styles.text,
-        styles[size],
-        styles[`weight-${weight}`],
-        styles[`color-${color}`],
-        styles[`align-${align}`],
-        styles[`transform-${transform}`],
-        truncate && styles.truncate,
-        mono && styles.mono,
-        italic && styles.italic,
-        underline && styles.underline,
-        onClick && styles.clickable,
+        'text',
+        `text--${size}`,
+        `text--weight-${weight}`,
+        `text--color-${color}`,
+        `text--align-${align}`,
+        `text--transform-${transform}`,
+        truncate && 'text--truncate',
+        mono && 'text--mono',
+        italic && 'text--italic',
+        underline && 'text--underline',
+        onClick && 'text--clickable',
         className,
     ]
         .filter(Boolean)

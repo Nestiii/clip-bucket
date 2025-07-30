@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Column.module.css'
+import './Column.css'
 
 interface ColumnProps {
     children: React.ReactNode
@@ -8,7 +8,7 @@ interface ColumnProps {
 }
 
 export const Column: React.FC<ColumnProps> = ({ children, className, style, ...props }) => {
-    const classes = [styles.column, className].filter(Boolean).join(' ')
+    const classes = ['column', className].filter(Boolean).join(' ')
 
     return (
         <div className={classes} style={style} {...props}>

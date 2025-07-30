@@ -1,4 +1,4 @@
-.clipboardPreview {
+.clip-preview {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-gray-300);
     border-radius: var(--radius-lg);
@@ -7,20 +7,20 @@
     box-sizing: border-box;
 }
 
-.clipboardPreview:focus {
+.clip-preview:focus {
     border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 2px rgba(254, 228, 2, 0.1);
     outline: none;
 }
 
-.clipboardPreviewHeader {
+.clip-preview__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: var(--spacing-sm);
 }
 
-.clipboardPreviewTitle {
+.clip-preview__title {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -29,13 +29,13 @@
     color: var(--color-text-secondary);
 }
 
-.clipboardPreviewContent {
+.clip-preview__content {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.clipboardText {
+.clip-preview__text {
     flex: 1;
     font-family: var(--font-family-code);
     font-size: var(--font-size-sm);

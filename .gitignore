@@ -25,3 +25,29 @@ dist-ssr
 *.sw?
 
 mock
+
+# Electron builder output
+release/
+build/
+out/
+
+# App data (development storage)
+.clipbucket-dev/
+.storage/
+.config/
+.buckets/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage
+coverage/
+*.lcov
+.nyc_output
+
+# Development files (not for public repo)
+CLAUDE.md

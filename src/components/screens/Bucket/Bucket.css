@@ -1,21 +1,25 @@
-.bucketHeader {
+.bucket-screen__header {
     gap: 8px;
     align-items: center;
     margin-bottom: 8px;
 }
 
-.clipsContainer {
+.bucket-screen__clips-container {
     gap: 10px;
     height: calc(100% - 46px);
     box-sizing: border-box;
     overflow: auto;
 }
 
-.clipsContainerFullscreen {
+.bucket-screen__clips-container--fullscreen {
     height: 100%;
 }
 
-.emptyState {
+.bucket-screen__clips-container--with-preview {
+    height: calc(100% - 220px);
+}
+
+.bucket-screen__empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,13 +30,13 @@
     gap: var(--spacing-sm);
 }
 
-.emptyState h3 {
+.bucket-screen__empty-state h3 {
     margin: 0;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
 }
 
-.emptyState p {
+.bucket-screen__empty-state p {
     margin: 0;
     font-size: var(--font-size-sm);
     max-width: 300px;

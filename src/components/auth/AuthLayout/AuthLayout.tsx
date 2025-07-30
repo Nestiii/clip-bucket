@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './AuthLayout.module.css'
+import './AuthLayout.css'
 import { Navigate, Outlet } from 'react-router-dom'
 import { ROUTES } from '../../../router/routes.ts'
 import { Column } from '../../common/Column/Column.tsx'
@@ -14,7 +14,7 @@ export const AuthLayout: React.FC = () => {
     }
 
     return (
-        <Column className={styles.appContainer}>
+        <Column className="app-container">
             <Navbar />
             <Outlet />
         </Column>

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './ErrorFallback.module.css'
+import './ErrorFallback.css'
 import { Button } from '../../common/Button/Button.tsx'
 
 interface ErrorFallbackProps {
@@ -16,23 +16,21 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
     const isDev = process.env.NODE_ENV === 'development'
 
     return (
-        <div className={styles.errorFallback}>
-            <div className={styles.errorContent}>
-                <div className={styles.errorIcon}>⚠️</div>
-                <h1 className={styles.errorTitle}>{title}</h1>
-                <p className={styles.errorMessage}>{message}</p>
+        <div className="error-fallback">
+            <div className="error-content">
+                <div className="error-icon">⚠️</div>
+                <h1 className="error-title">{title}</h1>
+                <p className="error-message">{message}</p>
                 {isDev && error && (
-                    <details className={styles.errorDetails}>
-                        <summary className={styles.errorSummary}>
-                            {'Show technical details'}
-                        </summary>
-                        <pre className={styles.errorStack}>
+                    <details className="error-details">
+                        <summary className="error-summary">{'Show technical details'}</summary>
+                        <pre className="error-stack">
                             {error.message}
                             {error.stack && `\n\n${error.stack}`}
                         </pre>
                     </details>
                 )}
-                <div className={styles.errorActions}>
+                <div className="error-actions">
                     <Button
                         text={'Try Again'}
                         icon={'🔄'}
@@ -46,7 +44,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
                         onClick={() => (window.location.href = '/')}
                     />
                 </div>
-                <div className={styles.errorHelp}>
+                <div className="error-help">
                     <p>{'If this problem persists, try:'}</p>
                     <ul>
                         <li>{'Restarting the application'}</li>

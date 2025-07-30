@@ -1,4 +1,4 @@
-.bucketItem {
+.bucket-item {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-gray-300);
     border-radius: var(--radius-lg);
@@ -9,32 +9,32 @@
     flex-direction: column;
 }
 
-.bucketItem:hover {
+.bucket-item:hover {
     border-color: var(--color-gray-400);
     box-shadow: var(--shadow-md);
     transform: translateY(1px);
 }
 
-.bucketItem:focus {
+.bucket-item:focus {
     outline: none;
     border-color: var(--color-accent-primary);
     transform: translateY(1px);
 }
 
-.bucketContent {
+.bucket-item__content {
     display: flex;
     align-items: center;
     padding: var(--spacing-sm);
     cursor: pointer;
 }
 
-.iconSection {
+.bucket-item__icon-section {
     display: flex;
     align-items: center;
     margin-right: var(--spacing-lg);
 }
 
-.bucketIcon {
+.bucket-item__icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,12 +46,12 @@
     transition: all var(--transition-base);
 }
 
-.bucketItem:hover .bucketIcon {
+.bucket-item:hover .bucket-item__icon {
     background: var(--color-gray-300);
     color: var(--color-text-secondary);
 }
 
-.mainContent {
+.bucket-item__main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -59,32 +59,32 @@
     min-width: 0; /* Prevents flex item from overflowing */
 }
 
-.nameSection {
+.bucket-item__name-section {
     display: flex;
     align-items: center;
 }
 
-.nameDisplay {
+.bucket-item__name-display {
     flex: 1;
     min-width: 0;
 }
 
-.timestampSection {
+.bucket-item__timestamp-section {
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-.timestampSection svg {
+.bucket-item__timestamp-section svg {
     color: var(--color-text-muted);
 }
 
-.idSection {
+.bucket-item__id-section {
     display: flex;
     align-items: center;
 }
 
-.actions {
+.bucket-item__actions {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -93,22 +93,22 @@
     transition: opacity var(--transition-base);
 }
 
-.bucketItem:hover .actions {
+.bucket-item:hover .bucket-item__actions {
     opacity: 1;
 }
 
-.bucketItem.editing .actions {
+.bucket-item--editing .bucket-item__actions {
     opacity: 1;
 }
 
 /* Bucket List Styles */
-.bucketList {
+.bucket-list {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
 }
 
-.emptyState {
+.bucket-list__empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,7 +119,7 @@
     gap: var(--spacing-sm);
 }
 
-.emptyState svg {
+.bucket-list__empty-state svg {
     color: var(--color-gray-400);
     margin-bottom: var(--spacing-sm);
 }

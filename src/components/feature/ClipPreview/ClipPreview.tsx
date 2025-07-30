@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './ClipPreview.module.css'
+import './ClipPreview.css'
 import { Input } from '../../common/Input/Input.tsx'
 import { Button } from '../../common/Button/Button.tsx'
 import { BroomIcon, XIcon } from '@phosphor-icons/react'
@@ -44,8 +44,8 @@ export const ClipPreview: React.FC<ClipPreviewProps> = ({
     }
 
     return (
-        <div className={styles.clipboardPreview}>
-            <div className={styles.clipboardPreviewHeader}>
+        <div className="clip-preview">
+            <div className="clip-preview__header">
                 <Input
                     placeholder={'Clip name...'}
                     variant={'bordered'}
@@ -62,12 +62,12 @@ export const ClipPreview: React.FC<ClipPreviewProps> = ({
                     style={{ padding: '4px', marginLeft: '8px' }}
                 />
             </div>
-            <div className={styles.clipboardPreviewContent}>
+            <div className="clip-preview__content">
                 <Textarea
                     value={localValue}
                     onChange={(e) => setLocalValue(e.target.value)}
                     placeholder={'Clip content...'}
-                    rows={1}
+                    rows={4}
                     variant={'bordered'}
                     resize={'none'}
                 />

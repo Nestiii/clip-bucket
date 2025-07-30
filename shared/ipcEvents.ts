@@ -54,6 +54,9 @@ export const IPC_EVENTS = {
         GET_WINDOW_SIZES: 'get-window-sizes',
     },
     QUICK_CAPTURE: {
-        CAPTURE_CLIP: 'quick-capture-clip'
+        CAPTURE_CLIP: 'quick-capture-clip',
+    },
+    WINDOW: {
+        HIDE_WINDOW: 'hide-window',
     },
 }

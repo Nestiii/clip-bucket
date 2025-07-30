@@ -14,10 +14,7 @@ export default defineConfig({
             preload: {
                 input: path.join(__dirname, 'electron/preload.ts'),
             },
-            renderer:
-                process.env.NODE_ENV === 'test'
-                    ? undefined
-                    : {},
+            renderer: process.env.NODE_ENV === 'test' ? undefined : {},
         }),
     ],
     build: {
@@ -29,9 +26,6 @@ export default defineConfig({
         },
     },
     css: {
-        modules: {
-            localsConvention: 'camelCase',
-            scopeBehaviour: 'local',
-        },
+        modules: false,
     },
 })

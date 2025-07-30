@@ -112,6 +112,9 @@ export interface ClipBucketAPI {
     // Quick capture operation
     quickCaptureClip: () => Promise<{ success: boolean; error?: string }>
 
+    // Window operations
+    hideWindow: () => Promise<void>
+
     // Event listeners
     onDataUpdate: (callback: (data: ClipBucketData) => void) => void
     onBucketsUpdate: (callback: (buckets: BucketDTO[]) => void) => void

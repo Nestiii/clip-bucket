@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react'
-import styles from './Button.module.css'
+import './Button.css'
 
 interface ButtonProps {
     children?: React.ReactNode
@@ -42,10 +42,10 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const classes = [
-        styles.button,
-        styles[variant],
-        styles[size],
-        fullWidth && styles.fullWidth,
+        'btn',
+        `btn--${variant}`,
+        `btn--${size}`,
+        fullWidth && 'btn--full-width',
         className,
     ]
         .filter(Boolean)
@@ -63,8 +63,8 @@ export const Button: React.FC<ButtonProps> = ({
             autoFocus={autoFocus}
             {...props}
         >
-            {icon && <span className={styles.icon}>{icon}</span>}
-            {text && <span className={styles.text}>{text}</span>}
+            {icon && <span className="btn__icon">{icon}</span>}
+            {text && <span className="btn__text">{text}</span>}
             {children}
         </button>
     )

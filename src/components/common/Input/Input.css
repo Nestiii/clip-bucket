@@ -21,12 +21,12 @@
 }
 
 /* Variants */
-.default {
+.input--default {
     border: 1px solid var(--color-gray-300);
     background-color: var(--color-bg-secondary);
 }
 
-.minimal {
+.input--minimal {
     border: none;
     background-color: transparent;
     border-bottom: 2px solid var(--color-gray-300);
@@ -35,104 +35,104 @@
     padding-right: 0;
 }
 
-.minimal:focus {
+.input--minimal:focus {
     border-bottom-color: var(--color-accent-primary);
     box-shadow: none;
     background-color: transparent;
 }
 
-.bordered {
+.input--bordered {
     border: 1px solid var(--color-gray-300);
     background-color: var(--color-bg-primary);
 }
 
-.bordered:focus {
+.input--bordered:focus {
     border-color: var(--color-accent-primary);
 }
 
-.filled {
+.input--filled {
     border: 1px solid transparent;
     background-color: var(--color-bg-elevated);
 }
 
-.filled:focus {
+.input--filled:focus {
     border-color: var(--color-accent-primary);
     background-color: var(--color-bg-primary);
 }
 
 /* Sizes */
-.sm {
+.input--sm {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: var(--font-size-sm);
     border-radius: var(--radius-sm);
 }
 
-.md {
+.input--md {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-base);
 }
 
-.lg {
+.input--lg {
     padding: var(--spacing-md) var(--spacing-lg);
     font-size: var(--font-size-md);
     border-radius: var(--radius-lg);
 }
 
 /* States */
-.error {
+.input--error {
     border-color: var(--color-danger);
     background-color: rgba(239, 68, 68, 0.05);
 }
 
-.error:focus {
+.input--error:focus {
     border-color: var(--color-danger);
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
 }
 
-.success {
+.input--success {
     border-color: var(--color-success);
     background-color: rgba(74, 222, 128, 0.05);
 }
 
-.success:focus {
+.input--success:focus {
     border-color: var(--color-success);
     box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.1);
 }
 
-.disabled {
+.input--disabled {
     opacity: 0.6;
     cursor: not-allowed;
     background-color: var(--color-bg-elevated);
     color: var(--color-text-muted);
 }
 
-.disabled:hover {
+.input--disabled:hover {
     border-color: var(--color-gray-300);
 }
 
-.readonly {
+.input--readonly {
     background-color: var(--color-bg-elevated);
     cursor: default;
 }
 
-.readonly:focus {
+.input--readonly:focus {
     box-shadow: none;
     border-color: var(--color-gray-300);
 }
 
 /* Width */
-.fullWidth {
+.input--full-width {
     width: 100%;
 }
 
 /* Wrapper */
-.hasWrapper {
+.input--has-wrapper {
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.inputElement {
+.input__element {
     flex: 1;
     border: none;
     outline: none;
@@ -145,12 +145,12 @@
     padding: 0;
 }
 
-.inputElement::placeholder {
+.input__element::placeholder {
     color: var(--color-text-muted);
 }
 
-.leftIcon,
-.rightIcon {
+.input__left-icon,
+.input__right-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,46 +158,46 @@
     font-size: var(--font-size-md);
 }
 
-.leftIcon {
+.input__left-icon {
     margin-right: var(--spacing-sm);
 }
 
-.rightIcon {
+.input__right-icon {
     margin-left: var(--spacing-sm);
 }
 
-.prefix,
-.suffix {
+.input__prefix,
+.input__suffix {
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     white-space: nowrap;
 }
 
-.prefix {
+.input__prefix {
     margin-right: var(--spacing-xs);
 }
 
-.suffix {
+.input__suffix {
     margin-left: var(--spacing-xs);
 }
 
-.hasWrapper:focus-within {
+.input--has-wrapper:focus-within {
     border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 2px rgba(254, 228, 2, 0.1);
     background-color: var(--color-bg-primary);
 }
 
-.hasWrapper:hover:not(:focus-within) {
+.input--has-wrapper:hover:not(:focus-within) {
     border-color: var(--color-gray-400);
 }
 
-.hasWrapper.error:focus-within {
+.input--has-wrapper.input--error:focus-within {
     border-color: var(--color-danger);
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
 }
 
-.hasWrapper.success:focus-within {
+.input--has-wrapper.input--success:focus-within {
     border-color: var(--color-success);
     box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.1);
 }

@@ -28,12 +28,12 @@
 }
 
 /* Variants */
-.default {
+.textarea--default {
     border: 1px solid var(--color-gray-300);
     background-color: var(--color-bg-secondary);
 }
 
-.minimal {
+.textarea--minimal {
     border: none;
     background-color: transparent;
     border-bottom: 2px solid var(--color-gray-300);
@@ -42,83 +42,83 @@
     padding-right: 0;
 }
 
-.minimal:focus {
+.textarea--minimal:focus {
     border-bottom-color: var(--color-accent-primary);
     box-shadow: none;
     background-color: transparent;
 }
 
-.bordered {
+.textarea--bordered {
     border: 1px solid var(--color-gray-300);
     background-color: var(--color-bg-primary);
 }
 
-.bordered:focus {
+.textarea--bordered:focus {
     border-color: var(--color-accent-primary);
 }
 
 /* Sizes */
-.sm {
+.textarea--sm {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: var(--font-size-sm);
     border-radius: var(--radius-sm);
 }
 
-.md {
+.textarea--md {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-base);
 }
 
-.lg {
+.textarea--lg {
     padding: var(--spacing-md) var(--spacing-lg);
     font-size: var(--font-size-md);
     border-radius: var(--radius-lg);
 }
 
 /* States */
-.error {
+.textarea--error {
     border-color: var(--color-danger);
     background-color: rgba(239, 68, 68, 0.05);
 }
 
-.error:focus {
+.textarea--error:focus {
     border-color: var(--color-danger);
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
 }
 
-.success {
+.textarea--success {
     border-color: var(--color-success);
     background-color: rgba(74, 222, 128, 0.05);
 }
 
-.success:focus {
+.textarea--success:focus {
     border-color: var(--color-success);
     box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.1);
 }
 
-.disabled {
+.textarea--disabled {
     opacity: 0.6;
     cursor: not-allowed;
     background-color: var(--color-bg-elevated);
     color: var(--color-text-muted);
 }
 
-.disabled:hover {
+.textarea--disabled:hover {
     border-color: var(--color-gray-300);
 }
 
-.readonly {
+.textarea--readonly {
     background-color: var(--color-bg-elevated);
     cursor: default;
 }
 
-.readonly:focus {
+.textarea--readonly:focus {
     box-shadow: none;
     border-color: var(--color-gray-300);
 }
 
 /* Content drop */
-.textarea.dropzone {
+.textarea--dropzone {
     min-height: 120px;
     border: 2px dashed var(--color-gray-300);
     background-color: var(--color-bg-primary);
@@ -130,7 +130,7 @@
     cursor: text;
 }
 
-.textarea.dropzone::before {
+.textarea--dropzone::before {
     content: '📋 Drop your content here or click to type...';
     position: absolute;
     color: var(--color-text-muted);
@@ -140,21 +140,21 @@
     transition: opacity var(--transition-base);
 }
 
-.textarea.dropzone:empty::before {
+.textarea--dropzone:empty::before {
     opacity: 1;
 }
 
-.textarea.dropzone:hover {
+.textarea--dropzone:hover {
     border-color: var(--color-accent-primary);
     background-color: rgba(254, 228, 2, 0.02);
 }
 
-.textarea.dropzone:focus {
+.textarea--dropzone:focus {
     border-style: solid;
     text-align: left;
 }
 
-.textarea.dropzone:focus::before {
+.textarea--dropzone:focus::before {
     opacity: 0;
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './ScreenWrapper.module.css'
+import './ScreenWrapper.css'
 
 interface ScreenWrapperProps {
     children: React.ReactNode
@@ -21,11 +21,11 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
     overflow = 'auto',
 }) => {
     const classes = [
-        styles.screenWrapper,
-        padding && styles.withPadding,
-        center && styles.centered,
-        styles[background],
-        styles[overflow],
+        'screen-wrapper',
+        padding && 'screen-wrapper--with-padding',
+        center && 'screen-wrapper--centered',
+        `screen-wrapper--${background}`,
+        `screen-wrapper--${overflow}`,
         className,
     ]
         .filter(Boolean)

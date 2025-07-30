@@ -1,0 +1,30 @@
+.home__buckets-container {
+    gap: 10px;
+    height: calc(100% - 46px);
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.home__header {
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.home__empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--color-gray-600);
+    text-align: center;
+}
+
+.home__empty-state p {
+    margin: 4px 0;
+}
+
+.home__empty-state p:first-child {
+    font-weight: 500;
+}

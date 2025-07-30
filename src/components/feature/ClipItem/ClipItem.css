@@ -1,4 +1,4 @@
-.clipItem {
+.clip-item {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-gray-300);
     border-radius: var(--radius-lg);
@@ -10,39 +10,39 @@
     flex-direction: column;
 }
 
-.clipItem:hover {
+.clip-item:hover {
     border-color: var(--color-gray-400);
     box-shadow: var(--shadow-md);
 }
 
-.clipItem.fullscreen {
+.clip-item--fullscreen {
     height: 100%;
 }
 
-.clipItem.compact {
+.clip-item--compact {
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-sm);
 }
 
 /* Header section */
-.header {
+.clip-item__header {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.labelSection {
+.clip-item__label-section {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.labelDisplay {
+.clip-item__label-display {
     flex: 1;
     min-width: 0;
 }
 
-.actions {
+.clip-item__actions {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -51,16 +51,16 @@
     transition: opacity var(--transition-base);
 }
 
-.clipItem:hover .actions {
+.clip-item:hover .clip-item__actions {
     opacity: 1;
 }
 
-.clipItem.editing .actions {
+.clip-item--editing .clip-item__actions {
     opacity: 1;
 }
 
 /* Content section */
-.contentDisplay {
+.clip-item__content-display {
     position: relative;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -69,12 +69,12 @@
     align-items: flex-start;
 }
 
-.contentDisplay:hover {
+.clip-item__content-display:hover {
     border-color: var(--color-gray-400);
     background-color: var(--color-bg-elevated);
 }
 
-.contentText {
+.clip-item__content-text {
     font-family: var(--font-family-code);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
@@ -85,7 +85,7 @@
     flex: 1;
 }
 
-.copyHint {
+.clip-item__copy-hint {
     position: absolute;
     top: var(--spacing-xs);
     right: var(--spacing-xs);
@@ -97,28 +97,28 @@
     transition: var(--transition-fast);
 }
 
-.copyHint:hover {
+.clip-item__copy-hint:hover {
     cursor: pointer;
 }
 
-.contentDisplay:hover .copyHint {
+.clip-item__content-display:hover .clip-item__copy-hint {
     opacity: 1;
 }
 
-.copyHint span {
+.clip-item__copy-hint span {
     font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-weight: var(--font-weight-medium);
 }
 
 /* Metadata section */
-.metadata {
+.clip-item__metadata {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.metadata span {
+.clip-item__metadata span {
     font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-style: italic;
@@ -126,20 +126,20 @@
 }
 
 /* Compact mode adjustments */
-.compact .header {
+.clip-item--compact .clip-item__header {
     margin-bottom: var(--spacing-sm);
 }
 
-.compact .content {
+.clip-item--compact .clip-item__content {
     margin-bottom: var(--spacing-sm);
 }
 
-.compact .contentDisplay {
+.clip-item--compact .clip-item__content-display {
     min-height: 40px;
     padding: var(--spacing-sm);
 }
 
-.compact .contentText {
+.clip-item--compact .clip-item__content-text {
     font-size: var(--font-size-xs);
     line-height: var(--line-height-base);
 }
@@ -156,6 +156,6 @@
     }
 }
 
-.clipItem {
+.clip-item {
     animation: fadeIn 0.2s ease-out;
 }

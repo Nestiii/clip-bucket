@@ -4,11 +4,11 @@ import { APP_CONFIG } from '../config/config.ts'
 import { AppConfig, Bucket, BucketDTO, Clip } from '../../shared/types.ts'
 import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep, merge } from 'lodash'
-import {execSync} from 'child_process'
+import { execSync } from 'child_process'
 
 const DEFAULT_SHORTCUTS = {
-    toggleWindow: 'CommandOrControl+Shift+P',
-    quickCapture: 'CommandOrControl+Shift+C'
+    toggleWindow: 'CommandOrControl+Shift+L',
+    quickCapture: 'CommandOrControl+Shift+C',
 }
 
 const DEFAULT_CONFIG: AppConfig = {
@@ -18,8 +18,8 @@ const DEFAULT_CONFIG: AppConfig = {
         theme: 'dark',
         autoHide: true,
         shortcuts: DEFAULT_SHORTCUTS,
-        hasSeenWelcome: false
-    }
+        hasSeenWelcome: false,
+    },
 }
 
 let buckets: Map<string, Bucket> = new Map()

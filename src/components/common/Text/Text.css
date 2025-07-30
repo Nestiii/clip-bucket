@@ -7,144 +7,144 @@
 }
 
 /* Font Sizes */
-.xs {
+.text--xs {
     font-size: var(--font-size-xs);
     line-height: var(--line-height-tight);
 }
 
-.sm {
+.text--sm {
     font-size: var(--font-size-sm);
     line-height: var(--line-height-base);
 }
 
-.base {
+.text--base {
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
 }
 
-.md {
+.text--md {
     font-size: var(--font-size-md);
     line-height: var(--line-height-base);
 }
 
-.lg {
+.text--lg {
     font-size: var(--font-size-lg);
     line-height: var(--line-height-tight);
 }
 
-.xl {
+.text--xl {
     font-size: var(--font-size-xl);
     line-height: var(--line-height-tight);
 }
 
-.xl2 {
+.text--2xl {
     font-size: var(--font-size-2xl);
     line-height: var(--line-height-tight);
 }
 
 /* Font Weights */
-.weight-normal {
+.text--weight-normal {
     font-weight: var(--font-weight-normal);
 }
 
-.weight-medium {
+.text--weight-medium {
     font-weight: var(--font-weight-medium);
 }
 
-.weight-semibold {
+.text--weight-semibold {
     font-weight: var(--font-weight-semibold);
 }
 
-.weight-bold {
+.text--weight-bold {
     font-weight: var(--font-weight-bold);
 }
 
 /* Colors */
-.color-primary {
+.text--color-primary {
     color: var(--color-text-primary);
 }
 
-.color-secondary {
+.text--color-secondary {
     color: var(--color-text-secondary);
 }
 
-.color-muted {
+.text--color-muted {
     color: var(--color-text-muted);
 }
 
-.color-accent {
+.text--color-accent {
     color: var(--color-accent-primary);
 }
 
-.color-success {
+.text--color-success {
     color: var(--color-success);
 }
 
-.color-danger {
+.text--color-danger {
     color: var(--color-danger);
 }
 
-.color-warning {
+.text--color-warning {
     color: var(--color-warning);
 }
 
 /* Alignment */
-.align-left {
+.text--align-left {
     text-align: left;
 }
 
-.align-center {
+.text--align-center {
     text-align: center;
 }
 
-.align-right {
+.text--align-right {
     text-align: right;
 }
 
 /* Transform */
-.transform-none {
+.text--transform-none {
     text-transform: none;
 }
 
-.transform-uppercase {
+.text--transform-uppercase {
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-.transform-lowercase {
+.text--transform-lowercase {
     text-transform: lowercase;
 }
 
-.transform-capitalize {
+.text--transform-capitalize {
     text-transform: capitalize;
 }
 
 /* Modifiers */
-.truncate {
+.text--truncate {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.mono {
+.text--mono {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-variant-ligatures: none;
 }
 
-.italic {
+.text--italic {
     font-style: italic;
 }
 
-.underline {
+.text--underline {
     text-decoration: underline;
 }
 
-.clickable {
+.text--clickable {
     cursor: pointer;
     transition: color var(--transition-base);
 }
 
-.clickable:hover {
+.text--clickable:hover {
     color: var(--color-accent-primary);
 }
 

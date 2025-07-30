@@ -1,6 +1,6 @@
 // src/renderer/src/components/Textarea.tsx
 import React, { forwardRef } from 'react'
-import styles from './Textarea.module.css'
+import './TextArea.css'
 
 interface TextareaProps {
     value?: string
@@ -63,13 +63,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         ref
     ) => {
         const classes = [
-            styles.textarea,
-            styles[variant],
-            styles[size],
-            error && styles.error,
-            success && styles.success,
-            disabled && styles.disabled,
-            readonly && styles.readonly,
+            'textarea',
+            `textarea--${variant}`,
+            `textarea--${size}`,
+            error && 'textarea--error',
+            success && 'textarea--success',
+            disabled && 'textarea--disabled',
+            readonly && 'textarea--readonly',
             className,
         ]
             .filter(Boolean)

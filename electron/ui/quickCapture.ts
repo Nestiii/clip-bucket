@@ -2,20 +2,39 @@ import { clipboard, Notification } from 'electron'
 import { addClipToBucket, getLastUsedBucket, getBuckets, getBucket } from '../storage/storage.ts'
 import { execSync } from 'child_process'
 
+let isCapturing = false
+let lastCaptureTime = 0
+const CAPTURE_DEBOUNCE_MS = 500
+
 export const quickCaptureClip = async (): Promise<void> => {
+    const now = Date.now()
+    if (isCapturing || (now - lastCaptureTime) < CAPTURE_DEBOUNCE_MS) {
+        console.log('📋 Quick capture debounced - ignoring duplicate trigger')
+        return
+    }
+    
+    isCapturing = true
+    lastCaptureTime = now
     try {
         console.log('📋 Quick capture triggered - copy and save')
         await simulateCopyAction()
-        await new Promise(resolve => setTimeout(resolve, 150))
+        await new Promise((resolve) => setTimeout(resolve, 150))
         const clipboardText = clipboard.readText()
-        console.log('📋 Captured content:', clipboardText ? `"${clipboardText.slice(0, 50)}..."` : 'EMPTY')
+        console.log(
+            '📋 Captured content:',
+            clipboardText ? `"${clipboardText.slice(0, 50)}..."` : 'EMPTY'
+        )
         if (!clipboardText || !clipboardText.trim()) {
             showNotification('Nothing Selected', 'No text was selected to copy and save', 'warning')
             return
         }
         const targetBucketId = await getTargetBucket()
         if (!targetBucketId) {
-            showNotification('No Bucket', 'No buckets found - open ClipBucket to create one', 'error')
+            showNotification(
+                'No Bucket',
+                'No buckets found - open ClipBucket to create one',
+                'error'
+            )
             return
         }
         const savedClip = addClipToBucket(targetBucketId, clipboardText)
@@ -25,27 +44,36 @@ export const quickCaptureClip = async (): Promise<void> => {
             showNotification(
                 'Copied & Saved!',
                 `Copied to clipboard and saved to "${bucketName}"\n${clipboardText.slice(0, 50)}${clipboardText.length > 50 ? '...' : ''}`,
-                'success',
+                'success'
             )
 
             console.log(`✅ Copy and capture successful: ${bucketName}`)
         } else {
             // Still copied to clipboard, just failed to save
-            showNotification('Copied (Save Failed)', 'Text copied to clipboard but could not save to bucket', 'warning')
+            showNotification(
+                'Copied (Save Failed)',
+                'Text copied to clipboard but could not save to bucket',
+                'warning'
+            )
         }
-
     } catch (error) {
         console.error('❌ Quick capture failed:', error)
         showNotification('Error', 'Copy and capture failed - please try again', 'error')
+    } finally {
+        isCapturing = false
     }
 }
 
 const simulateCopyAction = async (): Promise<void> => {
     try {
         if (process.platform === 'darwin') {
-            execSync(`osascript -e 'tell application "System Events" to keystroke "c" using command down'`)
+            execSync(
+                `osascript -e 'tell application "System Events" to keystroke "c" using command down'`
+            )
         } else if (process.platform === 'win32') {
-            execSync(`powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('^c')"`)
+            execSync(
+                `powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('^c')"`
+            )
         } else {
             try {
                 execSync('xdotool key ctrl+c')
@@ -83,7 +111,11 @@ const getTargetBucket = async (): Promise<string | null> => {
     }
 }
 
-const showNotification = (title: string, body: string, type: 'success' | 'warning' | 'error'): void => {
+const showNotification = (
+    title: string,
+    body: string,
+    type: 'success' | 'warning' | 'error'
+): void => {
     try {
         console.log(`🔔 [${type.toUpperCase()}] ${title}: ${body}`)
         const notification = new Notification({

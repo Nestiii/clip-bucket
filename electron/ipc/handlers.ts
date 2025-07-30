@@ -7,6 +7,7 @@ import { setupClipboardHandlers } from './clipboardHandlers.ts'
 import { setupImportExportHandlers } from './importExportHandlers.ts'
 import { setupSettingsHandlers } from './settingsHandlers.ts'
 import { setupQuickCaptureHandlers } from './quickCaptureHandlers.ts'
+import { setupWindowHandlers } from './windowHandlers.ts'
 
 export const setupIpcHandlers = (): void => {
     setupDataHandlers()
@@ -18,4 +19,5 @@ export const setupIpcHandlers = (): void => {
     setupImportExportHandlers()
     setupSettingsHandlers()
     setupQuickCaptureHandlers()
+    setupWindowHandlers()
 }

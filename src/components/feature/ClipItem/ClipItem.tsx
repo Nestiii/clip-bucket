@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { debounce } from 'lodash'
-import styles from './ClipItem.module.css'
+import './ClipItem.css'
 import { Input } from '../../common/Input/Input.tsx'
 import { Text } from '../../common/Text/Text.tsx'
 import { Button } from '../../common/Button/Button.tsx'
@@ -171,9 +171,9 @@ export const ClipItem: React.FC<ClipItemProps> = ({
     }
 
     const classes = [
-        styles.clipItem,
-        fullscreen && styles.fullscreen,
-        (editMode || deleteMode) && styles.editing,
+        'clip-item',
+        fullscreen && 'clip-item--fullscreen',
+        (editMode || deleteMode) && 'clip-item--editing',
         className,
     ]
         .filter(Boolean)
@@ -181,8 +181,8 @@ export const ClipItem: React.FC<ClipItemProps> = ({
 
     return (
         <div className={classes} style={style} id={id}>
-            <div className={styles.header}>
-                <div className={styles.labelSection}>
+            <div className="clip-item__header">
+                <div className="clip-item__label-section">
                     {editMode ? (
                         <Input
                             value={localLabel}
@@ -194,14 +194,14 @@ export const ClipItem: React.FC<ClipItemProps> = ({
                             fullWidth
                         />
                     ) : (
-                        <div className={styles.labelDisplay}>
+                        <div className="clip-item__label-display">
                             <Text as={'span'} size={'md'} weight={'bold'} truncate>
                                 {deleteMode ? 'Delete clip?' : label}
                             </Text>
                         </div>
                     )}
                 </div>
-                <div className={styles.actions}>
+                <div className="clip-item__actions">
                     <Button
                         icon={
                             fullscreen ? <CornersInIcon size={16} /> : <CornersOutIcon size={16} />
@@ -249,7 +249,7 @@ export const ClipItem: React.FC<ClipItemProps> = ({
                 </div>
             </div>
             <div
-                className={styles.contentDisplay}
+                className="clip-item__content-display"
                 onClick={handleCopy}
                 role={'button'}
                 tabIndex={0}
@@ -271,14 +271,14 @@ export const ClipItem: React.FC<ClipItemProps> = ({
                     style={fullscreen ? { height: 'calc(100% - 20px)' } : {}}
                 />
                 {localContent && (
-                    <div className={styles.copyHint}>
+                    <div className="clip-item__copy-hint">
                         <Text size={'xs'} color={'primary'}>
                             {'Click to copy'}
                         </Text>
                     </div>
                 )}
             </div>
-            <div className={styles.metadata}>
+            <div className="clip-item__metadata">
                 {timestamp && (
                     <Text size={'xs'} color={'muted'} weight={'medium'}>
                         Created {formatTimestamp(timestamp)}

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Row.module.css'
+import './Row.css'
 
 interface RowProps {
     children: React.ReactNode
@@ -8,7 +8,7 @@ interface RowProps {
 }
 
 export const Row: React.FC<RowProps> = ({ children, className, style, ...props }) => {
-    const classes = [styles.row, className].filter(Boolean).join(' ')
+    const classes = ['row', className].filter(Boolean).join(' ')
 
     return (
         <div className={classes} style={style} {...props}>
