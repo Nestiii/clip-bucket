@@ -92,7 +92,7 @@
             ]
         },
         "win": {
-            "icon": "public/favicon.ico",
+            "icon": "public/icon.ico",
             "publisherName": "Nesti",
             "target": [
                 {
