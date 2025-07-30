@@ -78,7 +78,7 @@
             ]
         },
         "win": {
-            "icon": "public/icon.ico",
+            "icon": "public/favicon.ico",
             "publisherName": "Nesti",
             "target": [
                 {
@@ -136,9 +136,9 @@
         "nsis": {
             "oneClick": false,
             "allowToChangeInstallationDirectory": true,
-            "installerIcon": "public/icon.ico",
-            "uninstallerIcon": "public/icon.ico",
-            "installerHeaderIcon": "public/icon.ico",
+            "installerIcon": "public/favicon.ico",
+            "uninstallerIcon": "public/favicon.ico",
+            "installerHeaderIcon": "public/favicon.ico",
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
             "displayLanguageSelector": false,

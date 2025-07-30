@@ -77,7 +77,7 @@ export const APP_CONFIG = {
     },
     paths: {
         preload: path.join(__dirname, 'preload.mjs'),
-        icon: path.join(process.env.VITE_PUBLIC, 'tray-icon.png'),
+        icon: path.join(process.env.VITE_PUBLIC, 'tray-icon@3x.png'),
         renderer: VITE_DEV_SERVER_URL || path.join(RENDERER_DIST, 'index.html'),
     },
     shortcuts: {

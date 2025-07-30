@@ -6,7 +6,11 @@ let tray: Tray | null = null
 
 export const createTray = (): void => {
     try {
-        tray = new Tray(APP_CONFIG.paths.icon)
+        const trayIcon = nativeImage.createFromPath(APP_CONFIG.paths.icon)
+        if (process.platform === 'darwin') {
+            trayIcon.setTemplateImage(true)
+        }
+        tray = new Tray(trayIcon)
         tray.setToolTip('Clip Bucket')
         tray.on('click', toggleWindow)
         tray.on('right-click', showContextMenu)
