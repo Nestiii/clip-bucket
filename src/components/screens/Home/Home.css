@@ -16,9 +16,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    color: var(--color-gray-600);
+    padding: var(--spacing-3xl);
     text-align: center;
+    color: var(--color-text-muted);
+    gap: var(--spacing-sm);
 }
 
 .home__empty-state p {

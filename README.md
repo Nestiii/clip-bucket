@@ -28,7 +28,7 @@
 
 ### For Users (Recommended)
 
-**[⬇️ Download Latest Release](https://github.com/Nestiii/clipbucket/releases/latest)**
+**[⬇️ Download Latest Release](https://github.com/Nestiii/clip-bucket/releases/latest)**
 
 Choose your platform:
 - **macOS**: Download `ClipBucket-mac.dmg` ✅ **Fully Supported**

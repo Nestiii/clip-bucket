@@ -117,9 +117,10 @@ export const Bucket: React.FC = () => {
                 {filteredData.length === 0 && safeClips.length === 0 && (
                     <div className="bucket-screen__empty-state">
                         <ClipboardIcon size={48} />
-                        <h3>No clips yet</h3>
+                        <h3>No clips found</h3>
                         <p>
-                            Copy something to your clipboard and hit the "+" button to add quickly
+                            Copy something to your clipboard and hit the "+" button to add quickly or use the quick
+                            capture shortcut
                         </p>
                     </div>
                 )}

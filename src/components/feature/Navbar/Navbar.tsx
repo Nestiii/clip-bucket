@@ -7,6 +7,7 @@ import { Text } from '../../common/Text/Text.tsx'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ROUTES } from '../../../router/routes.ts'
 import { useAutoNavigation } from '../../../hooks/utils/useAutoNavigation.ts'
+import packageJson from '../../../../package.json'
 
 export const Navbar: React.FC = () => {
     const { bucketId } = useParams<{ bucketId: string }>()
@@ -53,7 +54,7 @@ export const Navbar: React.FC = () => {
                 {isSettings && 'Settings'}
             </Text>
             <Text color={'muted'} size={'xs'}>
-                v0.0.1
+                v{packageJson.version}
             </Text>
         </Row>
     )

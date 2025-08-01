@@ -3,7 +3,7 @@ import './Home.css'
 import { Column } from '../../common/Column/Column.tsx'
 import { ScreenWrapper } from '../../common/ScreenWrapper/ScreenWrapper.tsx'
 import { Input } from '../../common/Input/Input.tsx'
-import { CheckIcon, MagnifyingGlassIcon, PlusIcon, XIcon } from '@phosphor-icons/react'
+import { CheckIcon, MagnifyingGlassIcon, PlusIcon, TrashSimpleIcon, XIcon } from '@phosphor-icons/react'
 import { BucketItem } from '../../feature/BucketItem/BucketItem.tsx'
 import { useNavigate } from 'react-router-dom'
 import { useSearch } from '../../../hooks/utils/useSearch.ts'
@@ -109,7 +109,8 @@ export const Home: React.FC = () => {
                     ))
                 ) : (
                     <div className="home__empty-state">
-                        <p>No buckets found</p>
+                        <TrashSimpleIcon size={48} />
+                        <h3>No buckets found</h3>
                         <p>Create your first bucket to get started</p>
                     </div>
                 )}
