@@ -136,7 +136,7 @@
             ]
         },
         "dmg": {
-            "title": "ClipBucket ${version}",
+            "title": "ClipBucket-${version}",
             "icon": "public/icon.icns",
             "iconSize": 100,
             "background": null,
