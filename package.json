@@ -1,7 +1,7 @@
 {
     "name": "clip-bucket",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "A modern, privacy-first clipboard manager for developers and power users",
     "author": {
         "name": "Facundo Rivas",
@@ -140,6 +140,7 @@
             "icon": "public/icon.icns",
             "iconSize": 100,
             "background": null,
+            "format": "ULFO",
             "window": {
                 "width": 540,
                 "height": 380

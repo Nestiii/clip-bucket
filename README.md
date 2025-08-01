@@ -23,14 +23,17 @@
 
 ## 🚀 Download & Install
 
+> **⚠️ Platform Support Notice**  
+> ClipBucket is primarily developed and tested on **macOS**. While Windows and Linux builds are available, they receive limited testing and support. macOS users will have the most stable experience.
+
 ### For Users (Recommended)
 
 **[⬇️ Download Latest Release](https://github.com/Nestiii/clipbucket/releases/latest)**
 
 Choose your platform:
-- **macOS**: Download `ClipBucket-mac.dmg`
-- **Windows**: Download `ClipBucket-win.exe` 
-- **Linux**: Download `ClipBucket-linux.AppImage`
+- **macOS**: Download `ClipBucket-mac.dmg` ✅ **Fully Supported**
+- **Windows**: Download `ClipBucket-win.exe` ⚠️ **Limited Testing**
+- **Linux**: Download `ClipBucket-linux.AppImage` ⚠️ **Limited Testing**
 
 ### macOS Installation
 
