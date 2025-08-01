@@ -7,7 +7,7 @@ interface UseSearchOptions<T> {
     debounceMs?: number
 }
 
-export const useSearch = <T extends Record<string, unknown>>({
+export const useSearch = <T>({
     data,
     searchFields,
     debounceMs = 300,
@@ -26,7 +26,13 @@ export const useSearch = <T extends Record<string, unknown>>({
                 const searchLower = term.toLowerCase()
                 return searchFields.some((field) => {
                     const fieldValue = item[field]
-                    return fieldValue?.toString().toLowerCase().includes(searchLower)
+                    if (typeof fieldValue === 'string') {
+                        return fieldValue.toLowerCase().includes(searchLower)
+                    }
+                    if (fieldValue != null) {
+                        return String(fieldValue).toLowerCase().includes(searchLower)
+                    }
+                    return false
                 })
             })
 
