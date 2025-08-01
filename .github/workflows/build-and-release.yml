@@ -67,6 +67,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Install macOS-specific dependencies
+      if: matrix.os == 'macos-latest'
+      run: npm install --no-save dmg-license
+
     - name: Run linter
       run: npm run lint
 
