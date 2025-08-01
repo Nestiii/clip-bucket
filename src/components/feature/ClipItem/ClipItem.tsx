@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { debounce } from 'lodash'
 import './ClipItem.css'
 import { Input } from '../../common/Input/Input.tsx'
@@ -49,16 +49,21 @@ export const ClipItem: React.FC<ClipItemProps> = ({
     const [editMode, setEditMode] = useState<boolean>(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-    const debouncedContentChange = useCallback(
-        debounce((newContent: string) => {
+    const debouncedFn = useMemo(
+        () => debounce((newContent: string) => {
             onContentChange?.(newContent)
         }, 300),
         [onContentChange]
     )
 
+    const debouncedContentChange = useCallback(
+        (newContent: string) => debouncedFn(newContent),
+        [debouncedFn]
+    )
+
     useEffect(() => {
-        return () => debouncedContentChange.cancel()
-    }, [debouncedContentChange])
+        return () => debouncedFn.cancel()
+    }, [debouncedFn])
 
     useEffect(() => {
         setLocalContent(content)

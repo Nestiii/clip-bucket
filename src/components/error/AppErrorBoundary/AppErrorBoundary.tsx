@@ -4,16 +4,12 @@ import { ErrorFallback } from '../ErrorFallback/ErrorFallback.tsx'
 import { Outlet } from 'react-router-dom'
 
 interface AppErrorBoundaryProps {
-    fallback?: React.ComponentType<any>
-    onError?: (error: Error, errorInfo: { componentStack: string }) => void
-    onReset?: () => void
+    fallback?: React.ComponentType<{ error: Error; resetErrorBoundary: () => void }>
     resetKeys?: (string | number)[]
 }
 
 export const AppErrorBoundary: React.FC<AppErrorBoundaryProps> = ({
     fallback = ErrorFallback,
-    onError,
-    onReset,
     resetKeys,
     ...props
 }) => {

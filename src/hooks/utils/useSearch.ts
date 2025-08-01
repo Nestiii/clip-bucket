@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useMemo } from 'react'
 import { debounce } from 'lodash'
 
 interface UseSearchOptions<T> {
@@ -7,7 +7,7 @@ interface UseSearchOptions<T> {
     debounceMs?: number
 }
 
-export const useSearch = <T extends Record<string, any>>({
+export const useSearch = <T extends Record<string, unknown>>({
     data,
     searchFields,
     debounceMs = 300,
@@ -15,8 +15,8 @@ export const useSearch = <T extends Record<string, any>>({
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [filteredData, setFilteredData] = useState<T[]>(data || [])
 
-    const debouncedSearch = useCallback(
-        debounce((term: string) => {
+    const debouncedSearchFn = useMemo(
+        () => debounce((term: string) => {
             if (!term.trim()) {
                 setFilteredData(data)
                 return
@@ -35,6 +35,11 @@ export const useSearch = <T extends Record<string, any>>({
         [data, searchFields, debounceMs]
     )
 
+    const debouncedSearch = useCallback(
+        (term: string) => debouncedSearchFn(term),
+        [debouncedSearchFn]
+    )
+
     const handleSearchChange = useCallback(
         (value: string) => {
             setSearchTerm(value)
@@ -46,8 +51,8 @@ export const useSearch = <T extends Record<string, any>>({
     const clearSearch = useCallback(() => {
         setSearchTerm('')
         setFilteredData(data)
-        debouncedSearch.cancel()
-    }, [data, debouncedSearch])
+        debouncedSearchFn.cancel()
+    }, [data, debouncedSearchFn])
 
     useEffect(() => {
         if (!searchTerm.trim()) {
@@ -59,9 +64,9 @@ export const useSearch = <T extends Record<string, any>>({
 
     useEffect(() => {
         return () => {
-            debouncedSearch.cancel()
+            debouncedSearchFn.cancel()
         }
-    }, [debouncedSearch])
+    }, [debouncedSearchFn])
 
     return {
         searchTerm,

@@ -7,6 +7,7 @@ import {
     updateConfig,
 } from '../storage/storage.ts'
 import { sendConfigUpdate } from './updaters.ts'
+import { AppConfig } from '../../shared/types.ts'
 
 export const setupConfigHandlers = (): void => {
     ipcMain.handle(IPC_EVENTS.CONFIG.GET_CONFIG, async () => {
@@ -18,7 +19,7 @@ export const setupConfigHandlers = (): void => {
         }
     })
 
-    ipcMain.handle(IPC_EVENTS.CONFIG.UPDATE_CONFIG, async (_event, updates: any) => {
+    ipcMain.handle(IPC_EVENTS.CONFIG.UPDATE_CONFIG, async (_event, updates: Partial<AppConfig>) => {
         try {
             updateConfig(updates)
             sendConfigUpdate() // Send specific config update

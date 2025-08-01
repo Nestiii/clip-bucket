@@ -96,7 +96,7 @@ export interface ClipBucketAPI {
     importLegacyBuckets: (
         legacyData: Record<string, string[]>
     ) => Promise<{ success: boolean; importedCount: number }>
-    exportBuckets: () => Promise<any>
+    exportBuckets: () => Promise<Record<string, unknown>>
 
     // Settings operations
     updateWelcome: () => Promise<{ success: boolean; error?: string }>

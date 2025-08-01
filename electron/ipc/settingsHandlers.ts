@@ -6,7 +6,7 @@ import { sendConfigUpdate } from './updaters.ts'
 import { WINDOW_SIZE_CONFIG } from '../config/config.ts'
 
 export const setupSettingsHandlers = (): void => {
-    ipcMain.handle(IPC_EVENTS.SETTINGS.UPDATE_WELCOME, async (_event) => {
+    ipcMain.handle(IPC_EVENTS.SETTINGS.UPDATE_WELCOME, async () => {
         try {
             const config = getConfig()
             updateConfig({

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { Clip } from '../../../shared/types.ts'
+import { useEffect, useState, useCallback } from 'react'
+import { Clip, Bucket, ClipBucketData } from '../../../shared/types.ts'
 import { IPC_EVENTS } from '../../../shared/ipcEvents.ts'
 
 export const useClips = () => {
@@ -9,7 +9,7 @@ export const useClips = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    const loadClips = async () => {
+    const loadClips = useCallback(async () => {
         if (!bucketId) {
             setError('No bucket ID provided')
             setLoading(false)
@@ -32,7 +32,7 @@ export const useClips = () => {
         } finally {
             setLoading(false)
         }
-    }
+    }, [bucketId])
 
     const addClip = async (content: string, label?: string): Promise<Clip | null> => {
         if (!bucketId) throw new Error('No bucket ID')
@@ -105,7 +105,7 @@ export const useClips = () => {
 
     useEffect(() => {
         if (!bucketId) return
-        const handleBucketUpdate = (updatedBucket: any) => {
+        const handleBucketUpdate = (updatedBucket: Bucket) => {
             if (updatedBucket.id === bucketId) {
                 console.log('Received clips update from bucket update')
                 console.log(updatedBucket)
@@ -140,8 +140,8 @@ export const useClips = () => {
                 setClips((prevClips) => prevClips.filter((clip) => clip.id !== clipId))
             }
         }
-        const handleDataUpdate = (data: any) => {
-            const updatedBucket = data.buckets.find((b: any) => b.id === bucketId)
+        const handleDataUpdate = (data: ClipBucketData) => {
+            const updatedBucket = data.buckets.find((b: Bucket) => b.id === bucketId)
             if (updatedBucket) {
                 setClips(updatedBucket.clips)
             }
@@ -162,7 +162,7 @@ export const useClips = () => {
 
     useEffect(() => {
         loadClips()
-    }, [bucketId])
+    }, [bucketId, loadClips])
 
     return {
         clips,

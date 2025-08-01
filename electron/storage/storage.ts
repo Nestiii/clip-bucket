@@ -22,7 +22,7 @@ const DEFAULT_CONFIG: AppConfig = {
     },
 }
 
-let buckets: Map<string, Bucket> = new Map()
+const buckets: Map<string, Bucket> = new Map()
 let appConfig: AppConfig = cloneDeep(DEFAULT_CONFIG)
 
 const ensureDirectoryExists = (dirPath: string): void => {

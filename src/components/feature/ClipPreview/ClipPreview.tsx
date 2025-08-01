@@ -5,9 +5,11 @@ import { Button } from '../../common/Button/Button.tsx'
 import { BroomIcon, XIcon } from '@phosphor-icons/react'
 import { Textarea } from '../../common/TextArea/TextArea.tsx'
 
+import { Clip } from '../../../../shared/types'
+
 interface ClipPreviewProps {
     currentClipboard?: string
-    addClip?: (content: string, label?: string) => Promise<any>
+    addClip?: (content: string, label?: string) => Promise<Clip | null>
     setShowClipboardPreview?: (show: boolean) => void
 }
 
